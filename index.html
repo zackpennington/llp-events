@@ -55,8 +55,9 @@
     <!-- Flagship Shows Section -->
     <section id="shows" class="shows-section">
         <div class="section-header">
-            <h2 class="section-title">FLAGSHIP SHOWS</h2>
+            <h2 class="section-title">UPCOMING SHOWS</h2>
             <div class="title-underline"></div>
+            <p class="section-subtitle">Get your tickets before they sell out</p>
         </div>
 
         <div class="shows-grid">
@@ -64,11 +65,23 @@
             <div class="show-card emo-card" data-scroll style="background-image: url('images/cheerleaders.jpg'); background-size: cover; background-position: center;">
                 <div class="show-card-overlay"></div>
                 <div class="show-card-content">
-                    <img src="images/lle-logo.png" alt="Louisville Loves Emo" style="max-width: 350px; margin: 0 auto 2rem; display: block; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8));">
+                    <div class="show-date-badge">COMING SOON</div>
+                    <img src="images/lle-logo.png" alt="Louisville Loves Emo" style="max-width: 350px; margin: 0 auto 1.5rem; display: block; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8));">
+                    <div class="show-details">
+                        <div class="show-venue">Venue TBA • Louisville, KY</div>
+                        <div class="show-genre-tags">
+                            <span class="genre-tag">Emo</span>
+                            <span class="genre-tag">Pop Punk</span>
+                            <span class="genre-tag">Post-Hardcore</span>
+                        </div>
+                    </div>
                     <p class="show-description">
                         Dive into the angst, the passion, the heartbreak. Where dashboard confessional meets mosh pit mayhem.
                     </p>
-                    <a href="emo.html" class="show-link">LEARN MORE →</a>
+                    <div class="show-cta-group">
+                        <a href="#contact" class="show-cta-button">GET NOTIFIED</a>
+                        <a href="emo.html" class="show-link-alt">Learn More →</a>
+                    </div>
                 </div>
             </div>
 
@@ -76,11 +89,23 @@
             <div class="show-card numetal-card" data-scroll style="background-image: url('images/numetalmask.jpg'); background-size: cover; background-position: center;">
                 <div class="show-card-overlay"></div>
                 <div class="show-card-content">
-                    <img src="images/numetal-logo.png" alt="Louisville Loves Nu-Metal" style="max-width: 350px; margin: 0 auto 2rem; display: block; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8));">
+                    <div class="show-date-badge">COMING SOON</div>
+                    <img src="images/numetal-logo.png" alt="Louisville Loves Nu-Metal" style="max-width: 350px; margin: 0 auto 1.5rem; display: block; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8));">
+                    <div class="show-details">
+                        <div class="show-venue">Venue TBA • Louisville, KY</div>
+                        <div class="show-genre-tags">
+                            <span class="genre-tag">Nu-Metal</span>
+                            <span class="genre-tag">Heavy</span>
+                            <span class="genre-tag">Aggressive</span>
+                        </div>
+                    </div>
                     <p class="show-description">
                         Heavy riffs. Brutal breakdowns. Unrelenting energy. Experience the fury of nu-metal's finest.
                     </p>
-                    <a href="numetal.html" class="show-link">LEARN MORE →</a>
+                    <div class="show-cta-group">
+                        <a href="#contact" class="show-cta-button">GET NOTIFIED</a>
+                        <a href="numetal.html" class="show-link-alt">Learn More →</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,7 +130,8 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about-section" data-scroll>
+    <section id="about" class="about-section" data-scroll style="background-image: url('images/confetti.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="about-overlay"></div>
         <div class="about-container">
             <div class="about-content">
                 <h2 class="section-title">WHO WE ARE</h2>
@@ -126,6 +152,22 @@
         </div>
     </section>
 
+    <!-- Email Signup Section -->
+    <section class="newsletter-section" data-scroll>
+        <div class="newsletter-container">
+            <h2 class="section-title">JOIN THE MAILING LIST</h2>
+            <div class="title-underline"></div>
+            <p class="newsletter-text">Be the first to know about upcoming shows, presale codes, and exclusive merch drops.</p>
+            <form class="newsletter-form" action="#" method="post">
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Enter your email" class="email-input" required>
+                    <button type="submit" class="newsletter-button">SIGN UP</button>
+                </div>
+                <p class="form-disclaimer">We respect your privacy. Unsubscribe anytime.</p>
+            </form>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="contact-container">
@@ -134,7 +176,7 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <p class="contact-text">
-                        Booking inquiries, partnerships, or just want to talk about the scene?
+                        Booking inquiries, partnerships, or merch questions?
                     </p>
                     <a href="mailto:info@llpevents.com" class="contact-email">INFO@LLPEVENTS.COM</a>
                     <div class="social-links">
