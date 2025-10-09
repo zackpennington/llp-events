@@ -4,15 +4,15 @@
 
 /* Theme Color Variables */
 .emo-theme {
-    --theme-primary: var(--color-emo-pink);
-    --theme-secondary: var(--color-emo-purple);
-    --theme-gradient: linear-gradient(135deg, var(--color-emo-purple) 0%, var(--color-emo-pink) 100%);
+    --theme-primary: var(--color-primary-orange);
+    --theme-secondary: var(--color-accent-yellow);
+    --theme-gradient: linear-gradient(135deg, var(--color-accent-crimson) 0%, var(--color-primary-orange) 100%);
 }
 
 .numetal-theme {
-    --theme-primary: var(--color-numetal-red);
-    --theme-secondary: var(--color-numetal-orange);
-    --theme-gradient: linear-gradient(135deg, var(--color-numetal-red) 0%, var(--color-numetal-orange) 100%);
+    --theme-primary: var(--color-primary-red);
+    --theme-secondary: var(--color-bright-orange);
+    --theme-gradient: linear-gradient(135deg, var(--color-primary-red) 0%, var(--color-bright-orange) 100%);
 }
 
 /* ================================

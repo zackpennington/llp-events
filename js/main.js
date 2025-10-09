@@ -125,7 +125,7 @@ const createCursorGlow = () => {
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(0, 245, 255, 0.3) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(255, 109, 0, 0.3) 0%, transparent 70%);
         pointer-events: none;
         z-index: 9999;
         transform: translate(-50%, -50%);
