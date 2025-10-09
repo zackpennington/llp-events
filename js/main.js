@@ -114,6 +114,18 @@ window.addEventListener('load', () => {
 });
 
 // ================================
+// DYNAMIC FOOTER YEAR
+// ================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    const footerText = document.querySelector('.footer-text');
+    if (footerText) {
+        const currentYear = new Date().getFullYear();
+        footerText.textContent = `© ${currentYear} LLP Events. Louisville, KY. All rights reserved.`;
+    }
+});
+
+// ================================
 // CURSOR GLOW EFFECT (OPTIONAL)
 // ================================
 
@@ -125,7 +137,7 @@ const createCursorGlow = () => {
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(255, 109, 0, 0.3) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(176, 33, 42, 0.3) 0%, transparent 70%);
         pointer-events: none;
         z-index: 9999;
         transform: translate(-50%, -50%);

@@ -18,11 +18,11 @@
     --color-light-gray: #e0e0e0;
 
     /* Accent Colors */
-    --color-primary-red: #d00000;
-    --color-primary-orange: #ff6d00;
-    --color-accent-yellow: #ffba08;
-    --color-accent-crimson: #9d0208;
-    --color-bright-orange: #ff4500;
+    --color-primary-red: #b0212a;
+    --color-dark-red: #8b1a1f;
+    --color-bright-red: #d42d3a;
+    --color-orange: #ff6b35;
+    --color-deep-orange: #c94c2c;
 
     /* Typography */
     --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
@@ -107,7 +107,7 @@ body {
     left: 50%;
     width: 0;
     height: 2px;
-    background: var(--color-primary-orange);
+    background: var(--color-primary-red);
     transform: translateX(-50%);
     transition: var(--transition-smooth);
 }
@@ -184,7 +184,7 @@ body {
 
 .hero-line:nth-child(1) {
     animation-delay: 0.2s;
-    background: linear-gradient(90deg, var(--color-primary-red), var(--color-primary-orange));
+    background: linear-gradient(90deg, var(--color-primary-red), var(--color-bright-red));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -192,7 +192,7 @@ body {
 
 .hero-line:nth-child(2) {
     animation-delay: 0.4s;
-    background: linear-gradient(90deg, var(--color-primary-orange), var(--color-accent-yellow));
+    background: linear-gradient(90deg, var(--color-bright-red), var(--color-orange));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -200,7 +200,7 @@ body {
 
 .hero-line:nth-child(3) {
     animation-delay: 0.6s;
-    background: linear-gradient(90deg, var(--color-accent-crimson), var(--color-bright-orange));
+    background: linear-gradient(90deg, var(--color-dark-red), var(--color-primary-red));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -249,7 +249,7 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, var(--color-primary-red), var(--color-primary-orange));
+    background: linear-gradient(90deg, var(--color-primary-red), var(--color-bright-red));
     transition: var(--transition-smooth);
     z-index: -1;
 }
@@ -283,7 +283,7 @@ body {
 .scroll-line {
     width: 1px;
     height: 50px;
-    background: linear-gradient(to bottom, var(--color-primary-orange), transparent);
+    background: linear-gradient(to bottom, var(--color-primary-red), transparent);
     animation: scrollPulse 2s ease infinite;
 }
 
@@ -319,7 +319,7 @@ body {
 .title-underline {
     width: 100px;
     height: 4px;
-    background: linear-gradient(90deg, var(--color-primary-red), var(--color-primary-orange), var(--color-accent-yellow));
+    background: linear-gradient(90deg, var(--color-dark-red), var(--color-primary-red), var(--color-orange));
     margin: 0 auto;
 }
 
@@ -361,11 +361,11 @@ body {
 }
 
 .emo-card::before {
-    background: linear-gradient(135deg, var(--color-accent-crimson) 0%, var(--color-primary-orange) 100%);
+    background: linear-gradient(135deg, var(--color-dark-red) 0%, var(--color-primary-red) 100%);
 }
 
 .numetal-card::before {
-    background: linear-gradient(135deg, var(--color-primary-red) 0%, var(--color-bright-orange) 100%);
+    background: linear-gradient(135deg, var(--color-primary-red) 0%, var(--color-orange) 100%);
 }
 
 .show-card-overlay {
@@ -404,7 +404,7 @@ body {
 }
 
 .emo-card .show-title {
-    color: var(--color-primary-orange);
+    color: var(--color-bright-red);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
@@ -439,7 +439,7 @@ body {
     font-size: 1rem;
     letter-spacing: 2px;
     padding: var(--spacing-sm) 0;
-    border-bottom: 2px solid var(--color-primary-orange);
+    border-bottom: 2px solid var(--color-primary-red);
     align-self: flex-start;
     transition: var(--transition-smooth);
     opacity: 0;
@@ -453,7 +453,7 @@ body {
 }
 
 .show-link:hover {
-    color: var(--color-accent-yellow);
+    color: var(--color-orange);
     transform: translateX(10px);
 }
 
@@ -485,7 +485,7 @@ body {
     font-family: var(--font-display);
     font-size: clamp(3rem, 6vw, 5rem);
     font-weight: 900;
-    background: linear-gradient(90deg, var(--color-primary-red), var(--color-primary-orange), var(--color-accent-yellow));
+    background: linear-gradient(90deg, var(--color-dark-red), var(--color-primary-red), var(--color-orange));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -607,7 +607,7 @@ body {
     color: var(--color-white);
     text-decoration: none;
     margin-bottom: var(--spacing-lg);
-    background: linear-gradient(90deg, var(--color-primary-red), var(--color-primary-orange), var(--color-accent-yellow));
+    background: linear-gradient(90deg, var(--color-dark-red), var(--color-primary-red), var(--color-orange));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -636,8 +636,8 @@ body {
 }
 
 .social-link:hover {
-    border-color: var(--color-primary-orange);
-    color: var(--color-primary-orange);
+    border-color: var(--color-primary-red);
+    color: var(--color-primary-red);
     transform: translateY(-5px);
 }
 
