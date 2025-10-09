@@ -21,16 +21,103 @@
     <meta property="twitter:image" content="https://llp-events.vercel.app/images/balloons.jpg">
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mailerlite-form.css">
 
-    <!-- MailerLite Universal -->
-    <script>
-        (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-        .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-        n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-        (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-        ml('account', '1771809');
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "LLP Events",
+        "description": "Louisville's premier high-energy concert promoter, bringing explosive emo and nu-metal shows to Kentucky.",
+        "url": "https://llp-events.com",
+        "logo": "https://llp-events.com/images/lle-logo.png",
+        "email": "info@llpevents.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Louisville",
+            "addressRegion": "KY",
+            "addressCountry": "US"
+        },
+        "sameAs": [
+            "https://www.instagram.com/llpevents",
+            "https://www.facebook.com/llpevents",
+            "https://twitter.com/llpevents"
+        ]
+    }
     </script>
-    <!-- End MailerLite Universal -->
+
+    <!-- Structured Data - Nu-Metal Show Event -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MusicEvent",
+        "name": "Louisville Loves Nu-Metal",
+        "description": "Heavy riffs. Brutal breakdowns. Unrelenting energy. Experience the fury of nu-metal's finest.",
+        "startDate": "2025-12-05T19:00:00-05:00",
+        "doorTime": "2025-12-05T19:00:00-05:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {
+            "@type": "MusicVenue",
+            "name": "Headliners Music Hall",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Louisville",
+                "addressRegion": "KY",
+                "addressCountry": "US"
+            }
+        },
+        "image": "https://llp-events.com/images/numetal-logo.png",
+        "organizer": {
+            "@type": "Organization",
+            "name": "LLP Events",
+            "url": "https://llp-events.com"
+        },
+        "typicalAgeRange": "All Ages",
+        "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/InStock",
+            "url": "https://llp-events.com#contact"
+        }
+    }
+    </script>
+
+    <!-- Structured Data - Emo Show Event -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MusicEvent",
+        "name": "Louisville Loves Emo",
+        "description": "Dive into the angst, the passion, the heartbreak. Where dashboard confessional meets mosh pit mayhem.",
+        "startDate": "2025-12-06T20:00:00-05:00",
+        "doorTime": "2025-12-06T20:00:00-05:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {
+            "@type": "MusicVenue",
+            "name": "Headliners Music Hall",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Louisville",
+                "addressRegion": "KY",
+                "addressCountry": "US"
+            }
+        },
+        "image": "https://llp-events.com/images/lle-logo.png",
+        "organizer": {
+            "@type": "Organization",
+            "name": "LLP Events",
+            "url": "https://llp-events.com"
+        },
+        "typicalAgeRange": "All Ages",
+        "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/InStock",
+            "url": "https://llp-events.com#contact"
+        }
+    }
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -271,9 +358,57 @@
             <h2 class="section-title">JOIN THE MAILING LIST</h2>
             <div class="title-underline"></div>
             <p class="newsletter-text">Be the first to know about upcoming shows, presale codes, and exclusive merch drops.</p>
-            <div class="ml-embedded" data-form="C3gFX2"></div>
+
+            <div id="mlb2-31866831" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-31866831">
+                <div class="ml-form-align-center">
+                    <div class="ml-form-embedWrapper embedForm">
+                        <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+                            <div class="ml-form-embedContent">
+                                <h4>Be in the know, come to our shows!</h4>
+                                <p>Sign up for concert announcements, merch drops, contests, applications, and more!</p>
+                            </div>
+                            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1771809/forms/167756548094821634/subscribe" data-code="" method="post" target="_blank">
+                                <div class="ml-form-formContent">
+                                    <div class="ml-form-fieldRow ml-last-item">
+                                        <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                                            <input aria-label="email" aria-required="true" type="email" class="form-control" name="fields[email]" placeholder="Email" autocomplete="email">
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="ml-submit" value="1">
+                                <div class="ml-form-embedSubmit">
+                                    <button type="submit" class="primary">Subscribe</button>
+                                    <button disabled="disabled" style="display: none;" type="button" class="loading">
+                                        <div class="ml-form-embedSubmitLoad"></div>
+                                        <span class="sr-only">Loading...</span>
+                                    </button>
+                                </div>
+                                <input type="hidden" name="anticsrf" value="true">
+                            </form>
+                        </div>
+                        <div class="ml-form-successBody row-success" style="display: none">
+                            <div class="ml-form-successContent">
+                                <h4>Thank you!</h4>
+                                <p>You have successfully joined our subscriber list.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+
+    <script>
+        function ml_webform_success_31866831() {
+            var $ = ml_jQuery || jQuery;
+            $('.ml-subscribe-form-31866831 .row-success').show();
+            $('.ml-subscribe-form-31866831 .row-form').hide();
+        }
+    </script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+    <script>
+        fetch("https://assets.mailerlite.com/jsonp/1771809/forms/167756548094821634/takel")
+    </script>
 
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
