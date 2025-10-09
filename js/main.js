@@ -129,45 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // CURSOR GLOW EFFECT (OPTIONAL)
 // ================================
 
-const createCursorGlow = () => {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor-glow';
-    cursor.style.cssText = `
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(176, 33, 42, 0.3) 0%, transparent 70%);
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: width 0.2s, height 0.2s;
-    `;
-    document.body.appendChild(cursor);
-
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-
-    // Enlarge on hover over interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .show-card');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.width = '40px';
-            cursor.style.height = '40px';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.style.width = '20px';
-            cursor.style.height = '20px';
-        });
-    });
-};
-
-// Enable cursor glow on desktop only
-if (window.matchMedia('(min-width: 1024px)').matches) {
-    createCursorGlow();
-}
+// Cursor glow removed per user request
 
 // ================================
 // DYNAMIC GRADIENT ANIMATION
