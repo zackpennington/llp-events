@@ -501,6 +501,13 @@ body {
     font-weight: 500;
 }
 
+.show-info {
+    font-size: 0.95rem;
+    color: var(--color-white);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+}
+
 .show-genre-tags {
     display: flex;
     gap: var(--spacing-xs);
