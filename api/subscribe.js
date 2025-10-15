@@ -29,7 +29,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid email format' });
     }
 
-    const RESEND_API_KEY = process.env.RESEND_API_KEY || 're_hXPa4tzc_52JYJG8SNr8YFAccouGS7mS4';
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
+
+    if (!RESEND_API_KEY) {
+      return res.status(500).json({ error: 'Server configuration error. Please contact support.' });
+    }
 
     // Send welcome email via Resend
     const response = await fetch('https://api.resend.com/emails', {
