@@ -362,7 +362,7 @@ body {
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: var(--spacing-sm);
-    color: var(--color-white);
+    color: var(--color-light-gray);
 }
 
 .title-underline {
@@ -999,7 +999,7 @@ body {
 .contact-success-body h3 {
     font-family: var(--font-display);
     font-size: 1.5rem;
-    color: var(--color-white);
+    color: var(--color-light-gray);
     margin-bottom: var(--spacing-xs);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -1282,7 +1282,7 @@ body {
 
 .newsletter-column .section-title,
 .contact-column .section-title {
-    color: var(--color-white);
+    color: var(--color-light-gray);
 }
 
 .newsletter-column .title-underline,
@@ -1319,7 +1319,7 @@ body {
     font-weight: 900;
     letter-spacing: 2px;
     margin-bottom: var(--spacing-sm);
-    color: var(--color-white);
+    color: var(--color-light-gray);
 }
 
 .footer-logo-image {
