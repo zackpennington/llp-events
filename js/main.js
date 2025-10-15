@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const footerText = document.querySelector('.footer-text');
     if (footerText) {
         const currentYear = new Date().getFullYear();
-        footerText.textContent = `© ${currentYear} LLP Events. Louisville, KY. All rights reserved. All site photography by Janelle Choiniere.`;
+        footerText.innerHTML = `© ${currentYear} LLP Events. Louisville, KY. All rights reserved.<br>All site photography by Janelle Choiniere.`;
     }
 });
 
