@@ -46,8 +46,7 @@
 
 .resend-form-container h4,
 .resend-form-container p,
-.resend-form-container span,
-.resend-form-container button {
+.resend-form-container span {
   text-transform: none;
   letter-spacing: normal;
 }
