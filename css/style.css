@@ -408,7 +408,7 @@ body {
 .show-card {
     display: flex;
     flex-direction: column;
-    max-width: 480px;
+    max-width: 400px;
     margin: 0 auto;
     background: var(--color-charcoal);
     border: 2px solid rgba(176, 33, 42, 0.3);
@@ -424,7 +424,7 @@ body {
 
 .show-poster {
     width: 100%;
-    max-width: 360px;
+    max-width: 300px;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -627,7 +627,7 @@ body {
 /* Weekend Pass CTA */
 .weekend-pass-cta {
     margin-top: var(--spacing-xl);
-    max-width: 480px;
+    max-width: 400px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -635,7 +635,7 @@ body {
 
 .weekend-pass-image {
     width: 100%;
-    max-width: 360px;
+    max-width: 300px;
     height: auto;
     display: block;
     margin: 0 auto var(--spacing-md);
