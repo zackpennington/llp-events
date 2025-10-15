@@ -37,35 +37,69 @@ llp-events/
 ├── index.html          # Main landing page with hero, shows overview, contact
 ├── emo.html           # Louisville Loves Emo show page
 ├── numetal.html       # Louisville Loves Nu-Metal show page
+├── api/
+│   ├── subscribe.js   # Resend API serverless function for newsletter signups
+│   └── contact.js     # Resend API serverless function for contact form (with Cloudflare Turnstile)
 ├── css/
-│   ├── style.css      # Core styles (nav, hero, sections, responsive)
-│   └── shows.css      # Show-specific pages styling
+│   ├── style.css      # Core styles with unified CSS variables (nav, hero, sections, responsive)
+│   ├── shows.css      # Show-specific pages styling
+│   └── resend-form.css # Newsletter form styling
 ├── js/
-│   └── main.js        # Scroll animations, parallax, interactions
+│   ├── main.js        # Scroll animations, parallax, interactions
+│   ├── contact.js     # Contact form handler with Turnstile verification
+│   └── newsletter.js  # Newsletter signup handler
 ├── images/
 │   ├── lle-logo.png   # Louisville Loves Emo logo
 │   └── numetal-logo.png # Louisville Loves Nu-Metal logo
-└── vercel.json        # Static deployment config
+├── favicon.svg        # SVG favicon (generated from logo)
+└── vercel.json        # Static deployment config + serverless functions
 ```
 
 ## Design System
 
-### Color Palette
-- **Base**: Dark theme (#000000, #1a1a1a, #2a2a2a)
-- **Emo Theme**: Pink (#ff006e) + Purple (#8338ec)
-- **Nu-Metal Theme**: Red (#d00000) + Orange (#ff6d00)
-- **Accent**: Electric Blue (#00f5ff)
+### Color Palette (Unified CSS Variables)
+All colors are defined in `css/style.css` `:root` and used consistently throughout:
+
+**Base Colors:**
+- `--color-black: #000000`
+- `--color-charcoal: #1a1a1a`
+- `--color-slate: #2a2a2a`
+- `--color-white: #ffffff`
+- `--color-light-gray: #e0e0e0`
+
+**Brand Colors:**
+- `--color-primary-red: #b0212a` (Main brand color)
+- `--color-bright-red: #d42d3a` (Hover states, accents)
+- `--color-orange: #ff6b35` (Secondary accent)
+
+**Form State Colors:**
+- `--color-error: #ff6b6b`
+- `--color-success: #22c55e`
+
+**Spacing:**
+- `--spacing-xs` through `--spacing-xl` (0.25rem to 3rem)
+
+**Border Radius:**
+- `--radius-sm` through `--radius-full` (4px to 50%)
+
+**Box Shadows:**
+- `--shadow-sm/md/lg` (black shadows)
+- `--shadow-red-sm/md/lg` (red glows for interactive elements)
+
+**Overlays:**
+- `--overlay-light/medium/dark/nav` (rgba black overlays)
 
 ### Typography
-- **Display**: Impact, Haettenschweiler (bold headers)
-- **Body**: System font stack (readable text)
+- **Display**: Impact, Haettenschweiler (`--font-display`)
+- **Body**: System font stack (`--font-primary`)
 - **Style**: Uppercase, heavy letter-spacing, high contrast
 
 ### Key Design Patterns
 1. **Hero Sections**: Full viewport height, gradient backgrounds, animated text
 2. **Scroll Animations**: Elements fade/slide in using Intersection Observer
-3. **Hover Effects**: Cards tilt on mousemove, buttons have gradient transitions
-4. **Placeholders**: Gray boxes with pattern overlays for images (user will replace)
+3. **Hover Effects**: Cards tilt on mousemove, buttons have red glow transitions
+4. **Social Icons**: Red by default (not just on hover)
+5. **Unified Transitions**: All use `--transition-smooth` (0.4s cubic-bezier)
 
 ## Architecture Notes
 
@@ -104,9 +138,45 @@ Update href attributes in footer sections:
 - emo.html footer
 - numetal.html footer
 
+## Backend Integration
+
+### Email Services (Resend API)
+- **Newsletter**: `/api/subscribe.js` - Sends signups to `info@llp-events.com`
+- **Contact Form**: `/api/contact.js` - Sends contact messages to `info@llp-events.com`
+
+### Security
+- **Cloudflare Turnstile**: Bot protection on contact form
+- **Conditional Loading**: Turnstile only loads in production (not localhost)
+
+### Environment Variables (Vercel Dashboard)
+Required for email integration:
+- `RESEND_API_KEY` - Your Resend API key
+- `TURNSTILE_SECRET_KEY` - Cloudflare Turnstile secret key
+
 ## Deployment Notes
 
 - Vercel auto-deploys from main branch
-- No environment variables needed
-- All assets are static (no API calls)
+- Set environment variables in Vercel dashboard for email functionality
+- Serverless functions located in `/api/` directory
 - Site is SEO-optimized with meta tags
+- Favicon uses SVG (modern browsers) with ICO fallback
+
+## Recent Changes
+
+### CSS Unification (2025)
+- Expanded CSS variables in `:root` to include:
+  - Form state colors (error/success)
+  - Border radius system (sm/md/lg/xl/full)
+  - Box shadow system (black + red glow variants)
+  - Overlay opacity levels (light/medium/dark/nav)
+- Replaced 50+ hardcoded values in `style.css` with CSS variables
+- Replaced 30+ hardcoded values in `resend-form.css` with CSS variables
+- **Social icons now red by default** (not just on hover)
+- All transitions now use `--transition-smooth` for consistency
+
+### Bug Fixes
+- Fixed navbar null reference error (added null check in `main.js`)
+- Created `favicon.svg` from logo (removed missing PNG references)
+- Made Turnstile load conditionally (production only)
+- Updated recipient email to `info@llp-events.com`
+- Increased navbar logo height to 65px for better visual presence

@@ -72,7 +72,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: 'LLP Events Contact Form <noreply@mail.llp-events.com>',
-        to: 'info@llpevents.com',
+        to: 'info@llp-events.com',
         reply_to: email,
         subject: `Contact Form: ${name}`,
         html: `
