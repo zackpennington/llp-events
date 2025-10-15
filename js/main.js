@@ -192,16 +192,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentIndex = 0;
 
+    // Create a div for crossfade effect
+    const bgLayer = document.createElement('div');
+    bgLayer.style.position = 'absolute';
+    bgLayer.style.top = '0';
+    bgLayer.style.left = '0';
+    bgLayer.style.width = '100%';
+    bgLayer.style.height = '100%';
+    bgLayer.style.backgroundSize = 'cover';
+    bgLayer.style.backgroundPosition = 'center';
+    bgLayer.style.transition = 'opacity 1s ease-in-out';
+    bgLayer.style.opacity = '1';
+    bgLayer.style.zIndex = '0';
+    heroSection.insertBefore(bgLayer, heroSection.firstChild);
+
     // Set initial background image
     console.log('Setting initial hero background:', images[currentIndex]);
     heroSection.style.backgroundImage = `url('${images[currentIndex]}')`;
     heroSection.style.backgroundSize = 'cover';
     heroSection.style.backgroundPosition = 'center';
 
-    // Rotate images every 5 seconds
+    // Rotate images every 5 seconds with fade effect
     setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        console.log('Rotating hero background to:', images[currentIndex]);
-        heroSection.style.backgroundImage = `url('${images[currentIndex]}')`;
+        const nextIndex = (currentIndex + 1) % images.length;
+        console.log('Rotating hero background to:', images[nextIndex]);
+
+        // Set the next image on the background layer
+        bgLayer.style.backgroundImage = `url('${images[nextIndex]}')`;
+        bgLayer.style.opacity = '0';
+
+        // After fade completes, swap images
+        setTimeout(() => {
+            heroSection.style.backgroundImage = `url('${images[nextIndex]}')`;
+            bgLayer.style.opacity = '1';
+            currentIndex = nextIndex;
+        }, 1000);
     }, 5000);
 });
