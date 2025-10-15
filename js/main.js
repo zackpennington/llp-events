@@ -173,12 +173,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const heroSection = document.getElementById('hero-section');
-    if (!heroSection) return;
+    if (!heroSection) {
+        console.error('Hero section not found');
+        return;
+    }
 
     // Array of background images
     const images = [
         'images/100-pure-energy.jpg',
-        'images/brianinthecrowd.jpg',
+        'images/brianincrowd.jpg',
         'images/cheerleaders.jpg',
         'images/confetti.jpg',
         'images/balloons.jpg'
@@ -187,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0;
 
     // Set initial background image
+    console.log('Setting initial hero background:', images[currentIndex]);
     heroSection.style.backgroundImage = `url('${images[currentIndex]}')`;
     heroSection.style.backgroundSize = 'cover';
     heroSection.style.backgroundPosition = 'center';
@@ -195,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Rotate images every 5 seconds
     setInterval(() => {
         currentIndex = (currentIndex + 1) % images.length;
+        console.log('Rotating hero background to:', images[currentIndex]);
         heroSection.style.backgroundImage = `url('${images[currentIndex]}')`;
     }, 5000);
 });
