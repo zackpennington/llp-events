@@ -117,24 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // DYNAMIC GRADIENT ANIMATION
 // ================================
 
-const animateGradients = () => {
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .hero {
-            background-size: 200% 200%;
-            animation: gradientShift 15s ease infinite;
-        }
-    `;
-    document.head.appendChild(style);
-};
-
-animateGradients();
+// Gradient animation removed - using rotating background images instead
 
 // ================================
 // PERFORMANCE OPTIMIZATION
