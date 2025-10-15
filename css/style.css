@@ -57,7 +57,7 @@
     --shadow-red-lg: 0 8px 30px rgba(176, 33, 42, 0.5);
 
     /* Background Overlays */
-    --overlay-light: rgba(0, 0, 0, 0.7);
+    --overlay-light: rgba(0, 0, 0, 0.3);
     --overlay-medium: rgba(0, 0, 0, 0.75);
     --overlay-dark: rgba(0, 0, 0, 0.85);
     --overlay-nav: rgba(0, 0, 0, 0.9);
@@ -177,7 +177,7 @@ body {
     padding: var(--spacing-xl) var(--spacing-md);
     padding-top: clamp(6rem, 16vh, 10rem);
     padding-bottom: clamp(3rem, 14vh, 6rem);
-    background: linear-gradient(135deg, var(--color-black) 0%, var(--color-charcoal) 50%, var(--color-black) 100%);
+    background: linear-gradient(135deg, #4a4a4a 0%, #5a5a5a 50%, #4a4a4a 100%);
     background-size: cover;
     background-position: center;
 }
