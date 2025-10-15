@@ -760,12 +760,11 @@ body {
 }
 
 .about-content .section-title {
-    text-align: left;
+    text-align: center;
 }
 
 .about-content .title-underline {
-    margin: 0;
-    margin-bottom: var(--spacing-lg);
+    margin: 0 auto var(--spacing-lg) auto;
 }
 
 .about-text {
