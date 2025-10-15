@@ -24,9 +24,18 @@ export function trackEvent(eventName, data = {}) {
 
 // Predefined tracking functions for common events
 export const Analytics = {
-    // Ticket purchase events
+    // Ticket purchase events - separate events per show for better analytics
     ticketClick: (show, type = 'single') => {
-        trackEvent('Ticket Click', { show, type });
+        // Create unique event names for each show
+        if (show === 'Louisville Loves Nu-Metal') {
+            trackEvent('Nu-Metal Ticket Click', { type });
+        } else if (show === 'Louisville Loves Emo') {
+            trackEvent('Emo Ticket Click', { type });
+        } else if (show === 'Weekend Pass') {
+            trackEvent('Weekend Pass Click', { type });
+        } else {
+            trackEvent('Ticket Click', { show, type });
+        }
     },
 
     // Newsletter events
