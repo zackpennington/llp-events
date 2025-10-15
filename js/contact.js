@@ -1,3 +1,6 @@
+// Contact form handling with Turnstile and Analytics
+import { Analytics } from './analytics.js';
+
 // Turnstile error callback (global scope)
 window.onTurnstileError = function() {
     console.warn('Turnstile verification failed or timed out');
@@ -61,6 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Track form submission
+        Analytics.contactFormSubmit();
+
         setLoading(true);
 
         try {
@@ -80,6 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok && data.success) {
+                // Track successful submission
+                Analytics.contactFormSuccess();
+
                 // Show success message
                 formBody.style.display = 'none';
                 successBody.style.display = 'block';

@@ -1,4 +1,6 @@
 // Newsletter Form Submission Handler
+import { Analytics } from './analytics.js';
+
 (function() {
   const form = document.getElementById('resend-subscribe-form');
   const emailInput = document.getElementById('subscriber-email');
@@ -46,6 +48,9 @@
 
     const email = emailInput.value.trim();
 
+    // Track submission attempt
+    Analytics.newsletterSignup(email);
+
     // Validate email
     if (!email) {
       showMessage('Please enter your email address', 'error');
@@ -76,20 +81,15 @@
       const data = await response.json();
 
       if (response.ok && data.success) {
+        // Track successful signup
+        Analytics.newsletterSuccess();
+
         // Show success state
         formBody.style.display = 'none';
         successBody.style.display = 'block';
 
         // Reset form
         form.reset();
-
-        // Optional: Track conversion (Google Analytics, etc.)
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'newsletter_signup', {
-            event_category: 'engagement',
-            event_label: 'email_subscription'
-          });
-        }
       } else {
         // Show error message
         showMessage(data.error || 'Something went wrong. Please try again.', 'error');
