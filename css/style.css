@@ -88,7 +88,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: var(--overlay-nav);
+    background: var(--color-black);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: var(--transition-smooth);
@@ -167,11 +167,16 @@ body {
 
 .hero {
     position: relative;
-    height: 70vh;
+    height: auto;
+    min-height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    margin-top: 97px;
+    padding: var(--spacing-xl) var(--spacing-md);
+    padding-top: clamp(6rem, 16vh, 10rem);
+    padding-bottom: clamp(3rem, 14vh, 6rem);
     background: linear-gradient(135deg, var(--color-black) 0%, var(--color-charcoal) 50%, var(--color-black) 100%);
     background-size: cover;
     background-position: center;
@@ -1402,7 +1407,11 @@ body {
 
 @media (max-width: 968px) {
     .hero {
-        height: 50vh;
+        height: auto;
+        min-height: 55vh;
+        padding: var(--spacing-xl) var(--spacing-md);
+        padding-top: clamp(2.75rem, 12vh, 5rem);
+        padding-bottom: clamp(2.75rem, 12vh, 5rem);
     }
 
     .shows-grid {
@@ -1467,8 +1476,13 @@ body {
         gap: var(--spacing-xs);
     }
 
+    .hero {
+        min-height: 0;
+        padding: clamp(3rem, 18vh, 5rem) var(--spacing-md) clamp(3rem, 18vh, 5rem);
+    }
+
     .hero-title {
-        font-size: 3rem;
+        font-size: clamp(2.25rem, 8vw, 3rem);
     }
 
     .shows-grid {
