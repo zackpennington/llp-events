@@ -171,29 +171,12 @@
   width: 100%;
   box-sizing: border-box;
   transition: var(--transition-smooth);
-  position: relative;
-  overflow: hidden;
-}
-
-.resend-btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--color-bright-red);
-  transition: var(--transition-smooth);
-  z-index: -1;
 }
 
 .resend-btn-primary:hover:not(:disabled) {
+  background: var(--color-bright-red);
   transform: translateY(-2px);
   box-shadow: var(--shadow-red-md);
-}
-
-.resend-btn-primary:hover:not(:disabled)::before {
-  left: 0;
 }
 
 .resend-btn-primary:active:not(:disabled) {

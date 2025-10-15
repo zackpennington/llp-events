@@ -141,7 +141,7 @@ body {
     padding: var(--spacing-xs) var(--spacing-sm);
     position: relative;
     transition: var(--transition-smooth);
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
 }
 
 .nav-links a::after {
@@ -276,32 +276,14 @@ body {
     transition: var(--transition-smooth);
     opacity: 0;
     animation: fadeInUp 1s ease 1s forwards;
-    position: relative;
-    overflow: hidden;
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
     box-shadow: var(--shadow-red-sm);
 }
 
-.cta-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--color-bright-red);
-    transition: var(--transition-smooth);
-    z-index: -1;
-}
-
 .cta-button:hover {
-    color: var(--color-white);
+    background: var(--color-bright-red);
     transform: translateY(-2px);
     box-shadow: var(--shadow-red-md);
-}
-
-.cta-button:hover::before {
-    left: 0;
 }
 
 .cta-button:active {
@@ -380,7 +362,7 @@ body {
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: var(--spacing-sm);
-    color: var(--color-primary-red);
+    color: var(--color-white);
 }
 
 .title-underline {
@@ -498,7 +480,7 @@ body {
     transition: var(--transition-smooth);
     opacity: 0;
     transform: translateY(20px);
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
 }
 
 .show-card:hover .show-link {
@@ -582,7 +564,7 @@ body {
     text-transform: uppercase;
     border-radius: var(--radius-sm);
     transition: var(--transition-smooth);
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
 }
 
 .show-cta-button:hover {
@@ -599,7 +581,7 @@ body {
     letter-spacing: 0.5px;
     border-bottom: 1px solid transparent;
     transition: var(--transition-smooth);
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
 }
 
 .show-link-alt:hover {
@@ -667,7 +649,7 @@ body {
     text-transform: uppercase;
     border-radius: var(--radius-md);
     transition: var(--transition-smooth);
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
 }
 
 .weekend-pass-button:hover {
@@ -803,7 +785,7 @@ body {
     text-transform: uppercase;
     border-radius: var(--radius-sm);
     transition: var(--transition-smooth);
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
     text-align: center;
     width: fit-content;
 }
@@ -972,32 +954,15 @@ body {
     border-radius: var(--radius-md);
     width: 100%;
     box-sizing: border-box;
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
     transition: var(--transition-smooth);
     box-shadow: var(--shadow-red-sm);
-    position: relative;
-    overflow: hidden;
-}
-
-.contact-submit-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--color-bright-red);
-    transition: var(--transition-smooth);
-    z-index: -1;
 }
 
 .contact-submit-btn:hover:not(:disabled) {
+    background: var(--color-bright-red);
     transform: translateY(-2px);
     box-shadow: var(--shadow-red-md);
-}
-
-.contact-submit-btn:hover:not(:disabled)::before {
-    left: 0;
 }
 
 .contact-submit-btn:active:not(:disabled) {
@@ -1034,7 +999,7 @@ body {
 .contact-success-body h3 {
     font-family: var(--font-display);
     font-size: 1.5rem;
-    color: var(--color-primary-red);
+    color: var(--color-white);
     margin-bottom: var(--spacing-xs);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -1062,7 +1027,7 @@ body {
     text-decoration: none;
     margin-bottom: var(--spacing-md);
     transition: var(--transition-smooth);
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
 }
 
 .contact-email:hover {
@@ -1107,7 +1072,7 @@ body {
     border: 2px solid var(--color-primary-red);
     border-radius: var(--radius-full);
     transition: var(--transition-smooth);
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
 }
 
 .social-link svg {
@@ -1241,7 +1206,7 @@ body {
     font-size: 1.1rem;
     font-weight: 600;
     text-align: left;
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
     transition: var(--transition-smooth);
 }
 
@@ -1317,7 +1282,7 @@ body {
 
 .newsletter-column .section-title,
 .contact-column .section-title {
-    color: var(--color-primary-red);
+    color: var(--color-white);
 }
 
 .newsletter-column .title-underline,
@@ -1354,7 +1319,7 @@ body {
     font-weight: 900;
     letter-spacing: 2px;
     margin-bottom: var(--spacing-sm);
-    color: var(--color-primary-red);
+    color: var(--color-white);
 }
 
 .footer-logo-image {
@@ -1373,7 +1338,7 @@ body {
 .footer-social-link {
     color: var(--color-primary-red);
     transition: var(--transition-smooth);
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🤘%3C/text%3E%3C/svg%3E"), pointer;
+    cursor: pointer;
 }
 
 .footer-social-link:hover {
