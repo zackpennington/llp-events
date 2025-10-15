@@ -46,9 +46,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ================================
 
 let lastScrollTop = 0;
-const nav = document.querySelector('.nav');
 
 window.addEventListener('scroll', () => {
+    const nav = document.querySelector('.nav');
+    if (!nav) return; // Exit if nav not loaded yet
+
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
     // Add shadow when scrolled

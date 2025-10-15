@@ -1,3 +1,20 @@
+// Turnstile error callback (global scope)
+window.onTurnstileError = function() {
+    console.warn('Turnstile verification failed or timed out');
+    // Optionally hide the Turnstile widget on persistent errors
+    const turnstileWrapper = document.querySelector('.turnstile-wrapper');
+    if (turnstileWrapper) {
+        const errorCount = (turnstileWrapper.dataset.errorCount || 0);
+        turnstileWrapper.dataset.errorCount = parseInt(errorCount) + 1;
+
+        // After 3 errors, hide Turnstile to prevent spam
+        if (parseInt(turnstileWrapper.dataset.errorCount) > 3) {
+            turnstileWrapper.style.display = 'none';
+            console.warn('Turnstile disabled due to repeated errors');
+        }
+    }
+};
+
 // Contact form handling with Turnstile
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contact-form');
@@ -37,7 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (!turnstileToken) {
+        // Only require Turnstile in production (not on localhost)
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (!turnstileToken && !isLocalhost) {
             showMessage('Please complete the verification', 'error');
             return;
         }
