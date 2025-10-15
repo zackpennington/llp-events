@@ -183,3 +183,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// ================================
+// HERO BACKGROUND IMAGE ROTATION
+// ================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    const heroSection = document.getElementById('hero-section');
+    if (!heroSection) return;
+
+    // Array of background images
+    const images = [
+        'images/100-pure-energy.jpg',
+        'images/brianinthecrowd.jpg',
+        'images/cheerleaders.jpg',
+        'images/confetti.jpg',
+        'images/balloons.jpg'
+    ];
+
+    let currentIndex = 0;
+
+    // Set initial background image
+    heroSection.style.backgroundImage = `url('${images[currentIndex]}')`;
+    heroSection.style.backgroundSize = 'cover';
+    heroSection.style.backgroundPosition = 'center';
+    heroSection.style.transition = 'background-image 1s ease-in-out';
+
+    // Rotate images every 5 seconds
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        heroSection.style.backgroundImage = `url('${images[currentIndex]}')`;
+    }, 5000);
+});

@@ -264,6 +264,7 @@ body {
 .cta-button {
     display: inline-block;
     padding: 1rem 2rem;
+    font-family: var(--font-primary);
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 1px;
@@ -558,6 +559,7 @@ body {
     background: var(--color-primary-red);
     color: var(--color-white);
     text-decoration: none;
+    font-family: var(--font-primary);
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: 1px;
@@ -643,6 +645,7 @@ body {
     background: var(--color-primary-red);
     color: var(--color-white);
     text-decoration: none;
+    font-family: var(--font-primary);
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: 1.5px;
@@ -798,6 +801,7 @@ body {
     background: var(--color-primary-red);
     color: var(--color-white);
     text-decoration: none;
+    font-family: var(--font-primary);
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: 1.5px;
