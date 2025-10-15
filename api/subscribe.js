@@ -70,7 +70,7 @@ export default async function handler(req, res) {
                     <!-- Content -->
                     <tr>
                       <td style="padding: 40px 30px;">
-                        <h2 style="margin: 0 0 20px 0; color: #b0212a; font-family: Impact, 'Haettenschweiler', 'Arial Black', sans-serif; font-size: 28px; text-transform: uppercase; letter-spacing: 1px;">
+                        <h2 style="margin: 0 0 20px 0; color: #d42d3a; font-family: Impact, 'Haettenschweiler', 'Arial Black', sans-serif; font-size: 28px; text-transform: uppercase; letter-spacing: 1px;">
                           WELCOME TO THE MOSH PIT!
                         </h2>
                         <p style="margin: 0 0 20px 0; color: #e0e0e0; font-size: 16px; line-height: 1.6;">
@@ -83,13 +83,13 @@ export default async function handler(req, res) {
                           <li>Band applications & more</li>
                         </ul>
                         <p style="margin: 0 0 30px 0; color: #e0e0e0; font-size: 16px; line-height: 1.6;">
-                          Get ready for Louisville's most explosive concerts featuring <strong style="color: #b0212a;">Louisville Loves Emo</strong> and <strong style="color: #b0212a;">Louisville Loves Nu-Metal</strong>!
+                          Get ready for Louisville's most explosive concerts featuring <strong style="color: #d42d3a;">Louisville Loves Emo</strong> and <strong style="color: #d42d3a;">Louisville Loves Nu-Metal</strong>!
                         </p>
 
                         <!-- CTA Button -->
                         <table role="presentation" style="margin: 0 auto;">
                           <tr>
-                            <td style="border-radius: 6px; background: #b0212a;">
+                            <td style="border-radius: 6px; background-color: #d42d3a;">
                               <a href="https://llp-events.vercel.app" style="display: inline-block; padding: 15px 40px; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 16px; letter-spacing: 1px; text-transform: uppercase;">
                                 VIEW UPCOMING SHOWS
                               </a>
