@@ -197,7 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
     heroSection.style.backgroundImage = `url('${images[currentIndex]}')`;
     heroSection.style.backgroundSize = 'cover';
     heroSection.style.backgroundPosition = 'center';
-    heroSection.style.transition = 'background-image 1s ease-in-out';
 
     // Rotate images every 5 seconds
     setInterval(() => {
