@@ -1319,6 +1319,8 @@ body {
 .newsletter-column,
 .contact-column {
     text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .newsletter-column .section-title,
