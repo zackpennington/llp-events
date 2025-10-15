@@ -1111,6 +1111,7 @@ body {
 @media (max-width: 968px) {
     .shows-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-md);
     }
 
     .about-container {
@@ -1123,10 +1124,20 @@ body {
 
     .nav-links a {
         font-size: 0.8rem;
+        padding: var(--spacing-xs);
     }
 
     .show-card {
-        height: 500px;
+        height: auto;
+        min-height: 500px;
+    }
+
+    .show-card-content {
+        padding: var(--spacing-md);
+    }
+
+    .weekend-pass-cta {
+        padding: var(--spacing-md);
     }
 }
 
@@ -1156,12 +1167,50 @@ body {
     }
 
     .shows-grid {
-        gap: var(--spacing-md);
+        gap: var(--spacing-sm);
+        grid-template-columns: 1fr;
     }
 
     .show-card {
-        min-height: 400px;
+        min-height: 450px;
         height: auto;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .show-card-content {
+        padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
+    }
+
+    .show-card-content img {
+        max-width: 250px !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .show-description {
+        font-size: 0.95rem;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .show-cta-group {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .show-cta-button, .show-link-alt {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem;
+    }
+
+    .weekend-pass-cta {
+        padding: var(--spacing-sm);
+        margin-top: var(--spacing-md);
+    }
+
+    .weekend-pass-button {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+        width: 100%;
     }
 
     .impact-grid {
