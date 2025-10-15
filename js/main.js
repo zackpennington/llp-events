@@ -87,13 +87,7 @@ window.addEventListener('scroll', () => {
 // LOADING ANIMATION
 // ================================
 
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
-});
+// Loading animation removed - was causing unwanted page flash
 
 // ================================
 // DYNAMIC FOOTER YEAR
