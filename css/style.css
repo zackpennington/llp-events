@@ -125,6 +125,7 @@ body {
 .logo-image {
     height: 65px;
     width: auto;
+    padding-left: var(--spacing-md);
 }
 
 .nav-links {
