@@ -94,16 +94,10 @@ window.addEventListener('scroll', () => {
 // Loading animation removed - was causing unwanted page flash
 
 // ================================
-// DYNAMIC FOOTER YEAR
+// DYNAMIC FOOTER YEAR - REMOVED
 // ================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    const footerText = document.querySelector('.footer-text');
-    if (footerText) {
-        const currentYear = new Date().getFullYear();
-        footerText.innerHTML = `© ${currentYear} LLP Events. Louisville, KY. All rights reserved.<br>All site photography by Janelle Choiniere.`;
-    }
-});
+// Footer year update removed - now handled statically in HTML to preserve photographer link
 
 // ================================
 // CURSOR GLOW EFFECT (OPTIONAL)
