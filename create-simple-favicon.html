@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Favicon</title>
+</head>
+<body>
+    <h1>Generate Favicon Files</h1>
+    <p>To create proper favicon files from your LLP logo SVG:</p>
+    <ol>
+        <li>Visit <a href="https://realfavicongenerator.net/" target="_blank">RealFaviconGenerator.net</a></li>
+        <li>Upload your <code>images/LLP_Logo_Stacked.svg</code> file</li>
+        <li>Download the generated favicon package</li>
+        <li>Extract and place the files in your project root</li>
+    </ol>
+    <p>Or use <a href="https://favicon.io/favicon-converter/" target="_blank">favicon.io converter</a></p>
+
+    <h2>Quick Fix</h2>
+    <p>For now, we've set up favicon.svg which works in modern browsers.</p>
+
+    <canvas id="canvas" width="32" height="32" style="border: 1px solid #ccc; image-rendering: pixelated; width: 128px; height: 128px;"></canvas>
+
+    <script>
+        // Create a simple red "L" favicon as placeholder
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Background - dark
+        ctx.fillStyle = '#0a0a0a';
+        ctx.fillRect(0, 0, 32, 32);
+
+        // Red "L" shape
+        ctx.fillStyle = '#b0212a';
+        ctx.fillRect(6, 4, 5, 24);  // Vertical part
+        ctx.fillRect(6, 23, 18, 5); // Horizontal part
+
+        console.log('To download as ICO, right-click the canvas and save image.');
+        console.log('Or use: canvas.toDataURL()');
+    </script>
+</body>
+</html>
