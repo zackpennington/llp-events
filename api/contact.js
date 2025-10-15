@@ -109,7 +109,7 @@ export default async function handler(req, res) {
                           <tr>
                             <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
                               <strong style="color: #b0212a; font-size: 14px; text-transform: uppercase;">Email:</strong><br>
-                              <a href="mailto:${email}" style="color: #e0e0e0; font-size: 16px; text-decoration: none;">${email}</a>
+                              <a href="mailto:${email}" style="color: #b0212a; font-size: 16px; text-decoration: none;">${email}</a>
                             </td>
                           </tr>
                           <tr>
