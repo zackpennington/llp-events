@@ -31,8 +31,7 @@ export default async function handler(req, res) {
 
     const RESEND_API_KEY = process.env.RESEND_API_KEY || 're_hXPa4tzc_52JYJG8SNr8YFAccouGS7mS4';
 
-    // For testing: Resend requires verified domain or will only send to account owner email
-    // TODO: Verify domain at resend.com/domains and update 'from' email
+    // Send welcome email via Resend
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
