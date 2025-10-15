@@ -751,12 +751,20 @@ body {
 .about-container {
     position: relative;
     z-index: 2;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.about-content {
+    max-width: 550px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
 }
 
 .about-content .section-title {
@@ -1379,7 +1387,11 @@ body {
     }
 
     .about-container {
-        grid-template-columns: 1fr;
+        justify-content: center;
+    }
+
+    .about-content {
+        max-width: 100%;
     }
 
     .nav-links {
