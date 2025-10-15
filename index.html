@@ -38,14 +38,8 @@
     <meta property="twitter:description" content="Experience Louisville's most explosive concerts. LLP Events brings you Louisville Loves Emo and Louisville Loves Nu-Metal - unforgettable nights of raw energy.">
     <meta property="twitter:image" content="https://llp-events.vercel.app/images/balloons.jpg">
 
-    <!-- Preconnect for external resources -->
-    <link rel="preconnect" href="https://assets.mailerlite.com">
-    <link rel="preconnect" href="https://groot.mailerlite.com">
-    <link rel="dns-prefetch" href="https://assets.mailerlite.com">
-    <link rel="dns-prefetch" href="https://groot.mailerlite.com">
-
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/mailerlite-form.css">
+    <link rel="stylesheet" href="css/resend-form.css">
 
     <!-- Structured Data - Organization -->
     <script type="application/ld+json">
@@ -382,56 +376,46 @@
             <h2 class="section-title">JOIN THE MAILING LIST</h2>
             <div class="title-underline"></div>
 
-            <div id="mlb2-31866831" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-31866831">
-                <div class="ml-form-align-center">
-                    <div class="ml-form-embedWrapper embedForm">
-                        <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
-                            <div class="ml-form-embedContent">
-                                <h4>Be in the know, come to our shows!</h4>
-                                <p>Sign up for concert announcements, merch drops, contests, applications, and more!</p>
-                            </div>
-                            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1771809/forms/167756548094821634/subscribe" data-code="" method="post" target="_blank">
-                                <div class="ml-form-formContent">
-                                    <div class="ml-form-fieldRow ml-last-item">
-                                        <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-                                            <input aria-label="email" aria-required="true" type="email" class="form-control" name="fields[email]" placeholder="Email" autocomplete="email">
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="ml-submit" value="1">
-                                <div class="ml-form-embedSubmit">
-                                    <button type="submit" class="primary">Subscribe</button>
-                                    <button disabled="disabled" style="display: none;" type="button" class="loading">
-                                        <div class="ml-form-embedSubmitLoad"></div>
-                                        <span class="sr-only">Loading...</span>
-                                    </button>
-                                </div>
-                                <input type="hidden" name="anticsrf" value="true">
-                            </form>
+            <div id="resend-form-container" class="resend-form-container">
+                <div class="resend-form-wrapper">
+                    <div class="resend-form-body" id="resend-form-body">
+                        <div class="resend-form-content">
+                            <h4>Be in the know, come to our shows!</h4>
+                            <p>Sign up for concert announcements, merch drops, contests, applications, and more!</p>
                         </div>
-                        <div class="ml-form-successBody row-success" style="display: none">
-                            <div class="ml-form-successContent">
-                                <h4>Thank you!</h4>
-                                <p>You have successfully joined our subscriber list.</p>
+                        <form class="resend-form" id="resend-subscribe-form">
+                            <div class="resend-form-fields">
+                                <div class="resend-field-group">
+                                    <input
+                                        aria-label="email"
+                                        aria-required="true"
+                                        type="email"
+                                        class="resend-input"
+                                        id="subscriber-email"
+                                        name="email"
+                                        placeholder="Email"
+                                        autocomplete="email"
+                                        required>
+                                </div>
                             </div>
+                            <div class="resend-form-submit">
+                                <button type="submit" class="resend-btn-primary" id="submit-btn">
+                                    Subscribe
+                                </button>
+                            </div>
+                            <div id="form-message" class="form-message" style="display: none;"></div>
+                        </form>
+                    </div>
+                    <div class="resend-success-body" id="resend-success-body" style="display: none">
+                        <div class="resend-success-content">
+                            <h4>Thank you!</h4>
+                            <p>You have successfully joined our subscriber list. Check your email for a welcome message!</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <script>
-        function ml_webform_success_31866831() {
-            var $ = ml_jQuery || jQuery;
-            $('.ml-subscribe-form-31866831 .row-success').show();
-            $('.ml-subscribe-form-31866831 .row-form').hide();
-        }
-    </script>
-    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
-    <script>
-        fetch("https://assets.mailerlite.com/jsonp/1771809/forms/167756548094821634/takel")
-    </script>
 
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
@@ -492,5 +476,6 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/newsletter.js"></script>
 </body>
 </html>
