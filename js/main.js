@@ -185,7 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'images/cheerleaders.jpg',
         'images/confetti.jpg',
         'images/balloons.jpg',
-        'images/numetalmask.jpg'
+        'images/numetalmask.jpg',
+        'images/crowdsurf.jpg'
     ];
 
     let currentIndex = 0;
