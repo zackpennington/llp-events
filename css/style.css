@@ -1392,6 +1392,18 @@ body {
     font-size: 0.9rem;
 }
 
+.footer-text a {
+    color: var(--color-primary-red);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.footer-text a:hover {
+    color: var(--color-bright-red);
+    text-decoration: underline;
+}
+
 /* ================================
    SCROLL ANIMATIONS
    ================================ */
