@@ -39,7 +39,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'LLP Events <info@llp-events.com>',
+        from: 'LLP Events <noreply@mail.llp-events.com>',
         to: email,
         subject: 'Welcome to LLP Events! 🎸',
         html: `
