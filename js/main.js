@@ -25,27 +25,33 @@ document.addEventListener('DOMContentLoaded', () => {
 // SMOOTH SCROLL FOR ANCHOR LINKS
 // ================================
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const navHeight = document.querySelector('.nav').offsetHeight;
-            const targetPosition = target.offsetTop - navHeight;
+document.addEventListener('click', (event) => {
+    const anchor = event.target.closest('a[href^="#"]');
+    if (!anchor) return;
 
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-        }
-    });
+    const hash = anchor.getAttribute('href');
+    if (!hash || hash === '#') return;
+
+    const target = document.querySelector(hash);
+
+    if (target) {
+        event.preventDefault();
+        const nav = document.querySelector('.nav');
+        const navHeight = nav ? nav.offsetHeight : 0;
+
+        const targetPosition = target.offsetTop - navHeight;
+
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    }
+    // If target not found, allow default behavior
 });
 
 // ================================
 // NAVIGATION BACKGROUND ON SCROLL
 // ================================
-
-let lastScrollTop = 0;
 
 window.addEventListener('scroll', () => {
     const nav = document.querySelector('.nav');
@@ -59,8 +65,6 @@ window.addEventListener('scroll', () => {
     } else {
         nav.style.boxShadow = 'none';
     }
-
-    lastScrollTop = scrollTop;
 });
 
 // ================================
@@ -112,30 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // ================================
 
 // Gradient animation removed - using rotating background images instead
-
-// ================================
-// PERFORMANCE OPTIMIZATION
-// ================================
-
-// Debounce function for scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply debounce to scroll handlers if needed
-const debouncedScrollHandler = debounce(() => {
-    // Additional scroll handling if needed
-}, 100);
-
-window.addEventListener('scroll', debouncedScrollHandler);
 
 // ================================
 // FAQ ACCORDION
@@ -209,16 +189,12 @@ document.addEventListener('DOMContentLoaded', () => {
     heroSection.insertBefore(bgLayer1, heroSection.firstChild);
     heroSection.insertBefore(bgLayer2, heroSection.firstChild);
 
-    console.log('Setting initial hero background:', images[currentIndex]);
-
     let activeLayer = bgLayer1;
     let inactiveLayer = bgLayer2;
 
     // Rotate images every 5 seconds with fade effect
     setInterval(() => {
         currentIndex = (currentIndex + 1) % images.length;
-        console.log('Rotating hero background to:', images[currentIndex]);
-
         // Set the next image on the inactive layer
         inactiveLayer.style.backgroundImage = `url('${images[currentIndex]}')`;
 

@@ -35,7 +35,7 @@
       submitBtn.classList.add('loading');
     } else {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Subscribe';
+      submitBtn.textContent = 'SUBSCRIBE';
       submitBtn.classList.remove('loading');
     }
   }
