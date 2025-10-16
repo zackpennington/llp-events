@@ -76,7 +76,7 @@
 /* FORM CONTENT */
 .resend-form-content,
 .resend-success-content {
-  text-align: center;
+  text-align: left;
   margin: 0 0 var(--spacing-lg) 0;
 }
 
@@ -100,7 +100,7 @@
   font-weight: 400;
   line-height: 1.6;
   margin: 0;
-  text-align: center;
+  text-align: left;
 }
 
 /* FORM FIELDS */
@@ -112,6 +112,17 @@
 .resend-field-group {
   margin: 0;
   width: 100%;
+}
+
+.resend-field-group label {
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left;
+  display: block;
+  margin-bottom: 0.25rem;
 }
 
 .resend-input {
