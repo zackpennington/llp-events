@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/shows.css">
 </head>
 <body class="numetal-theme">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
@@ -21,6 +22,7 @@
         </div>
     </nav>
 
+    <main id="main-content">
     <!-- Show Hero -->
     <section class="show-hero numetal-hero" style="background-image: url('https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?w=1920&q=80'); background-size: cover; background-position: center;">
         <div class="show-hero-overlay"></div>
@@ -34,23 +36,24 @@
     <!-- Event Details -->
     <section class="event-details">
         <div class="event-container">
+            <h2 class="visually-hidden">Event Details</h2>
             <div class="event-info-grid">
                 <div class="event-info-card" data-scroll>
-                    <div class="info-icon">📅</div>
+                    <div class="info-icon" aria-hidden="true">📅</div>
                     <h3>NEXT SHOW</h3>
                     <p class="info-highlight">Coming Soon</p>
                     <p class="info-text">Prepare for sonic destruction</p>
                 </div>
 
                 <div class="event-info-card" data-scroll>
-                    <div class="info-icon">📍</div>
+                    <div class="info-icon" aria-hidden="true">📍</div>
                     <h3>LOCATION</h3>
                     <p class="info-highlight">Louisville, KY</p>
                     <p class="info-text">Where the heavy hits hardest</p>
                 </div>
 
                 <div class="event-info-card" data-scroll>
-                    <div class="info-icon">🔥</div>
+                    <div class="info-icon" aria-hidden="true">🔥</div>
                     <h3>INTENSITY</h3>
                     <p class="info-highlight">Maximum</p>
                     <p class="info-text">Unrelenting nu-metal fury</p>
@@ -112,19 +115,19 @@
 
             <div class="vibe-grid">
                 <div class="vibe-card" data-scroll>
-                    <h3>🎸 Heavy Riffs</h3>
+                    <h3><span aria-hidden="true">🎸</span> Heavy Riffs</h3>
                     <p>Down-tuned guitars delivering crushing, relentless power</p>
                 </div>
                 <div class="vibe-card" data-scroll>
-                    <h3>🔊 Wall of Sound</h3>
+                    <h3><span aria-hidden="true">🔊</span> Wall of Sound</h3>
                     <p>Professional sound system that'll shake your bones</p>
                 </div>
                 <div class="vibe-card" data-scroll>
-                    <h3>🤘 Mosh Culture</h3>
+                    <h3><span aria-hidden="true">🤘</span> Mosh Culture</h3>
                     <p>Respectful chaos in the pit—release your aggression safely</p>
                 </div>
                 <div class="vibe-card" data-scroll>
-                    <h3>⚡ High Energy</h3>
+                    <h3><span aria-hidden="true">⚡</span> High Energy</h3>
                     <p>Non-stop intensity from first note to last breakdown</p>
                 </div>
             </div>
@@ -163,9 +166,10 @@
         <div class="cta-content" data-scroll>
             <h2 class="cta-title">READY TO UNLEASH?</h2>
             <p class="cta-text">Join us for the next Louisville Loves Nu-Metal</p>
-            <a href="index.html#contact" class="cta-button">GET UPDATES</a>
+            <a href="index.html#contact" class="cta-button" aria-label="Get updates for Louisville Loves Nu-Metal">GET UPDATES</a>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">

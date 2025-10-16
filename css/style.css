@@ -1171,9 +1171,17 @@ body {
 
 .social-links-large {
     display: flex;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xl);
     justify-content: center;
     margin-top: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.social-link-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
 .social-links-large .social-link {
@@ -1184,6 +1192,13 @@ body {
 .social-links-large .social-link svg {
     width: 36px;
     height: 36px;
+}
+
+.social-handle {
+    color: var(--color-light-gray);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .social-embeds {
@@ -1425,6 +1440,96 @@ body {
 .footer-text a:hover {
     color: var(--color-bright-red);
     text-decoration: underline;
+}
+
+/* ================================
+   ACCESSIBILITY - FOCUS INDICATORS
+   ================================ */
+
+/* Skip Navigation Link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-primary-red);
+    color: var(--color-white);
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-decoration: none;
+    font-weight: 700;
+    z-index: 9999;
+    border-radius: 0 0 var(--radius-sm) 0;
+    transition: var(--transition-smooth);
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid var(--color-bright-red);
+    outline-offset: 2px;
+}
+
+/* Visually Hidden Utility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Navigation Links */
+.nav-links a:focus-visible,
+.logo-link:focus-visible {
+    outline: 2px solid var(--color-primary-red);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+}
+
+/* Buttons and CTAs */
+.cta-button:focus-visible,
+.show-cta-button:focus-visible,
+.weekend-pass-button:focus-visible,
+.about-cta-button:focus-visible,
+.contact-submit-btn:focus-visible {
+    outline: 3px solid var(--color-bright-red);
+    outline-offset: 3px;
+}
+
+/* Form Inputs */
+.form-group input:focus-visible,
+.form-group textarea:focus-visible,
+.resend-input:focus-visible {
+    outline: 2px solid var(--color-primary-red);
+    outline-offset: 2px;
+}
+
+/* FAQ Buttons */
+.faq-question:focus-visible {
+    outline: 2px solid var(--color-primary-red);
+    outline-offset: -2px;
+}
+
+/* Social Links */
+.social-link:focus-visible,
+.footer-social-link:focus-visible {
+    outline: 2px solid var(--color-primary-red);
+    outline-offset: 4px;
+}
+
+/* Footer Links */
+.footer-text a:focus-visible {
+    outline: 2px solid var(--color-primary-red);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* Show Cards (for keyboard navigation) */
+.show-card:focus-within {
+    border-color: var(--color-primary-red);
+    box-shadow: var(--shadow-red-lg);
 }
 
 /* ================================

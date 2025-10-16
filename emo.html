@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/shows.css">
 </head>
 <body class="emo-theme">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
@@ -21,6 +22,7 @@
         </div>
     </nav>
 
+    <main id="main-content">
     <!-- Show Hero -->
     <section class="show-hero emo-hero" style="background-image: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1920&q=80'); background-size: cover; background-position: center;">
         <div class="show-hero-overlay"></div>
@@ -34,23 +36,24 @@
     <!-- Event Details -->
     <section class="event-details">
         <div class="event-container">
+            <h2 class="visually-hidden">Event Details</h2>
             <div class="event-info-grid">
                 <div class="event-info-card" data-scroll>
-                    <div class="info-icon">📅</div>
+                    <div class="info-icon" aria-hidden="true">📅</div>
                     <h3>NEXT SHOW</h3>
                     <p class="info-highlight">Coming Soon</p>
                     <p class="info-text">Stay tuned for our next explosive night</p>
                 </div>
 
                 <div class="event-info-card" data-scroll>
-                    <div class="info-icon">📍</div>
+                    <div class="info-icon" aria-hidden="true">📍</div>
                     <h3>LOCATION</h3>
                     <p class="info-highlight">Louisville, KY</p>
                     <p class="info-text">The heart of Kentucky's music scene</p>
                 </div>
 
                 <div class="event-info-card" data-scroll>
-                    <div class="info-icon">🎸</div>
+                    <div class="info-icon" aria-hidden="true">🎸</div>
                     <h3>EXPERIENCE</h3>
                     <p class="info-highlight">All Ages</p>
                     <p class="info-text">High-energy emo performances</p>
@@ -112,19 +115,19 @@
 
             <div class="vibe-grid">
                 <div class="vibe-card" data-scroll>
-                    <h3>🎤 Sing-Alongs</h3>
+                    <h3><span aria-hidden="true">🎤</span> Sing-Alongs</h3>
                     <p>Belt out every word to your favorite anthems with hundreds of fellow fans</p>
                 </div>
                 <div class="vibe-card" data-scroll>
-                    <h3>💥 Mosh Pits</h3>
+                    <h3><span aria-hidden="true">💥</span> Mosh Pits</h3>
                     <p>Release all that pent-up emotion in our energetic (but respectful) pits</p>
                 </div>
                 <div class="vibe-card" data-scroll>
-                    <h3>🖤 Community</h3>
+                    <h3><span aria-hidden="true">🖤</span> Community</h3>
                     <p>Connect with people who understand the therapeutic power of sad songs</p>
                 </div>
                 <div class="vibe-card" data-scroll>
-                    <h3>📸 Memories</h3>
+                    <h3><span aria-hidden="true">📸</span> Memories</h3>
                     <p>Create Instagram-worthy moments you'll cherish forever</p>
                 </div>
             </div>
@@ -163,9 +166,10 @@
         <div class="cta-content" data-scroll>
             <h2 class="cta-title">READY TO FEEL EVERYTHING?</h2>
             <p class="cta-text">Join us for the next Louisville Loves Emo</p>
-            <a href="index.html#contact" class="cta-button">GET UPDATES</a>
+            <a href="index.html#contact" class="cta-button" aria-label="Get updates for Louisville Loves Emo">GET UPDATES</a>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">

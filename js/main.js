@@ -68,18 +68,10 @@ window.addEventListener('scroll', () => {
 });
 
 // ================================
-// PARALLAX EFFECT FOR HERO
+// PARALLAX EFFECT FOR HERO - REMOVED
 // ================================
 
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero-content');
-
-    if (hero && scrolled < window.innerHeight) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-        hero.style.opacity = 1 - (scrolled / window.innerHeight);
-    }
-});
+// Parallax effect removed - was causing shaky/jumpy text when scrolling
 
 // ================================
 // SHOW CARD TILT EFFECT - REMOVED
@@ -122,15 +114,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const question = item.querySelector('.faq-question');
 
         question.addEventListener('click', () => {
-            // Close other items
+            const isExpanded = item.classList.contains('active');
+
+            // Close other items and update their aria-expanded
             faqItems.forEach(otherItem => {
                 if (otherItem !== item && otherItem.classList.contains('active')) {
                     otherItem.classList.remove('active');
+                    const otherQuestion = otherItem.querySelector('.faq-question');
+                    if (otherQuestion) {
+                        otherQuestion.setAttribute('aria-expanded', 'false');
+                    }
                 }
             });
 
             // Toggle current item
             item.classList.toggle('active');
+            question.setAttribute('aria-expanded', !isExpanded);
         });
     });
 });

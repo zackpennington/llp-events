@@ -135,8 +135,10 @@
     </script>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div id="navbar-placeholder"></div>
 
+    <main id="main-content">
     <!-- Hero Section -->
     <section class="hero" id="hero-section" aria-label="Hero section with rotating concert crowd images">
         <div class="hero-overlay"></div>
@@ -177,7 +179,7 @@
                         </div>
                     </div>
                     <p class="show-description">
-                        Thrash through Linkin Park, Slipknot, Limp Bizkit, and Korn anthems with Louisville Loves Nu-Metal's all-star crew.
+                        A full band and rotating vocalists tackle the heaviest hits from Linkin Park, Slipknot, Limp Bizkit, Korn, and more - plus unexpected deep cuts that'll have you headbanging all night.
                     </p>
                     <div class="show-pricing">
                         <span class="price-item"><strong>$18</strong> in advance</span>
@@ -207,7 +209,7 @@
                         </div>
                     </div>
                     <p class="show-description">
-                        Belt every word to My Chemical Romance, Paramore, Taking Back Sunday, and more in a full-scale Louisville Loves Emo throwback.
+                        The anthems of My Chemical Romance, Paramore, Fall Out Boy, and more are recreated with a full band and alternating singers, offering up an evening of big feelings and bigger sing-alongs.
                     </p>
                     <div class="show-pricing">
                         <span class="price-item"><strong>$18</strong> in advance</span>
@@ -237,7 +239,7 @@
                         </div>
                     </div>
                     <p class="show-description">
-                        Bundle both tributes, save versus single tickets, and secure your weekend spot before these passes disappear.
+                        Make it a full weekend experience without breaking the budget. Grab tickets to both shows at a special bundled rate - available for a limited time before they're gone.
                     </p>
                     <div class="show-pricing">
                         <span class="price-item"><strong>$30</strong> for both nights • for a limited time only</span>
@@ -260,10 +262,10 @@
                 <h2 class="section-title">WHO IS LLP?</h2>
                 <div class="title-underline"></div>
                 <p class="about-text">
-                    LLP Events is Louisville's home for high-octane concert experiences. We don't just throw shows - we create sonic explosions that leave you breathless, sweaty, and hungry for more.
+                    LLP Events creates singular musical experiences, bringing together world-class artists and memorable spaces, and injecting them with a spirit of community and celebration.
                 </p>
                 <p class="about-text">
-                    Since 2022 we've sold out 10+ nights at Headliners Music Hall, given $10K+ back to local causes, and united fans who live for the emotional intensity of emo and the unrelenting power of nu-metal.
+                    Since 2019, we've curated more than a dozen musical genre-themed events, made room on local stages for 50+ working musicians, sold out venues, and partnered with some of the biggest concert brands in the world - all while raising thousands for non-profit organizations we care about.
                 </p>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLScbNnu_XmfKOQ5eOjW_uxrxUKiG35pSHufyXnfEf8B1ejQn-A/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="about-cta-button">APPLY TO OUR SHOWS</a>
             </div>
@@ -284,11 +286,11 @@
                     <div class="stat-label">SHOWS PRODUCED</div>
                 </div>
             </div>
-            <div class="impact-stat" style="background-image: url('images/10k-gave-back.jpg'); background-size: cover; background-position: center;" aria-label="Community giving photo background for gave back statistic">
+            <div class="impact-stat" style="background-image: url('images/10k-gave-back.jpg'); background-size: cover; background-position: center;" aria-label="Community giving photo background for given back statistic">
                 <div class="stat-overlay"></div>
                 <div class="stat-content">
                     <div class="stat-number">$10K+</div>
-                    <div class="stat-label">GAVE BACK</div>
+                    <div class="stat-label">GIVEN BACK</div>
                 </div>
             </div>
             <div class="impact-stat" style="background-image: url('images/10k-fans-rocked.jpg'); background-size: cover; background-position: center;" aria-label="Team photo background for fans rocked statistic">
@@ -326,8 +328,9 @@
                             <form class="resend-form" id="resend-subscribe-form">
                                 <div class="resend-form-fields">
                                     <div class="resend-field-group">
+                                        <label for="subscriber-email" class="visually-hidden">Email address for newsletter signup</label>
                                         <input
-                                            aria-label="email"
+                                            aria-label="Email address for newsletter signup"
                                             aria-required="true"
                                             type="email"
                                             class="resend-input"
@@ -348,7 +351,7 @@
                         </div>
                         <div class="resend-success-body" id="resend-success-body" style="display: none">
                             <div class="resend-success-content">
-                                <div class="success-icon">✓</div>
+                                <div class="success-icon" aria-hidden="true">✓</div>
                                 <h4>Thank You!</h4>
                                 <p>You have successfully joined our subscriber list. Check your email for a welcome message!</p>
                             </div>
@@ -367,13 +370,16 @@
                         <form id="contact-form" class="contact-form">
                             <div class="form-row">
                                 <div class="form-group">
+                                    <label for="contact-name">Name</label>
                                     <input type="text" id="contact-name" name="name" placeholder="Your full name" required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="contact-email">Email</label>
                                     <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="contact-message">Message</label>
                                 <textarea id="contact-message" name="message" rows="2" placeholder="How can we help?" required></textarea>
                             </div>
                             <div class="turnstile-wrapper">
@@ -384,7 +390,7 @@
                         </form>
                     </div>
                     <div id="contact-success-body" class="contact-success-body" style="display: none;">
-                        <div class="success-icon">✓</div>
+                        <div class="success-icon" aria-hidden="true">✓</div>
                         <h3>Thank You!</h3>
                         <p>Thanks for reaching out. We'll get back to you as soon as possible.</p>
                     </div>
@@ -399,16 +405,22 @@
             <h2 class="section-title">FOLLOW US ON SOCIAL MEDIA</h2>
             <div class="title-underline"></div>
             <div class="social-links-large">
-                <a href="https://instagram.com/llp_eve" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
-                </a>
-                <a href="https://www.facebook.com/llpeve/" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                </a>
+                <div class="social-link-item">
+                    <a href="https://instagram.com/llp_eve" class="social-link" aria-label="Instagram @LLP_Eve" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <span class="social-handle">@llp_eve</span>
+                </div>
+                <div class="social-link-item">
+                    <a href="https://www.facebook.com/llpeve/" class="social-link" aria-label="Facebook @llpeve" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <span class="social-handle">@llpeve</span>
+                </div>
             </div>
         </div>
     </section>
@@ -423,87 +435,88 @@
 
             <div class="faq-grid">
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
                         <span>How do I buy tickets?</span>
-                        <span class="faq-icon">+</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
-                    <div class="faq-answer">
+                    <div class="faq-answer" id="faq-answer-1" role="region">
                         <p>Buy through our official Tixr listings. Join the mailing list for presale codes and first dibs on drops before the public on-sale.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
                         <span>What are the age restrictions?</span>
-                        <span class="faq-icon">+</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
-                    <div class="faq-answer">
+                    <div class="faq-answer" id="faq-answer-2" role="region">
                         <p>Most nights are all ages; if a venue requires otherwise we flag it on the event page. Minors should bring a parent or guardian whenever the listing notes it.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
                         <span>Where are the shows held?</span>
-                        <span class="faq-icon">+</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
-                    <div class="faq-answer">
+                    <div class="faq-answer" id="faq-answer-3" role="region">
                         <p>Headliners Music Hall is home base, with pop-ups at venues around Louisville. Every event page lists the address, parking tips, and accessibility notes once doors are announced.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
                         <span>What's your refund policy?</span>
-                        <span class="faq-icon">+</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
-                    <div class="faq-answer">
+                    <div class="faq-answer" id="faq-answer-4" role="region">
                         <p>All ticket sales are final. If we cancel, Tixr automatically refunds the original payment method; postponements honor existing tickets, or contact support within seven days if you can't make the new date.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
                         <span>Can I bring a camera?</span>
-                        <span class="faq-icon">+</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
-                    <div class="faq-answer">
+                    <div class="faq-answer" id="faq-answer-5" role="region">
                         <p>Phones and small point-and-shoot cameras are welcome. Professional rigs with detachable lenses or full video setups need advance approval - check the event page before you roll in.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
                         <span>Is there parking available?</span>
-                        <span class="faq-icon">+</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
-                    <div class="faq-answer">
+                    <div class="faq-answer" id="faq-answer-6" role="region">
                         <p>Headliners has limited onsite parking, and we link nearby lots and street options on each show page. We always recommend carpooling or rideshare for the fastest exit.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
                         <span>Will merch be available at shows?</span>
-                        <span class="faq-icon">+</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
-                    <div class="faq-answer">
+                    <div class="faq-answer" id="faq-answer-7" role="region">
                         <p>Absolutely. LLP Events runs a main merch table alongside artist booths, with cash and cards accepted. Reach out if you want to grab items outside show nights.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
                         <span>Are venues accessible?</span>
-                        <span class="faq-icon">+</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
-                    <div class="faq-answer">
+                    <div class="faq-answer" id="faq-answer-8" role="region">
                         <p>Email info@llpevents.com ahead of time and we'll coordinate accommodations. Event pages call out wheelchair access, ADA restrooms, and any venue-specific details.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -511,12 +524,12 @@
             <img src="images/LLP_Logo_Stacked.svg" alt="LLP Events Logo" class="footer-logo-image">
             <div class="footer-social">
                 <a href="https://instagram.com/llp_eve" class="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z"/>
                     </svg>
                 </a>
                 <a href="https://www.facebook.com/llpeve/" class="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                     </svg>
                 </a>
