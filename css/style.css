@@ -1450,7 +1450,7 @@ body {
 /* Skip Navigation Link */
 .skip-link {
     position: absolute;
-    top: -40px;
+    top: -100px;
     left: 0;
     background: var(--color-primary-red);
     color: var(--color-white);
