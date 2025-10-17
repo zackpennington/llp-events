@@ -1,7 +1,7 @@
 // Analytics event tracking for LLP Events
 // Attaches click tracking to buttons and CTAs
 
-import { Analytics } from './analytics.js';
+import { Analytics, trackEvent } from './analytics.js';
 
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,30 +30,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Track hero CTA clicks
+    // Track hero CTA clicks - unique event per CTA
     const heroCTAs = document.querySelectorAll('.hero-cta-group .cta-button');
     heroCTAs.forEach(button => {
         button.addEventListener('click', () => {
-            Analytics.ctaClick('hero', 'buy-tickets');
+            trackEvent('Hero CTA Click');
         });
     });
 
-    // Track "Get Updates" CTA clicks
+    // Track "Get Updates" CTA clicks - unique event
     const updateCTAs = document.querySelectorAll('a[href*="#contact"]');
     updateCTAs.forEach(button => {
         const text = button.textContent.trim();
         if (text.includes('UPDATE') || text.includes('CONTACT')) {
             button.addEventListener('click', () => {
-                Analytics.ctaClick('cta-section', 'get-updates');
+                trackEvent('Get Updates CTA Click');
             });
         }
     });
 
-    // Track "Apply to Our Shows" button
+    // Track "Apply to Our Shows" button - unique event
     const applyButton = document.querySelector('a[href*="forms.google.com"]');
     if (applyButton) {
         applyButton.addEventListener('click', () => {
-            Analytics.ctaClick('about', 'apply-to-shows');
+            trackEvent('Apply to Shows CTA Click');
         });
     }
 
