@@ -1320,6 +1320,18 @@ body {
     font-size: 1rem;
 }
 
+.faq-answer a {
+    color: var(--color-primary-red);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.faq-answer a:hover {
+    color: var(--color-bright-red);
+    text-decoration: underline;
+}
+
 /* ================================
    NEWSLETTER & CONTACT SECTION
    ================================ */
