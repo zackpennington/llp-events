@@ -10,4 +10,4 @@ Disallow: /private/
 Disallow: /.git/
 
 # Sitemap location
-Sitemap: https://llp-events.vercel.app/sitemap.xml
+Sitemap: https://www.llp-events.com/sitemap.xml
