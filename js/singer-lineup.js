@@ -121,9 +121,8 @@ function calculateCoSingers(currentEmail, userSongs) {
             song.singer_email.toLowerCase() !== currentEmail.toLowerCase()
         );
 
-        // Extract unique co-singer emails and convert to names
-        const coSingerEmails = [...new Set(allSingersForSong.map(s => s.singer_email))];
-        const coSingerNames = coSingerEmails.map(email => extractNameFromEmail(email));
+        // Extract singer names directly from CSV data
+        const coSingerNames = [...new Set(allSingersForSong.map(s => s.singer_name))];
 
         return {
             ...userSong,
@@ -134,8 +133,8 @@ function calculateCoSingers(currentEmail, userSongs) {
 
 // Display the lineup view
 function displayLineup(email, songs) {
-    // Get singer name from email (simple extraction)
-    const singerName = extractNameFromEmail(email);
+    // Get singer name from first song's singer_name field
+    const singerName = songs.length > 0 ? songs[0].singer_name : extractNameFromEmail(email);
 
     // Update header
     document.getElementById('singer-name').textContent = singerName;
@@ -149,7 +148,7 @@ function displayLineup(email, songs) {
     document.getElementById('lineup-view').style.display = 'flex';
 }
 
-// Extract name from email (simple heuristic)
+// Extract name from email (fallback for when singer_name is not available)
 function extractNameFromEmail(email) {
     const namePart = email.split('@')[0];
     const parts = namePart.split(/[._-]/);
