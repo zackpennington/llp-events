@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singer Lineup - LLP Events</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/singer-lineup.css">
+</head>
+<body>
+    <!-- Email Login View -->
+    <div id="login-view" class="view-container">
+        <div class="login-card">
+            <div class="logo-container">
+                <h1 class="site-title">LLP EVENTS</h1>
+                <p class="subtitle">SINGER LINEUP</p>
+            </div>
+
+            <form id="email-form" class="email-form">
+                <p class="instruction-text">Enter your email to view your song lineup</p>
+                <input
+                    type="email"
+                    id="email-input"
+                    placeholder="your.email@example.com"
+                    required
+                    autocomplete="email"
+                >
+                <button type="submit" class="submit-btn">VIEW MY SONGS</button>
+                <div id="error-message" class="error-message" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lineup View -->
+    <div id="lineup-view" class="view-container" style="display: none;">
+        <div class="lineup-container">
+            <div class="lineup-header">
+                <div class="header-content">
+                    <h1 class="site-title">LLP EVENTS</h1>
+                    <h2 id="singer-name" class="singer-name"></h2>
+                    <p id="singer-email" class="singer-email"></p>
+                </div>
+                <button id="logout-btn" class="logout-btn">SIGN OUT</button>
+            </div>
+
+            <div id="songs-container" class="songs-container">
+                <!-- Songs will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/singer-lineup.js"></script>
+</body>
+</html>
