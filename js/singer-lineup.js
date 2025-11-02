@@ -104,9 +104,32 @@ function handleEmailSubmit(e) {
         return;
     }
 
-    // Email found - show lineup
+    // Email found - calculate co-singers and show lineup
     currentSingerEmail = email;
-    displayLineup(email, singerSongs);
+    const songsWithCoSingers = calculateCoSingers(email, singerSongs);
+    displayLineup(email, songsWithCoSingers);
+}
+
+// Calculate co-singers for each song by finding other singers on the same song
+function calculateCoSingers(currentEmail, userSongs) {
+    return userSongs.map(userSong => {
+        // Find all singers for this song (same song_title, original_artist, and show)
+        const allSingersForSong = singerData.filter(song =>
+            song.song_title === userSong.song_title &&
+            song.original_artist === userSong.original_artist &&
+            song.show === userSong.show &&
+            song.singer_email.toLowerCase() !== currentEmail.toLowerCase()
+        );
+
+        // Extract unique co-singer emails and convert to names
+        const coSingerEmails = [...new Set(allSingersForSong.map(s => s.singer_email))];
+        const coSingerNames = coSingerEmails.map(email => extractNameFromEmail(email));
+
+        return {
+            ...userSong,
+            co_singers: coSingerNames
+        };
+    });
 }
 
 // Display the lineup view
@@ -198,14 +221,12 @@ function createSongCard(song) {
     const card = document.createElement('div');
     card.className = 'song-card';
 
-    // Parse co-singers (remove quotes and split)
-    const coSingers = song.co_singers
-        ? song.co_singers.replace(/^"|"$/g, '').split(',').map(s => s.trim())
-        : [];
+    // Co-singers are now calculated dynamically
+    const coSingers = song.co_singers || [];
 
     const coSingersHTML = coSingers.length > 0
         ? `<div class="co-singers">
-            ${coSingers.map(singer => `<span class="co-singer-tag">${singer}</span>`).join('')}
+            ${coSingers.map(singer => `<span class="co-singer-tag">${escapeHTML(singer)}</span>`).join('')}
            </div>`
         : '<span>Solo</span>';
 
@@ -214,8 +235,8 @@ function createSongCard(song) {
         <p class="song-artist">by ${escapeHTML(song.original_artist)}</p>
         <div class="song-details">
             <div class="detail-row">
-                <span class="detail-label">Cover Band:</span>
-                <span class="detail-value">${escapeHTML(song.cover_band)}</span>
+                <span class="detail-label">Cover Band Leader:</span>
+                <span class="detail-value">${escapeHTML(song.cover_band_leader)}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Singing With:</span>
