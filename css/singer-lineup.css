@@ -238,6 +238,58 @@ body {
     gap: var(--spacing-md);
 }
 
+/* Show Graphic Section */
+.show-graphic-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(176, 33, 42, 0.3);
+    border-radius: var(--radius-lg);
+}
+
+.show-graphic {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.download-graphic-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: linear-gradient(135deg, var(--color-primary-red), var(--color-bright-red));
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--color-white);
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-red-sm);
+}
+
+.download-graphic-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-red-lg);
+}
+
+.download-graphic-btn:active {
+    transform: translateY(0);
+}
+
+.download-graphic-btn svg {
+    flex-shrink: 0;
+}
+
 .song-card {
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px);

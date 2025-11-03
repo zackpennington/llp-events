@@ -98,6 +98,35 @@ function setupEventListeners() {
 
     emailForm.addEventListener('submit', handleEmailSubmit);
     logoutBtn.addEventListener('click', handleLogout);
+
+    // Add event delegation for download buttons (created dynamically)
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.download-graphic-btn')) {
+            const btn = e.target.closest('.download-graphic-btn');
+            handleDownloadGraphic(btn.dataset.image, btn.dataset.filename);
+        }
+    });
+}
+
+// Handle graphic download
+async function handleDownloadGraphic(imagePath, filename) {
+    try {
+        const response = await fetch(imagePath);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Error downloading graphic:', error);
+        alert('Failed to download image. Please try again.');
+    }
 }
 
 // Handle email form submission
@@ -223,10 +252,27 @@ function createShowSection(showName, songs) {
     const section = document.createElement('div');
     section.className = 'show-section';
 
-    // Determine which logo to use
-    const logoPath = showName.includes('Nu-Metal')
-        ? '/images/numetal-logo.png'
-        : '/images/lle-logo.png';
+    // Determine which logo and graphic to use
+    const isNuMetal = showName.includes('Nu-Metal');
+    const logoPath = isNuMetal ? '/images/numetal-logo.png' : '/images/lle-logo.png';
+    const graphicPath = isNuMetal ? '/images/IM PLAYING LLMN.png' : '/images/IM PLAYING LLE.png';
+    const graphicFilename = isNuMetal ? 'IM_PLAYING_LLMN.png' : 'IM_PLAYING_LLE.png';
+
+    // Create downloadable graphic section
+    const graphicSection = document.createElement('div');
+    graphicSection.className = 'show-graphic-section';
+    graphicSection.innerHTML = `
+        <img src="${graphicPath}" alt="I'm Playing ${isNuMetal ? 'Louisville Loves Nu-Metal' : 'Louisville Loves Emo'}" class="show-graphic">
+        <button class="download-graphic-btn" data-image="${graphicPath}" data-filename="${graphicFilename}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download Image
+        </button>
+    `;
+    section.appendChild(graphicSection);
 
     const header = document.createElement('div');
     header.className = 'show-header';
