@@ -111,6 +111,24 @@ function setupEventListeners() {
 // Handle graphic download
 async function handleDownloadGraphic(imagePath, filename) {
     try {
+        // Check if Web Share API is available (mobile devices)
+        if (navigator.share && navigator.canShare) {
+            const response = await fetch(imagePath);
+            const blob = await response.blob();
+            const file = new File([blob], filename, { type: blob.type });
+
+            // Check if we can share this file
+            if (navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    files: [file],
+                    title: 'I\'m Playing!',
+                    text: 'Check out my performance lineup!'
+                });
+                return;
+            }
+        }
+
+        // Fallback for desktop or if Web Share API not available
         const response = await fetch(imagePath);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
