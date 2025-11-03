@@ -3,15 +3,33 @@ let singerData = [];
 let currentSingerEmail = null;
 
 // Initialize page
-document.addEventListener('DOMContentLoaded', () => {
-    loadCSVData();
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadCSVData();
     setupEventListeners();
+
+    // Check if user was previously logged in
+    const savedEmail = localStorage.getItem('currentSingerEmail');
+    if (savedEmail && singerData.length > 0) {
+        // Auto-login with saved email
+        const singerSongs = singerData.filter(song =>
+            song.singer_email.toLowerCase() === savedEmail.toLowerCase()
+        );
+
+        if (singerSongs.length > 0) {
+            currentSingerEmail = savedEmail;
+            const songsWithCoSingers = calculateCoSingers(savedEmail, singerSongs);
+            displayLineup(savedEmail, songsWithCoSingers);
+        } else {
+            // Email no longer valid, clear it
+            localStorage.removeItem('currentSingerEmail');
+        }
+    }
 });
 
 // Load and parse CSV data
 async function loadCSVData() {
     try {
-        const response = await fetch('/data/singer-lineup.csv');
+        const response = await fetch('/data/VocalistAssignments-MasterList.csv');
         const csvText = await response.text();
         singerData = parseCSV(csvText);
         console.log('Loaded singer data:', singerData.length, 'rows');
@@ -106,6 +124,10 @@ function handleEmailSubmit(e) {
 
     // Email found - calculate co-singers and show lineup
     currentSingerEmail = email;
+
+    // Save email to localStorage for persistence
+    localStorage.setItem('currentSingerEmail', email);
+
     const songsWithCoSingers = calculateCoSingers(email, singerSongs);
     displayLineup(email, songsWithCoSingers);
 }
@@ -183,8 +205,14 @@ function displaySongs(songs) {
         songsByShow[show].push(song);
     });
 
-    // Display each show group
-    Object.keys(songsByShow).sort().forEach(show => {
+    // Display each show group (Nu-Metal first, then Emo)
+    const showOrder = (a, b) => {
+        if (a.includes('Nu-Metal')) return -1;
+        if (b.includes('Nu-Metal')) return 1;
+        return a.localeCompare(b);
+    };
+
+    Object.keys(songsByShow).sort(showOrder).forEach(show => {
         const showSection = createShowSection(show, songsByShow[show]);
         container.appendChild(showSection);
     });
@@ -195,10 +223,18 @@ function createShowSection(showName, songs) {
     const section = document.createElement('div');
     section.className = 'show-section';
 
+    // Determine which logo to use
+    const logoPath = showName.includes('Nu-Metal')
+        ? '/images/numetal-logo.png'
+        : '/images/lle-logo.png';
+
     const header = document.createElement('div');
     header.className = 'show-header';
     header.innerHTML = `
-        <h2 class="show-title">${escapeHTML(showName)}</h2>
+        <div class="show-header-content">
+            <img src="${logoPath}" alt="${escapeHTML(showName)}" class="show-logo">
+            <h2 class="show-title">${escapeHTML(showName)}</h2>
+        </div>
         <span class="show-count">${songs.length} ${songs.length === 1 ? 'song' : 'songs'}</span>
     `;
     section.appendChild(header);
@@ -223,11 +259,13 @@ function createSongCard(song) {
     // Co-singers are now calculated dynamically
     const coSingers = song.co_singers || [];
 
-    const coSingersHTML = coSingers.length > 0
-        ? `<div class="co-singers">
-            ${coSingers.map(singer => `<span class="co-singer-tag">${escapeHTML(singer)}</span>`).join('')}
-           </div>`
-        : '<span>Solo</span>';
+    // Only show "Singing With" row if there are co-singers
+    const coSingersRow = coSingers.length > 0
+        ? `<div class="detail-row">
+                <span class="detail-label">Singing With:</span>
+                <span class="detail-value">${coSingers.map(singer => escapeHTML(singer)).join(', ')}</span>
+            </div>`
+        : '';
 
     card.innerHTML = `
         <h3 class="song-title">${escapeHTML(song.song_title)}</h3>
@@ -237,10 +275,7 @@ function createSongCard(song) {
                 <span class="detail-label">Cover Band Leader:</span>
                 <span class="detail-value">${escapeHTML(song.cover_band_leader)}</span>
             </div>
-            <div class="detail-row">
-                <span class="detail-label">Singing With:</span>
-                <div class="detail-value">${coSingersHTML}</div>
-            </div>
+            ${coSingersRow}
         </div>
     `;
 
@@ -250,6 +285,9 @@ function createSongCard(song) {
 // Handle logout
 function handleLogout() {
     currentSingerEmail = null;
+
+    // Clear saved email from localStorage
+    localStorage.removeItem('currentSingerEmail');
 
     // Clear email input
     document.getElementById('email-input').value = '';
