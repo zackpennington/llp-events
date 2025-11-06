@@ -3,24 +3,8 @@
     <!-- Homepage -->
     <url>
         <loc>https://www.llp-events.com/</loc>
-        <lastmod>2025-01-09</lastmod>
+        <lastmod>2025-11-05</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-    </url>
-
-    <!-- Louisville Loves Emo Show Page -->
-    <url>
-        <loc>https://www.llp-events.com/emo.html</loc>
-        <lastmod>2025-01-09</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Louisville Loves Nu-Metal Show Page -->
-    <url>
-        <loc>https://www.llp-events.com/numetal.html</loc>
-        <lastmod>2025-01-09</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
     </url>
 </urlset>
