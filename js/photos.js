@@ -134,7 +134,7 @@ class PhotoGallery {
             });
         }
 
-        // Build metadata line
+        // Build metadata lines
         const metadata = [];
         if (dateStr) metadata.push(dateStr);
         if (album.photographer) metadata.push(album.photographer);
@@ -142,11 +142,16 @@ class PhotoGallery {
             ? `<p class="album-metadata">${metadata.join(' • ')}</p>`
             : '';
 
+        const venueHtml = album.venue
+            ? `<p class="album-metadata">${album.venue}</p>`
+            : '';
+
         card.innerHTML = `
             ${coverImageHtml}
             <div class="album-info">
                 <h3>${album.name}</h3>
                 ${metadataHtml}
+                ${venueHtml}
                 <p class="photo-count">View photos →</p>
             </div>
         `;

@@ -226,10 +226,10 @@ async function loadHomePageAlbums() {
             return;
         }
 
-        // Limit to first 8 albums for preview
-        const previewAlbums = albums.slice(0, 8);
+        // Limit to first 6 albums for better performance
+        const previewAlbums = albums.slice(0, 6);
 
-        // Fetch images for each album
+        // Fetch images for each album (in parallel for speed)
         await Promise.all(previewAlbums.map(album => fetchAlbumImages(album)));
 
         // Clear loading state
@@ -296,7 +296,7 @@ function createHomeAlbumCard(album) {
         });
     }
 
-    // Build metadata line
+    // Build metadata lines
     const metadata = [];
     if (dateStr) metadata.push(dateStr);
     if (album.photographer) metadata.push(album.photographer);
@@ -304,11 +304,16 @@ function createHomeAlbumCard(album) {
         ? `<p class="album-metadata">${metadata.join(' • ')}</p>`
         : '';
 
+    const venueHtml = album.venue
+        ? `<p class="album-metadata">${album.venue}</p>`
+        : '';
+
     card.innerHTML = `
         ${coverImageHtml}
         <div class="home-album-info">
             <h3>${album.name}</h3>
             ${metadataHtml}
+            ${venueHtml}
         </div>
     `;
 
@@ -317,7 +322,8 @@ function createHomeAlbumCard(album) {
 
 function startAutoScroll(container) {
     let isPaused = false;
-    let animationId;
+    let lastTime = performance.now();
+    const pixelsPerSecond = 30; // Adjust this for faster/slower scroll
 
     // Pause on hover
     container.addEventListener('mouseenter', () => {
@@ -328,18 +334,25 @@ function startAutoScroll(container) {
         isPaused = false;
     });
 
-    // Use smooth scrolling with setInterval instead of requestAnimationFrame
-    const scrollInterval = setInterval(() => {
+    // Use requestAnimationFrame for smooth 60fps scrolling
+    function scroll(currentTime) {
         if (!isPaused) {
-            // Increment scroll by 1 pixel
-            container.scrollLeft += 1;
+            const deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
+            const scrollAmount = pixelsPerSecond * deltaTime;
+
+            container.scrollLeft += scrollAmount;
 
             // Reset to beginning when reaching the end
             if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
                 container.scrollLeft = 0;
             }
         }
-    }, 30); // ~33fps for smoother appearance
+
+        lastTime = currentTime;
+        requestAnimationFrame(scroll);
+    }
+
+    requestAnimationFrame(scroll);
 }
 
 // Load albums on page load

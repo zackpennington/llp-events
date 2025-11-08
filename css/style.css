@@ -1281,6 +1281,8 @@ body {
     padding: var(--spacing-md) 0 var(--spacing-lg) 0;
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary-red) var(--color-charcoal);
+    will-change: scroll-position;
+    -webkit-overflow-scrolling: touch;
 }
 
 .albums-scroll::-webkit-scrollbar {
@@ -1350,6 +1352,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    will-change: background-image;
+    transform: translateZ(0);
 }
 
 .home-album-cover::after {
