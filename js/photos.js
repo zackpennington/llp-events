@@ -123,10 +123,30 @@ class PhotoGallery {
             ? `<div class="album-cover" style="background-image: url('${album.coverImage}');"></div>`
             : '';
 
+        // Format date if available
+        let dateStr = '';
+        if (album.date) {
+            const date = new Date(album.date);
+            dateStr = date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Build metadata line
+        const metadata = [];
+        if (dateStr) metadata.push(dateStr);
+        if (album.photographer) metadata.push(album.photographer);
+        const metadataHtml = metadata.length > 0
+            ? `<p class="album-metadata">${metadata.join(' • ')}</p>`
+            : '';
+
         card.innerHTML = `
             ${coverImageHtml}
             <div class="album-info">
                 <h3>${album.name}</h3>
+                ${metadataHtml}
                 <p class="photo-count">View photos →</p>
             </div>
         `;

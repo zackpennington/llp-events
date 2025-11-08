@@ -128,6 +128,13 @@
     line-height: 1.2;
 }
 
+.album-info .album-metadata {
+    color: var(--color-light-gray);
+    font-size: 0.85rem;
+    margin-bottom: var(--spacing-xs);
+    opacity: 0.9;
+}
+
 .album-info .photo-count {
     color: var(--color-primary-red);
     font-size: 0.9rem;
