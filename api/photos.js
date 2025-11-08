@@ -83,13 +83,8 @@ export default async function handler(req, res) {
               featured: true
             };
 
-            // Use direct blob URLs in development, Vercel Image API in production
-            const isProduction = process.env.VERCEL_ENV === 'production';
-            const coverImageUrl = randomImage
-              ? (isProduction
-                  ? `/_vercel/image?url=${encodeURIComponent(randomImage.url)}&w=400&q=80`
-                  : randomImage.url)
-              : null;
+            // Use direct Vercel Blob Storage URLs (already CDN-optimized)
+            const coverImageUrl = randomImage ? randomImage.url : null;
 
             return {
               slug: showSlug,
@@ -125,21 +120,14 @@ export default async function handler(req, res) {
       cursor: cursor || undefined
     });
 
-    // Transform blobs to optimized photo objects
-    // Use direct blob URLs in development, Vercel Image API in production
-    const isProduction = process.env.VERCEL_ENV === 'production';
+    // Transform blobs to photo objects with direct URLs (already CDN-optimized)
     const photos = result.blobs
       .filter(blob => isImageFile(blob.pathname))
       .map(blob => ({
         id: blob.pathname,
         url: blob.url,
-        // Use Vercel Image API in production, direct URLs in development
-        thumbnail: isProduction
-          ? `/_vercel/image?url=${encodeURIComponent(blob.url)}&w=640&q=75`
-          : blob.url,
-        fullSize: isProduction
-          ? `/_vercel/image?url=${encodeURIComponent(blob.url)}&w=1920&q=85`
-          : blob.url,
+        thumbnail: blob.url,
+        fullSize: blob.url,
         filename: blob.pathname.split('/').pop()
       }));
 
