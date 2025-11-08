@@ -26,6 +26,9 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
 
+  // Cache for 1 hour, stale-while-revalidate for 24 hours
+  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -84,8 +87,10 @@ export default async function handler(req, res) {
               featured: true
             };
 
-            // Use direct Vercel Blob Storage URLs (already CDN-optimized)
-            const coverImageUrl = randomImage ? randomImage.url : null;
+            // Use Vercel Image Optimization for cover images (640px width, WebP/AVIF)
+            const coverImageUrl = randomImage
+              ? `/_vercel/image?url=${encodeURIComponent(randomImage.url)}&w=640&q=75`
+              : null;
 
             return {
               slug: showSlug,
@@ -122,13 +127,15 @@ export default async function handler(req, res) {
       cursor: cursor || undefined
     });
 
-    // Transform blobs to photo objects with direct URLs (already CDN-optimized)
+    // Transform blobs with Vercel Image Optimization for thumbnails
     const photos = result.blobs
       .filter(blob => isImageFile(blob.pathname))
       .map(blob => ({
         id: blob.pathname,
         url: blob.url,
-        thumbnail: blob.url,
+        // Optimized thumbnail: 400px width, quality 75, auto WebP/AVIF
+        thumbnail: `/_vercel/image?url=${encodeURIComponent(blob.url)}&w=400&q=75`,
+        // Full size for lightbox (no optimization)
         fullSize: blob.url,
         filename: blob.pathname.split('/').pop()
       }));
