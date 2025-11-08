@@ -64,7 +64,7 @@
     border: 2px solid transparent;
     position: relative;
     overflow: hidden;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
     display: flex;
     flex-direction: column;
 }
@@ -72,9 +72,10 @@
 .album-cover {
     width: 100%;
     height: 70%;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: var(--color-black);
 }
 
 .album-info {
