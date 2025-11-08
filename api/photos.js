@@ -2,6 +2,19 @@ import { list } from '@vercel/blob';
 import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
+// Helper to check if we're in production
+function isProduction() {
+  return process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
+}
+
+// Helper to create optimized image URL (only in production)
+function getOptimizedImageUrl(originalUrl, width, quality = 75) {
+  if (!isProduction()) {
+    return originalUrl; // In dev, use direct URLs
+  }
+  return `/_vercel/image?url=${encodeURIComponent(originalUrl)}&w=${width}&q=${quality}`;
+}
+
 // Load album metadata from JSON files in data/albums/
 function loadAlbumMetadata() {
   try {
@@ -87,9 +100,9 @@ export default async function handler(req, res) {
               featured: true
             };
 
-            // Use Vercel Image Optimization for cover images (640px width, WebP/AVIF)
+            // Use Vercel Image Optimization for cover images (640px width, WebP/AVIF) - only in production
             const coverImageUrl = randomImage
-              ? `/_vercel/image?url=${encodeURIComponent(randomImage.url)}&w=640&q=75`
+              ? getOptimizedImageUrl(randomImage.url, 640)
               : null;
 
             return {
@@ -127,14 +140,14 @@ export default async function handler(req, res) {
       cursor: cursor || undefined
     });
 
-    // Transform blobs with Vercel Image Optimization for thumbnails
+    // Transform blobs with Vercel Image Optimization for thumbnails (only in production)
     const photos = result.blobs
       .filter(blob => isImageFile(blob.pathname))
       .map(blob => ({
         id: blob.pathname,
         url: blob.url,
-        // Optimized thumbnail: 400px width, quality 75, auto WebP/AVIF
-        thumbnail: `/_vercel/image?url=${encodeURIComponent(blob.url)}&w=400&q=75`,
+        // Optimized thumbnail: 400px width, quality 75, auto WebP/AVIF (production only)
+        thumbnail: getOptimizedImageUrl(blob.url, 400),
         // Full size for lightbox (no optimization)
         fullSize: blob.url,
         filename: blob.pathname.split('/').pop()
