@@ -79,6 +79,7 @@ export default async function handler(req, res) {
               name: formatShowName(showSlug),
               date: null,
               photographer: null,
+              venue: null,
               description: null,
               featured: true
             };
@@ -91,6 +92,7 @@ export default async function handler(req, res) {
               name: metadata.name,
               date: metadata.date,
               photographer: metadata.photographer,
+              venue: metadata.venue,
               description: metadata.description,
               featured: metadata.featured,
               path: folder,
