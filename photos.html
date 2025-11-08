@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photos | LLP Events - Louisville Concert Photo Gallery</title>
+    <meta name="description" content="Relive the energy! Browse photo galleries from LLP Events' epic emo and nu-metal tribute shows at Headliners Music Hall in Louisville, KY.">
+
+    <!-- SEO Meta Tags -->
+    <link rel="canonical" href="https://www.llp-events.com/photos">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="LLP Events">
+    <meta name="theme-color" content="#b0212a">
+    <meta name="keywords" content="LLP Events photos, Louisville concert photos, emo show photos, nu-metal show photos, Headliners Music Hall photos, Louisville music photography, concert photography Louisville">
+    <meta name="language" content="en-US">
+    <meta name="geo.region" content="US-KY">
+    <meta name="geo.placename" content="Louisville">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Resource Hints -->
+    <link rel="dns-prefetch" href="https://public.blob.vercel-storage.com">
+    <link rel="preconnect" href="https://public.blob.vercel-storage.com" crossorigin>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.llp-events.com/photos">
+    <meta property="og:site_name" content="LLP Events">
+    <meta property="og:title" content="Photos | LLP Events">
+    <meta property="og:description" content="Relive the energy! Browse photo galleries from LLP Events' epic emo and nu-metal tribute shows.">
+    <meta property="og:image" content="https://www.llp-events.com/images/og-image.jpg">
+    <meta property="og:image:secure_url" content="https://www.llp-events.com/images/og-image.jpg">
+    <meta property="og:image:alt" content="LLP Events concert photos">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@llp_eve">
+    <meta name="twitter:creator" content="@llp_eve">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/photos.css">
+
+    <!-- Boxy.js Lightbox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxy-js@1.0.0/dist/boxy.min.css">
+
+    <!-- Structured Data - BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.llp-events.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Photos",
+                "item": "https://www.llp-events.com/photos"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Structured Data - ImageGallery -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ImageGallery",
+        "name": "LLP Events Concert Photos",
+        "description": "Photo galleries from Louisville Loves Emo and Louisville Loves Nu-Metal shows",
+        "about": {
+            "@type": "Organization",
+            "name": "LLP Events",
+            "url": "https://www.llp-events.com"
+        }
+    }
+    </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '338353929663866');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=338353929663866&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="logo-link">
+                <img src="images/LLP_Logo_Stacked.svg" alt="LLP Events Logo" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <a href="/#shows">SHOWS</a>
+                <a href="/photos">PHOTOS</a>
+                <a href="/#about">ABOUT</a>
+                <a href="/#contact">CONTACT</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScbNnu_XmfKOQ5eOjW_uxrxUKiG35pSHufyXnfEf8B1ejQn-A/viewform?usp=header" target="_blank" rel="noopener noreferrer">APPLY</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content" class="photos-page">
+        <!-- Hero Section -->
+        <section class="photos-hero">
+            <h1>PHOTOS</h1>
+            <p>Relive the energy from our epic shows</p>
+        </section>
+
+        <!-- Albums Section -->
+        <section class="albums-section">
+            <h2>Show Albums</h2>
+            <div class="albums-grid">
+                <!-- Populated dynamically by photos.js -->
+            </div>
+        </section>
+
+        <!-- Photos Section (Hidden by default) -->
+        <section class="photos-section hidden">
+            <button class="back-button">
+                ← Back to Albums
+            </button>
+            <h2>Album Name</h2>
+            <div class="photo-grid">
+                <!-- Populated dynamically by photos.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <img src="images/LLP_Logo_Stacked.svg" alt="LLP Events Logo" class="footer-logo-image" width="200" height="120" loading="lazy">
+            <div class="footer-social">
+                <a href="https://instagram.com/llp_eve" class="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <a href="https://www.tiktok.com/@llpeve" class="footer-social-link" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/llpeve/" class="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-text">© 2025 LLP Events. Louisville, KY. All rights reserved.<br>All site photography by <a href="https://www.janelleno5.com/" target="_blank" rel="noopener noreferrer">Janelle Choiniere</a></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/boxy-js@1.0.0/dist/boxy.min.js"></script>
+    <script src="js/photos.js"></script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -35,24 +35,28 @@ Visit `http://localhost:8000` to view the site.
 ```
 llp-events/
 ├── index.html          # Main landing page with hero, shows overview, contact
+├── photos.html         # Photo gallery page with album browsing
 ├── emo.html           # Louisville Loves Emo show page
 ├── numetal.html       # Louisville Loves Nu-Metal show page
 ├── api/
 │   ├── subscribe.js   # Resend API serverless function for newsletter signups
-│   └── contact.js     # Resend API serverless function for contact form (with Cloudflare Turnstile)
+│   ├── contact.js     # Resend API serverless function for contact form (with Cloudflare Turnstile)
+│   └── photos.js      # Vercel Blob API for listing show photos
 ├── css/
 │   ├── style.css      # Core styles with unified CSS variables (nav, hero, sections, responsive)
+│   ├── photos.css     # Photo gallery styles (album cards, grid, lightbox theme)
 │   ├── shows.css      # Show-specific pages styling
 │   └── resend-form.css # Newsletter form styling
 ├── js/
 │   ├── main.js        # Scroll animations, parallax, interactions
+│   ├── photos.js      # Photo gallery logic (album selection, boxy.js integration)
 │   ├── contact.js     # Contact form handler with Turnstile verification
 │   └── newsletter.js  # Newsletter signup handler
 ├── images/
 │   ├── lle-logo.png   # Louisville Loves Emo logo
 │   └── numetal-logo.png # Louisville Loves Nu-Metal logo
 ├── favicon.svg        # SVG favicon (generated from logo)
-└── vercel.json        # Static deployment config + serverless functions
+└── vercel.json        # Static deployment config + serverless functions + image optimization
 ```
 
 ## Design System
@@ -152,6 +156,114 @@ Update href attributes in footer sections:
 Required for email integration:
 - `RESEND_API_KEY` - Your Resend API key
 - `TURNSTILE_SECRET_KEY` - Cloudflare Turnstile secret key
+
+## Photo Gallery System
+
+### Overview
+The site features a dynamic photo gallery at `/photos` that displays albums from past shows. Photos are stored in Vercel Blob Storage and automatically optimized for web delivery.
+
+### Architecture
+```
+/photos
+├── /api/photos.js          # Serverless function to list photos from Blob storage
+├── /css/photos.css         # Gallery-specific styles matching site theme
+├── /js/photos.js           # Frontend logic for album/photo display
+└── photos.html             # Gallery page with SEO optimization
+```
+
+### Photo Storage Structure
+Photos are organized in Vercel Blob Storage using folders at the root level:
+
+```
+llnm1-janelle/          # Louisville Loves Nu-Metal #1 - Janelle
+  ├── photo-001.jpg
+  ├── photo-002.jpg
+  └── photo-003.jpg
+llnm1-vic/              # Louisville Loves Nu-Metal #1 - Vic
+  ├── photo-001.jpg
+  └── photo-002.jpg
+lle2/                   # Louisville Loves Emo #2
+  └── *.jpg
+[folder-name]/
+  └── *.jpg/png/webp
+```
+
+**Naming Convention:**
+The API automatically recognizes and formats common folder patterns:
+- `llnm1-janelle` → "Louisville Loves Nu-Metal #1 - Janelle"
+- `llnm1-vic` → "Louisville Loves Nu-Metal #1 - Vic"
+- `llnm2`, `lle3`, etc. → "Louisville Loves Nu-Metal #2", "Louisville Loves Emo #3"
+- `emo-2024-03-15` → "Emo - March 15, 2024" (date-based format)
+- Any other format → Capitalized words (e.g., `my-show` → "My Show")
+
+### Uploading Photos
+
+Photos are uploaded directly to Vercel Blob Storage using Vercel CLI or dashboard:
+
+**Via Vercel CLI:**
+```bash
+# Install Vercel CLI if needed
+npm i -g vercel
+
+# Upload photos to an album folder
+vercel blob put photo-001.jpg --path llnm1-janelle/photo-001.jpg --token $BLOB_READ_WRITE_TOKEN
+vercel blob put photo-002.jpg --path llnm1-vic/photo-001.jpg --token $BLOB_READ_WRITE_TOKEN
+```
+
+**Via Vercel Dashboard:**
+1. Go to project → Storage → Blob
+2. Create new folder for the album (e.g., `llnm2-photos`, `lle3-janelle`)
+3. Upload photos to that folder
+
+**Best Practices:**
+- Use descriptive filenames (e.g., `crowd-01.jpg`, `stage-performance.jpg`)
+- Upload original high-resolution photos - Vercel Image API handles optimization
+- Supported formats: JPEG, PNG, WebP, AVIF
+- Recommended max size: 10MB per photo (will be optimized on delivery)
+
+### Image Optimization
+
+Images are automatically optimized using Vercel's Image Optimization API (`/_vercel/image`):
+
+**Features:**
+- Automatic format conversion (AVIF → WebP → JPEG)
+- Responsive sizing (640px thumbnails, 1920px full-size)
+- CDN caching (24 hours)
+- Lazy loading on frontend
+
+**Configuration:**
+Settings in `vercel.json`:
+```json
+"images": {
+  "sizes": [640, 828, 1200, 1920],
+  "formats": ["image/avif", "image/webp"],
+  "minimumCacheTTL": 86400
+}
+```
+
+### Gallery Features
+- **Album View**: Lists all show albums organized by date
+- **Photo Grid**: Responsive grid layout (1-4 columns based on screen size)
+- **Lightbox**: boxy.js library for full-screen photo viewing with touch gestures
+- **Deep Linking**: URLs like `/photos#emo-2024-03-15` link directly to albums
+- **Mobile Optimized**: Touch gestures, lazy loading, optimized thumbnails
+
+### API Endpoints
+
+**List Albums:**
+```
+GET /api/photos
+Returns: { albums: [{ slug, name, path }] }
+```
+
+**List Photos in Album:**
+```
+GET /api/photos?show=llnm1-janelle
+Returns: { show, photos: [{ id, thumbnail, fullSize, filename }], count }
+```
+
+### Analytics
+Photo page views are tracked via Vercel Analytics (`/_vercel/insights/script.js`)
 
 ## Deployment Notes
 

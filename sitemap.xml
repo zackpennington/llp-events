@@ -7,4 +7,12 @@
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
+
+    <!-- Photos Page -->
+    <url>
+        <loc>https://www.llp-events.com/photos</loc>
+        <lastmod>2025-11-08</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
