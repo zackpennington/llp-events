@@ -1253,6 +1253,10 @@ body {
     );
 }
 
+.photo-preview-section .section-title {
+    text-align: center;
+}
+
 .photo-preview-section .section-subtitle {
     text-align: center;
     color: var(--color-light-gray);

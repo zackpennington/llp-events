@@ -204,6 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // HOME PAGE PHOTO ALBUMS PREVIEW
 // ================================
 
+let albumsScrollInterval;
+let albumImagesCache = {}; // Cache of album images for rotation
+
 async function loadHomePageAlbums() {
     const albumsContainer = document.getElementById('home-albums-scroll');
     if (!albumsContainer) return; // Only run on home page
@@ -226,6 +229,9 @@ async function loadHomePageAlbums() {
         // Limit to first 8 albums for preview
         const previewAlbums = albums.slice(0, 8);
 
+        // Fetch images for each album
+        await Promise.all(previewAlbums.map(album => fetchAlbumImages(album)));
+
         // Clear loading state
         albumsContainer.innerHTML = '';
 
@@ -235,9 +241,36 @@ async function loadHomePageAlbums() {
             albumsContainer.appendChild(card);
         });
 
+        // Start autoscroll
+        startAutoScroll(albumsContainer);
+
+        // Start image rotation for all cards
+        startImageRotation();
+
     } catch (error) {
         console.error('Error loading albums:', error);
         albumsContainer.innerHTML = '<p style="color: var(--color-error); text-align: center; padding: var(--spacing-xl);">Failed to load albums. Please try again later.</p>';
+    }
+}
+
+async function fetchAlbumImages(album) {
+    try {
+        const response = await fetch(`/api/photos?show=${encodeURIComponent(album.slug)}`);
+        if (!response.ok) return;
+
+        const data = await response.json();
+        const photos = data.photos || [];
+
+        // Store up to 10 random images for this album
+        if (photos.length > 0) {
+            const shuffled = [...photos].sort(() => Math.random() - 0.5);
+            albumImagesCache[album.slug] = shuffled.slice(0, 10).map(p => p.url);
+        } else {
+            albumImagesCache[album.slug] = album.coverImage ? [album.coverImage] : [];
+        }
+    } catch (error) {
+        console.error(`Error fetching images for ${album.slug}:`, error);
+        albumImagesCache[album.slug] = album.coverImage ? [album.coverImage] : [];
     }
 }
 
@@ -245,9 +278,14 @@ function createHomeAlbumCard(album) {
     const card = document.createElement('a');
     card.className = 'home-album-card';
     card.href = `/photos#${album.slug}`;
+    card.dataset.albumSlug = album.slug;
+    card.dataset.imageIndex = '0';
 
-    const coverImageHtml = album.coverImage
-        ? `<div class="home-album-cover" style="background-image: url('${album.coverImage}');"></div>`
+    const images = albumImagesCache[album.slug] || [];
+    const initialImage = images[0] || album.coverImage;
+
+    const coverImageHtml = initialImage
+        ? `<div class="home-album-cover" style="background-image: url('${initialImage}');"></div>`
         : '<div class="home-album-cover" style="background: var(--color-slate);"></div>';
 
     // Format date if available
@@ -278,6 +316,61 @@ function createHomeAlbumCard(album) {
     `;
 
     return card;
+}
+
+function startAutoScroll(container) {
+    let scrollPosition = 0;
+    const scrollSpeed = 0.5; // pixels per frame
+    let isPaused = false;
+
+    // Pause on hover
+    container.addEventListener('mouseenter', () => {
+        isPaused = true;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        isPaused = false;
+    });
+
+    function scroll() {
+        if (!isPaused) {
+            scrollPosition += scrollSpeed;
+
+            // Reset when reaching the end
+            if (scrollPosition >= container.scrollWidth - container.clientWidth) {
+                scrollPosition = 0;
+            }
+
+            container.scrollLeft = scrollPosition;
+        }
+
+        requestAnimationFrame(scroll);
+    }
+
+    scroll();
+}
+
+function startImageRotation() {
+    // Rotate images every 3 seconds
+    setInterval(() => {
+        const cards = document.querySelectorAll('.home-album-card');
+
+        cards.forEach(card => {
+            const albumSlug = card.dataset.albumSlug;
+            const images = albumImagesCache[albumSlug] || [];
+
+            if (images.length > 1) {
+                const currentIndex = parseInt(card.dataset.imageIndex);
+                const nextIndex = (currentIndex + 1) % images.length;
+
+                const coverDiv = card.querySelector('.home-album-cover');
+                if (coverDiv) {
+                    coverDiv.style.backgroundImage = `url('${images[nextIndex]}')`;
+                    card.dataset.imageIndex = nextIndex.toString();
+                }
+            }
+        });
+    }, 3000);
 }
 
 // Load albums on page load
