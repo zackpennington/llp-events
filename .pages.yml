@@ -3,7 +3,7 @@ content:
     label: Photo Albums
     type: collection
     path: data/albums
-    extension: json
+    extension: .json
     format: json
     fields:
       - name: slug
