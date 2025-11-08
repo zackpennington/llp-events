@@ -226,23 +226,20 @@ async function loadHomePageAlbums() {
             return;
         }
 
-        // Limit to first 6 albums for better performance
-        const previewAlbums = albums.slice(0, 6);
-
-        // Fetch images for each album (in parallel for speed)
-        await Promise.all(previewAlbums.map(album => fetchAlbumImages(album)));
+        // Fetch images for all albums (in parallel for speed)
+        await Promise.all(albums.map(album => fetchAlbumImages(album)));
 
         // Clear loading state
         albumsContainer.innerHTML = '';
 
-        // Create album cards
-        previewAlbums.forEach(album => {
+        // Create album cards for all albums
+        albums.forEach(album => {
             const card = createHomeAlbumCard(album);
             albumsContainer.appendChild(card);
         });
 
-        // Start autoscroll
-        startAutoScroll(albumsContainer);
+        // Initialize carousel
+        initCarousel(albumsContainer);
 
     } catch (error) {
         console.error('Error loading albums:', error);
@@ -322,40 +319,219 @@ function createHomeAlbumCard(album) {
     return card;
 }
 
-function startAutoScroll(container) {
-    let isPaused = false;
-    let lastTime = performance.now();
-    const pixelsPerSecond = 30; // Adjust this for faster/slower scroll
+function initCarousel(container) {
+    const scrollContainer = container.closest('.albums-scroll-container');
+    if (!scrollContainer) return;
 
-    // Pause on hover
-    container.addEventListener('mouseenter', () => {
-        isPaused = true;
-    });
+    // State management
+    let currentPage = 0;
+    let totalPages = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
-    container.addEventListener('mouseleave', () => {
-        isPaused = false;
-    });
+    // Create navigation buttons
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'carousel-button prev';
+    prevBtn.innerHTML = '‹';
+    prevBtn.setAttribute('aria-label', 'Previous albums');
 
-    // Use requestAnimationFrame for smooth 60fps scrolling
-    function scroll(currentTime) {
-        if (!isPaused) {
-            const deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
-            const scrollAmount = pixelsPerSecond * deltaTime;
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'carousel-button next';
+    nextBtn.innerHTML = '›';
+    nextBtn.setAttribute('aria-label', 'Next albums');
 
-            container.scrollLeft += scrollAmount;
+    scrollContainer.appendChild(prevBtn);
+    scrollContainer.appendChild(nextBtn);
 
-            // Reset to beginning when reaching the end
-            if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
-                container.scrollLeft = 0;
-            }
+    // Create indicators container
+    const indicatorsContainer = document.createElement('div');
+    indicatorsContainer.className = 'carousel-indicators';
+    indicatorsContainer.setAttribute('role', 'tablist');
+    indicatorsContainer.setAttribute('aria-label', 'Photo album carousel pages');
+    scrollContainer.appendChild(indicatorsContainer);
+
+    // Calculate pages and create indicators
+    function initIndicators() {
+        const cardWidth = window.innerWidth >= 640 ? 300 : 280;
+        const gap = 32;
+        const cardsPerPage = window.innerWidth >= 1200 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+        const totalCards = container.children.length;
+        totalPages = Math.ceil(totalCards / cardsPerPage);
+
+        indicatorsContainer.innerHTML = '';
+        for (let i = 0; i < totalPages; i++) {
+            const indicator = document.createElement('button');
+            indicator.className = 'carousel-indicator';
+            indicator.setAttribute('aria-label', `Go to page ${i + 1} of ${totalPages}`);
+            indicator.setAttribute('role', 'tab');
+            indicator.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+            indicator.dataset.page = i;
+
+            indicator.addEventListener('click', () => goToPage(i));
+            indicatorsContainer.appendChild(indicator);
         }
-
-        lastTime = currentTime;
-        requestAnimationFrame(scroll);
+        updateIndicators();
     }
 
-    requestAnimationFrame(scroll);
+    // Calculate scroll amount
+    function getScrollAmount() {
+        const cardWidth = window.innerWidth >= 640 ? 300 : 280;
+        const gap = 32;
+        const cardsToScroll = window.innerWidth >= 1200 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+        return cardsToScroll * (cardWidth + gap);
+    }
+
+    // Update indicators state
+    function updateIndicators() {
+        const indicators = indicatorsContainer.querySelectorAll('.carousel-indicator');
+        indicators.forEach((indicator, index) => {
+            const isActive = index === currentPage;
+            indicator.classList.toggle('active', isActive);
+            indicator.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+    }
+
+    // Update button states
+    function updateButtons() {
+        prevBtn.disabled = currentPage === 0;
+        nextBtn.disabled = currentPage === totalPages - 1;
+    }
+
+    // Go to specific page
+    function goToPage(pageIndex) {
+        currentPage = Math.max(0, Math.min(pageIndex, totalPages - 1));
+        const scrollAmount = getScrollAmount() * currentPage;
+
+        container.scrollTo({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+
+        updateIndicators();
+        updateButtons();
+    }
+
+    // Scroll to next
+    function scrollNext() {
+        if (currentPage < totalPages - 1) {
+            goToPage(currentPage + 1);
+        }
+    }
+
+    // Scroll to previous
+    function scrollPrev() {
+        if (currentPage > 0) {
+            goToPage(currentPage - 1);
+        }
+    }
+
+    // Button click handlers
+    prevBtn.addEventListener('click', () => {
+        scrollPrev();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        scrollNext();
+    });
+
+    // Keyboard navigation
+    scrollContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            scrollPrev();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            scrollNext();
+        }
+    });
+
+    // Touch/swipe support
+    container.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    container.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                scrollNext(); // Swipe left
+            } else {
+                scrollPrev(); // Swipe right
+            }
+        }
+    }
+
+    // Update current page on scroll (for touch/manual scroll)
+    let scrollTimeout;
+    container.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const scrollAmount = getScrollAmount();
+            const newPage = Math.round(container.scrollLeft / scrollAmount);
+            if (newPage !== currentPage) {
+                currentPage = newPage;
+                updateIndicators();
+                updateButtons();
+            }
+        }, 150);
+    });
+
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            initIndicators();
+            goToPage(currentPage);
+        }, 250);
+    });
+
+    // Initialize
+    initIndicators();
+    updateButtons();
+
+    // Make container focusable for keyboard navigation
+    scrollContainer.setAttribute('tabindex', '0');
 }
+
+// ================================
+// ABOUT SECTION IMAGE ROTATION
+// ================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    const aboutImage = document.querySelector('.about-image');
+    if (!aboutImage) return;
+
+    // Array of about section images
+    const images = [
+        'images/whowearelarge.jpg',
+        'images/zack_brian_corey.png'
+    ];
+
+    let currentIndex = 0;
+
+    // Rotate images every 4 seconds with faster fade effect
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+
+        // Fade out
+        aboutImage.style.opacity = '0';
+
+        // Change image after fade
+        setTimeout(() => {
+            aboutImage.src = images[currentIndex];
+            // Fade in
+            aboutImage.style.opacity = '1';
+        }, 200); // Faster fade transition
+    }, 4000);
+});
 
 // Load albums on page load
 document.addEventListener('DOMContentLoaded', loadHomePageAlbums);
