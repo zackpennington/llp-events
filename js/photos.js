@@ -175,10 +175,11 @@ class PhotoGallery {
         albumsSection.classList.add('hidden');
         photosSection.classList.remove('hidden');
 
-        // Update heading with show name
+        // Update heading and details with album info
         const heading = photosSection.querySelector('h2');
+        const detailsContainer = photosSection.querySelector('.album-details');
 
-        // If albums aren't loaded yet, fetch them to get the album name
+        // If albums aren't loaded yet, fetch them to get the album info
         if (this.albums.length === 0) {
             try {
                 const response = await fetch('/api/photos');
@@ -194,6 +195,33 @@ class PhotoGallery {
         const currentAlbum = this.albums.find(a => a.slug === this.currentShow);
         if (currentAlbum) {
             heading.textContent = currentAlbum.name;
+
+            // Format date if available
+            let dateStr = '';
+            if (currentAlbum.date) {
+                const date = new Date(currentAlbum.date);
+                dateStr = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+
+            // Build details HTML
+            let detailsHtml = '';
+            if (currentAlbum.photographer) {
+                detailsHtml += `<p class="detail-photographer">${currentAlbum.photographer}</p>`;
+            }
+
+            // Venue - Date on one line
+            const venueDateParts = [];
+            if (currentAlbum.venue) venueDateParts.push(currentAlbum.venue);
+            if (dateStr) venueDateParts.push(dateStr);
+            if (venueDateParts.length > 0) {
+                detailsHtml += `<p class="detail-venue-date">${venueDateParts.join(' - ')}</p>`;
+            }
+
+            detailsContainer.innerHTML = detailsHtml;
         }
 
         // Populate photo grid
@@ -201,21 +229,25 @@ class PhotoGallery {
         photoGrid.innerHTML = '';
 
         this.photos.forEach(photo => {
+            const a = document.createElement('a');
+            a.href = photo.fullSize;
+            a.className = 'glightbox fade-in';
+            a.dataset.gallery = 'album-gallery';
+
             const img = document.createElement('img');
             img.src = photo.thumbnail;
             img.alt = photo.filename;
             img.loading = 'lazy';
-            img.className = 'fade-in';
 
-            // Set data attribute for boxy.js to use full-size image
-            img.dataset.boxy = photo.fullSize;
-
-            photoGrid.appendChild(img);
+            a.appendChild(img);
+            photoGrid.appendChild(a);
         });
 
-        // Initialize boxy.js lightbox
-        if (typeof Boxy !== 'undefined') {
-            new Boxy();
+        // Initialize GLightbox
+        if (typeof GLightbox !== 'undefined') {
+            GLightbox({
+                selector: '.glightbox'
+            });
         }
 
         // Scroll to top

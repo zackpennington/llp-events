@@ -46,8 +46,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/photos.css">
 
-    <!-- Boxy.js Lightbox -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxy-js@1.0.0/dist/boxy.min.css">
+    <!-- GLightbox Lightbox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
     <!-- Structured Data - BreadcrumbList -->
     <script type="application/ld+json">
@@ -142,7 +142,12 @@
             <button class="back-button">
                 ← Back to All Albums
             </button>
-            <h2>Album Name</h2>
+            <div class="album-header">
+                <h2>Album Name</h2>
+                <div class="album-details">
+                    <!-- Populated dynamically by photos.js -->
+                </div>
+            </div>
             <div class="photo-grid">
                 <!-- Populated dynamically by photos.js -->
             </div>
@@ -175,7 +180,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/boxy-js@1.0.0/dist/boxy.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
     <script src="js/photos.js"></script>
     <script defer src="/_vercel/insights/script.js"></script>
 </body>
