@@ -1,0 +1,47 @@
+content:
+  - name: albums
+    label: Photo Albums
+    type: collection
+    path: data/albums
+    extension: json
+    format: json
+    fields:
+      - name: slug
+        label: Album Slug
+        type: string
+        description: Must match the folder name in Vercel Blob Storage (e.g., llnm1-janelle)
+        required: true
+      - name: name
+        label: Album Name
+        type: string
+        description: Display name for the album (e.g., Louisville Loves Nu-Metal 1)
+        required: true
+      - name: date
+        label: Event Date
+        type: date
+        description: Date of the event
+        required: true
+      - name: photographer
+        label: Photographer
+        type: string
+        description: Name of the photographer
+      - name: description
+        label: Description
+        type: text
+        description: Short description of the event/album
+      - name: featured
+        label: Featured Album
+        type: boolean
+        description: Show this album prominently on the photos page
+        default: true
+    view:
+      fields: [name, date, photographer, featured]
+      primary: name
+      sort: [date, name]
+      default:
+        sort: date
+        order: desc
+
+settings:
+  title: LLP Events
+  description: Manage photo album metadata for LLP Events website

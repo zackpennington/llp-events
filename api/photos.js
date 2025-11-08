@@ -1,13 +1,20 @@
 import { list } from '@vercel/blob';
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
-// Load album metadata from JSON file
+// Load album metadata from JSON files in data/albums/
 function loadAlbumMetadata() {
   try {
-    const filePath = join(process.cwd(), 'data', 'albums.json');
-    const fileContent = readFileSync(filePath, 'utf8');
-    return JSON.parse(fileContent);
+    const albumsDir = join(process.cwd(), 'data', 'albums');
+    const files = readdirSync(albumsDir).filter(f => f.endsWith('.json'));
+
+    const albums = files.map(file => {
+      const filePath = join(albumsDir, file);
+      const fileContent = readFileSync(filePath, 'utf8');
+      return JSON.parse(fileContent);
+    });
+
+    return albums;
   } catch (error) {
     console.error('Error loading album metadata:', error);
     return [];
