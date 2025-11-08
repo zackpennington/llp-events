@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "llnm1-janelle",
+    "name": "Louisville Loves Nu-Metal 1",
+    "date": "2024-12-05",
+    "photographer": "Janelle Choiniere",
+    "description": "First Louisville Loves Nu-Metal show at Headliners Music Hall",
+    "featured": true
+  },
+  {
+    "slug": "llnm1-vic",
+    "name": "Louisville Loves Nu-Metal 1",
+    "date": "2024-12-05",
+    "photographer": "Vic",
+    "description": "First Louisville Loves Nu-Metal show at Headliners Music Hall",
+    "featured": true
+  },
+  {
+    "slug": "llnm2-janelle",
+    "name": "Louisville Loves Nu-Metal 2",
+    "date": "2025-06-07",
+    "photographer": "Janelle Choiniere",
+    "description": "Second Louisville Loves Nu-Metal show",
+    "featured": true
+  },
+  {
+    "slug": "lle1-brandon",
+    "name": "Louisville Loves Emo 1",
+    "date": "2024-12-06",
+    "photographer": "Brandon",
+    "description": "First Louisville Loves Emo show at Headliners Music Hall",
+    "featured": true
+  },
+  {
+    "slug": "lle2-brandon",
+    "name": "Louisville Loves Emo 2",
+    "date": "2025-06-08",
+    "photographer": "Brandon",
+    "description": "Second Louisville Loves Emo show",
+    "featured": true
+  },
+  {
+    "slug": "3cfar-janelle",
+    "name": "3cfar",
+    "date": "2024-11-15",
+    "photographer": "Janelle Choiniere",
+    "description": "3 Cheers for All Risks performance",
+    "featured": false
+  }
+]

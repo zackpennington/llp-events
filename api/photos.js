@@ -1,4 +1,18 @@
 import { list } from '@vercel/blob';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+// Load album metadata from JSON file
+function loadAlbumMetadata() {
+  try {
+    const filePath = join(process.cwd(), 'data', 'albums.json');
+    const fileContent = readFileSync(filePath, 'utf8');
+    return JSON.parse(fileContent);
+  } catch (error) {
+    console.error('Error loading album metadata:', error);
+    return [];
+  }
+}
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -18,6 +32,13 @@ export default async function handler(req, res) {
   try {
     // If no show specified, list all show folders at root level
     if (!show) {
+      // Load album metadata
+      const albumMetadata = loadAlbumMetadata();
+      const metadataBySlug = {};
+      albumMetadata.forEach(album => {
+        metadataBySlug[album.slug] = album;
+      });
+
       const result = await list({
         mode: 'folded',
         limit: 100
@@ -46,16 +67,40 @@ export default async function handler(req, res) {
               ? imageBlobs[Math.floor(Math.random() * imageBlobs.length)]
               : null;
 
+            // Get metadata for this album or use defaults
+            const metadata = metadataBySlug[showSlug] || {
+              name: formatShowName(showSlug),
+              date: null,
+              photographer: null,
+              description: null,
+              featured: true
+            };
+
             return {
               slug: showSlug,
-              name: formatShowName(showSlug),
+              name: metadata.name,
+              date: metadata.date,
+              photographer: metadata.photographer,
+              description: metadata.description,
+              featured: metadata.featured,
               path: folder,
               coverImage: randomImage
                 ? `/_vercel/image?url=${encodeURIComponent(randomImage.url)}&w=400&q=80`
-                : null
+                : null,
+              photoCount: imageBlobs.length
             };
           })
       );
+
+      // Sort albums by date (most recent first), then by name
+      albumsWithCovers.sort((a, b) => {
+        if (a.date && b.date) {
+          return new Date(b.date) - new Date(a.date);
+        }
+        if (a.date) return -1;
+        if (b.date) return 1;
+        return a.name.localeCompare(b.name);
+      });
 
       return res.status(200).json({ albums: albumsWithCovers });
     }
