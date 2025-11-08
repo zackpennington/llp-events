@@ -23,33 +23,22 @@
 /* Hero Section */
 .photos-hero {
     text-align: center;
-    padding: var(--spacing-xl) var(--spacing-md);
-    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
 }
 
 .photos-hero h1 {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 900;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    background: linear-gradient(
-        135deg,
-        var(--color-primary-red),
-        var(--color-bright-red),
-        var(--color-orange)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: var(--spacing-md);
+    color: var(--color-primary-red);
+    margin-bottom: 0;
 }
 
 .photos-hero p {
-    font-size: 1.2rem;
-    color: var(--color-light-gray);
-    max-width: 600px;
-    margin: 0 auto;
+    display: none;
 }
 
 /* Albums Section */

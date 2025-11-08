@@ -46,12 +46,14 @@ export default async function handler(req, res) {
     });
 
     // Transform blobs to optimized photo objects
+    // Always use Vercel Image API for optimization
     const photos = result.blobs
       .filter(blob => isImageFile(blob.pathname))
       .map(blob => ({
         id: blob.pathname,
         url: blob.url,
-        // Generate optimized URLs using Vercel Image API
+        // Vercel Image API will optimize images on-the-fly
+        // 640px thumbnails for grid, 1920px for lightbox
         thumbnail: `/_vercel/image?url=${encodeURIComponent(blob.url)}&w=640&q=75`,
         fullSize: `/_vercel/image?url=${encodeURIComponent(blob.url)}&w=1920&q=85`,
         filename: blob.pathname.split('/').pop()

@@ -134,7 +134,7 @@ class PhotoGallery {
     /**
      * Display photo grid
      */
-    showPhotos() {
+    async showPhotos() {
         const albumsSection = document.querySelector('.albums-section');
         const photosSection = document.querySelector('.photos-section');
 
@@ -143,6 +143,20 @@ class PhotoGallery {
 
         // Update heading with show name
         const heading = photosSection.querySelector('h2');
+
+        // If albums aren't loaded yet, fetch them to get the album name
+        if (this.albums.length === 0) {
+            try {
+                const response = await fetch('/api/photos');
+                if (response.ok) {
+                    const data = await response.json();
+                    this.albums = data.albums || [];
+                }
+            } catch (error) {
+                console.error('Error loading albums for heading:', error);
+            }
+        }
+
         const currentAlbum = this.albums.find(a => a.slug === this.currentShow);
         if (currentAlbum) {
             heading.textContent = currentAlbum.name;
