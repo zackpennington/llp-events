@@ -25,6 +25,11 @@ content:
         label: Photographer
         type: string
         description: Name of the photographer
+      - name: venue
+        label: Venue
+        type: string
+        description: Venue where the event took place
+        default: Headliners Music Hall
       - name: description
         label: Description
         type: text

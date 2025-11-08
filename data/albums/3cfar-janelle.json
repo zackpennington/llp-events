@@ -3,6 +3,7 @@
   "name": "3 Cheers For A Riot!",
   "date": "2024-11-15",
   "photographer": "Janelle Choiniere",
-  "description": "3 Cheers For A Riot!",
-  "featured": true
+  "description": "3 Cheers for All Risks performance",
+  "featured": false,
+  "venue": "Headliners Music Hall"
 }

@@ -244,9 +244,6 @@ async function loadHomePageAlbums() {
         // Start autoscroll
         startAutoScroll(albumsContainer);
 
-        // Start image rotation for all cards
-        startImageRotation();
-
     } catch (error) {
         console.error('Error loading albums:', error);
         albumsContainer.innerHTML = '<p style="color: var(--color-error); text-align: center; padding: var(--spacing-xl);">Failed to load albums. Please try again later.</p>';
@@ -261,10 +258,10 @@ async function fetchAlbumImages(album) {
         const data = await response.json();
         const photos = data.photos || [];
 
-        // Store up to 10 random images for this album
+        // Pick one random image for this album
         if (photos.length > 0) {
-            const shuffled = [...photos].sort(() => Math.random() - 0.5);
-            albumImagesCache[album.slug] = shuffled.slice(0, 10).map(p => p.url);
+            const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
+            albumImagesCache[album.slug] = [randomPhoto.url];
         } else {
             albumImagesCache[album.slug] = album.coverImage ? [album.coverImage] : [];
         }
@@ -319,9 +316,8 @@ function createHomeAlbumCard(album) {
 }
 
 function startAutoScroll(container) {
-    let scrollPosition = 0;
-    const scrollSpeed = 0.5; // pixels per frame
     let isPaused = false;
+    let animationId;
 
     // Pause on hover
     container.addEventListener('mouseenter', () => {
@@ -332,45 +328,18 @@ function startAutoScroll(container) {
         isPaused = false;
     });
 
-    function scroll() {
+    // Use smooth scrolling with setInterval instead of requestAnimationFrame
+    const scrollInterval = setInterval(() => {
         if (!isPaused) {
-            scrollPosition += scrollSpeed;
+            // Increment scroll by 1 pixel
+            container.scrollLeft += 1;
 
-            // Reset when reaching the end
-            if (scrollPosition >= container.scrollWidth - container.clientWidth) {
-                scrollPosition = 0;
+            // Reset to beginning when reaching the end
+            if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+                container.scrollLeft = 0;
             }
-
-            container.scrollLeft = scrollPosition;
         }
-
-        requestAnimationFrame(scroll);
-    }
-
-    scroll();
-}
-
-function startImageRotation() {
-    // Rotate images every 3 seconds
-    setInterval(() => {
-        const cards = document.querySelectorAll('.home-album-card');
-
-        cards.forEach(card => {
-            const albumSlug = card.dataset.albumSlug;
-            const images = albumImagesCache[albumSlug] || [];
-
-            if (images.length > 1) {
-                const currentIndex = parseInt(card.dataset.imageIndex);
-                const nextIndex = (currentIndex + 1) % images.length;
-
-                const coverDiv = card.querySelector('.home-album-cover');
-                if (coverDiv) {
-                    coverDiv.style.backgroundImage = `url('${images[nextIndex]}')`;
-                    card.dataset.imageIndex = nextIndex.toString();
-                }
-            }
-        });
-    }, 3000);
+    }, 30); // ~33fps for smoother appearance
 }
 
 // Load albums on page load
