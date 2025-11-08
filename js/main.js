@@ -199,3 +199,86 @@ document.addEventListener('DOMContentLoaded', () => {
         [activeLayer, inactiveLayer] = [inactiveLayer, activeLayer];
     }, 5000);
 });
+
+// ================================
+// HOME PAGE PHOTO ALBUMS PREVIEW
+// ================================
+
+async function loadHomePageAlbums() {
+    const albumsContainer = document.getElementById('home-albums-scroll');
+    if (!albumsContainer) return; // Only run on home page
+
+    try {
+        const response = await fetch('/api/photos');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const albums = data.albums || [];
+
+        if (albums.length === 0) {
+            albumsContainer.innerHTML = '<p style="color: var(--color-light-gray); text-align: center; padding: var(--spacing-xl);">No photo albums yet. Check back soon!</p>';
+            return;
+        }
+
+        // Limit to first 8 albums for preview
+        const previewAlbums = albums.slice(0, 8);
+
+        // Clear loading state
+        albumsContainer.innerHTML = '';
+
+        // Create album cards
+        previewAlbums.forEach(album => {
+            const card = createHomeAlbumCard(album);
+            albumsContainer.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error('Error loading albums:', error);
+        albumsContainer.innerHTML = '<p style="color: var(--color-error); text-align: center; padding: var(--spacing-xl);">Failed to load albums. Please try again later.</p>';
+    }
+}
+
+function createHomeAlbumCard(album) {
+    const card = document.createElement('a');
+    card.className = 'home-album-card';
+    card.href = `/photos#${album.slug}`;
+
+    const coverImageHtml = album.coverImage
+        ? `<div class="home-album-cover" style="background-image: url('${album.coverImage}');"></div>`
+        : '<div class="home-album-cover" style="background: var(--color-slate);"></div>';
+
+    // Format date if available
+    let dateStr = '';
+    if (album.date) {
+        const date = new Date(album.date);
+        dateStr = date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    }
+
+    // Build metadata line
+    const metadata = [];
+    if (dateStr) metadata.push(dateStr);
+    if (album.photographer) metadata.push(album.photographer);
+    const metadataHtml = metadata.length > 0
+        ? `<p class="album-metadata">${metadata.join(' • ')}</p>`
+        : '';
+
+    card.innerHTML = `
+        ${coverImageHtml}
+        <div class="home-album-info">
+            <h3>${album.name}</h3>
+            ${metadataHtml}
+        </div>
+    `;
+
+    return card;
+}
+
+// Load albums on page load
+document.addEventListener('DOMContentLoaded', loadHomePageAlbums);
