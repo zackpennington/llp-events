@@ -83,6 +83,14 @@ export default async function handler(req, res) {
               featured: true
             };
 
+            // Use direct blob URLs in development, Vercel Image API in production
+            const isProduction = process.env.VERCEL_ENV === 'production';
+            const coverImageUrl = randomImage
+              ? (isProduction
+                  ? `/_vercel/image?url=${encodeURIComponent(randomImage.url)}&w=400&q=80`
+                  : randomImage.url)
+              : null;
+
             return {
               slug: showSlug,
               name: metadata.name,
@@ -91,9 +99,7 @@ export default async function handler(req, res) {
               description: metadata.description,
               featured: metadata.featured,
               path: folder,
-              coverImage: randomImage
-                ? `/_vercel/image?url=${encodeURIComponent(randomImage.url)}&w=400&q=80`
-                : null,
+              coverImage: coverImageUrl,
               photoCount: imageBlobs.length
             };
           })
@@ -120,16 +126,20 @@ export default async function handler(req, res) {
     });
 
     // Transform blobs to optimized photo objects
-    // Always use Vercel Image API for optimization
+    // Use direct blob URLs in development, Vercel Image API in production
+    const isProduction = process.env.VERCEL_ENV === 'production';
     const photos = result.blobs
       .filter(blob => isImageFile(blob.pathname))
       .map(blob => ({
         id: blob.pathname,
         url: blob.url,
-        // Vercel Image API will optimize images on-the-fly
-        // 640px thumbnails for grid, 1920px for lightbox
-        thumbnail: `/_vercel/image?url=${encodeURIComponent(blob.url)}&w=640&q=75`,
-        fullSize: `/_vercel/image?url=${encodeURIComponent(blob.url)}&w=1920&q=85`,
+        // Use Vercel Image API in production, direct URLs in development
+        thumbnail: isProduction
+          ? `/_vercel/image?url=${encodeURIComponent(blob.url)}&w=640&q=75`
+          : blob.url,
+        fullSize: isProduction
+          ? `/_vercel/image?url=${encodeURIComponent(blob.url)}&w=1920&q=85`
+          : blob.url,
         filename: blob.pathname.split('/').pop()
       }));
 
