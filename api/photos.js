@@ -30,24 +30,28 @@ export default async function handler(req, res) {
           .map(async (folder) => {
             const showSlug = folder.replace('/', '');
 
-            // Fetch first image from this folder as cover
+            // Fetch images from this folder for random cover selection
             const folderContents = await list({
               prefix: folder,
-              limit: 10
+              limit: 100 // Get more images to have better random selection
             });
 
             // Filter to get only image files (not folders)
             const imageBlobs = folderContents.blobs.filter(blob =>
               isImageFile(blob.pathname) && !blob.pathname.endsWith('/')
             );
-            const firstImage = imageBlobs[0];
+
+            // Select random image for cover
+            const randomImage = imageBlobs.length > 0
+              ? imageBlobs[Math.floor(Math.random() * imageBlobs.length)]
+              : null;
 
             return {
               slug: showSlug,
               name: formatShowName(showSlug),
               path: folder,
-              coverImage: firstImage
-                ? `/_vercel/image?url=${encodeURIComponent(firstImage.url)}&w=400&q=80`
+              coverImage: randomImage
+                ? `/_vercel/image?url=${encodeURIComponent(randomImage.url)}&w=400&q=80`
                 : null
             };
           })
