@@ -24,18 +24,36 @@ export default async function handler(req, res) {
       });
 
       // Extract show names from folder paths (folders at root level)
-      const albums = result.folders
-        .filter(folder => folder !== 'shows/') // Exclude any legacy "shows/" folder
-        .map(folder => {
-          const showSlug = folder.replace('/', '');
-          return {
-            slug: showSlug,
-            name: formatShowName(showSlug),
-            path: folder
-          };
-        });
+      const albumsWithCovers = await Promise.all(
+        result.folders
+          .filter(folder => folder !== 'shows/') // Exclude any legacy "shows/" folder
+          .map(async (folder) => {
+            const showSlug = folder.replace('/', '');
 
-      return res.status(200).json({ albums });
+            // Fetch first image from this folder as cover
+            const folderContents = await list({
+              prefix: folder,
+              limit: 10
+            });
+
+            // Filter to get only image files (not folders)
+            const imageBlobs = folderContents.blobs.filter(blob =>
+              isImageFile(blob.pathname) && !blob.pathname.endsWith('/')
+            );
+            const firstImage = imageBlobs[0];
+
+            return {
+              slug: showSlug,
+              name: formatShowName(showSlug),
+              path: folder,
+              coverImage: firstImage
+                ? `/_vercel/image?url=${encodeURIComponent(firstImage.url)}&w=400&q=80`
+                : null
+            };
+          })
+      );
+
+      return res.status(200).json({ albums: albumsWithCovers });
     }
 
     // List photos for specific show
@@ -135,7 +153,7 @@ function formatShowName(slug) {
 
       // Add edition number if present
       if (edition) {
-        formattedName += ` #${edition}`;
+        formattedName += ` ${edition}`;
       }
 
       // Add photographer/descriptor if present (capitalize first letter)

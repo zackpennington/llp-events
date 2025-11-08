@@ -119,9 +119,16 @@ class PhotoGallery {
         card.className = 'album-card fade-in';
         card.dataset.show = album.slug;
 
+        const coverImageHtml = album.coverImage
+            ? `<div class="album-cover" style="background-image: url('${album.coverImage}');"></div>`
+            : '';
+
         card.innerHTML = `
-            <h3>${album.name}</h3>
-            <p class="photo-count">View photos →</p>
+            ${coverImageHtml}
+            <div class="album-info">
+                <h3>${album.name}</h3>
+                <p class="photo-count">View photos →</p>
+            </div>
         `;
 
         card.addEventListener('click', () => {
