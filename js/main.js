@@ -297,23 +297,25 @@ function createHomeAlbumCard(album) {
     }
 
     // Build metadata lines
-    const metadata = [];
-    if (dateStr) metadata.push(dateStr);
-    if (album.photographer) metadata.push(album.photographer);
-    const metadataHtml = metadata.length > 0
-        ? `<p class="album-metadata">${metadata.join(' • ')}</p>`
+    // Line 1: Photographer
+    const photographerHtml = album.photographer
+        ? `<p class="album-metadata">${album.photographer}</p>`
         : '';
 
-    const venueHtml = album.venue
-        ? `<p class="album-metadata">${album.venue}</p>`
+    // Line 2: Venue - Date
+    const venueDateParts = [];
+    if (album.venue) venueDateParts.push(album.venue);
+    if (dateStr) venueDateParts.push(dateStr);
+    const venueDateHtml = venueDateParts.length > 0
+        ? `<p class="album-metadata">${venueDateParts.join(' - ')}</p>`
         : '';
 
     card.innerHTML = `
         ${coverImageHtml}
         <div class="home-album-info">
             <h3>${album.name}</h3>
-            ${metadataHtml}
-            ${venueHtml}
+            ${photographerHtml}
+            ${venueDateHtml}
         </div>
     `;
 
