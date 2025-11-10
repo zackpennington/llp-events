@@ -234,6 +234,61 @@
     font-size: 1.1rem;
 }
 
+/* Skeleton Loading States */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--color-charcoal) 0%,
+        var(--color-slate) 50%,
+        var(--color-charcoal) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: var(--radius-md);
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.album-card-skeleton {
+    background: var(--color-charcoal);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-slate);
+    overflow: hidden;
+    min-height: 400px;
+}
+
+.album-card-skeleton .skeleton-cover {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    margin-bottom: var(--spacing-md);
+}
+
+.album-card-skeleton .skeleton-text {
+    height: 20px;
+    margin: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-sm);
+}
+
+.album-card-skeleton .skeleton-text:first-child {
+    width: 60%;
+    height: 24px;
+}
+
+.album-card-skeleton .skeleton-text:nth-child(2) {
+    width: 80%;
+}
+
+.album-card-skeleton .skeleton-text:nth-child(3) {
+    width: 70%;
+}
+
 /* Empty State */
 .empty-state {
     text-align: center;

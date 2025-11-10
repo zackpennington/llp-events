@@ -185,19 +185,47 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeLayer = bgLayer1;
     let inactiveLayer = bgLayer2;
 
+    // Preload images for better performance
+    const imagePreloads = images.slice(1).map(src => {
+        const img = new Image();
+        img.src = src;
+        return img;
+    });
+
     // Rotate images every 5 seconds with fade effect
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        // Set the next image on the inactive layer
-        inactiveLayer.style.backgroundImage = `url('${images[currentIndex]}')`;
+    // Use requestAnimationFrame for smoother transitions
+    let lastRotation = Date.now();
+    const rotationInterval = 5000; // 5 seconds
 
-        // Fade in the inactive layer
-        inactiveLayer.style.opacity = '1';
-        activeLayer.style.opacity = '0';
+    function rotateImages() {
+        const now = Date.now();
+        if (now - lastRotation >= rotationInterval) {
+            currentIndex = (currentIndex + 1) % images.length;
+            // Set the next image on the inactive layer
+            inactiveLayer.style.backgroundImage = `url('${images[currentIndex]}')`;
 
-        // Swap layers
-        [activeLayer, inactiveLayer] = [inactiveLayer, activeLayer];
-    }, 5000);
+            // Fade in the inactive layer
+            inactiveLayer.style.opacity = '1';
+            activeLayer.style.opacity = '0';
+
+            // Swap layers
+            [activeLayer, inactiveLayer] = [inactiveLayer, activeLayer];
+            lastRotation = now;
+        }
+        requestAnimationFrame(rotateImages);
+    }
+
+    // Only start rotation if page is visible (save resources when tab is hidden)
+    if (document.visibilityState === 'visible') {
+        requestAnimationFrame(rotateImages);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            lastRotation = Date.now();
+            requestAnimationFrame(rotateImages);
+        }
+    });
 });
 
 // ================================
@@ -210,6 +238,25 @@ let albumImagesCache = {}; // Cache of album images for rotation
 async function loadHomePageAlbums() {
     const albumsContainer = document.getElementById('home-albums-scroll');
     if (!albumsContainer) return; // Only run on home page
+
+    // Show skeleton loaders immediately
+    albumsContainer.innerHTML = `
+        <div class="album-card-skeleton">
+            <div class="skeleton skeleton-cover"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
+        </div>
+        <div class="album-card-skeleton">
+            <div class="skeleton skeleton-cover"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
+        </div>
+        <div class="album-card-skeleton">
+            <div class="skeleton skeleton-cover"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
+        </div>
+    `;
 
     try {
         const response = await fetch('/api/photos');
@@ -226,14 +273,34 @@ async function loadHomePageAlbums() {
             return;
         }
 
-        // Fetch images for all albums (in parallel for speed)
-        await Promise.all(albums.map(album => fetchAlbumImages(album)));
+        // Use cover images from API response (already available, no need to fetch)
+        // This significantly reduces API calls and improves performance
+        albums.forEach(album => {
+            if (album.coverImage) {
+                albumImagesCache[album.slug] = [album.coverImage];
+            }
+        });
 
-        // Clear loading state
+        // Clear loading state (remove spinner if present)
         albumsContainer.innerHTML = '';
 
         // Create album cards for all albums
+        // Cards will use cached images or fallback to fetching if needed
         albums.forEach(album => {
+            // Ensure we have an image (use coverImage from API or fetch if missing)
+            if (!albumImagesCache[album.slug] || albumImagesCache[album.slug].length === 0) {
+                // Fallback fetch for albums without cover images
+                fetchAlbumImages(album).then(() => {
+                    // Re-render this card after image loads
+                    const existingCard = albumsContainer.querySelector(`[data-album-slug="${album.slug}"]`);
+                    if (existingCard && albumImagesCache[album.slug] && albumImagesCache[album.slug].length > 0) {
+                        const coverDiv = existingCard.querySelector('.home-album-cover');
+                        if (coverDiv) {
+                            coverDiv.style.backgroundImage = `url('${albumImagesCache[album.slug][0]}')`;
+                        }
+                    }
+                });
+            }
             const card = createHomeAlbumCard(album);
             albumsContainer.appendChild(card);
         });
@@ -248,11 +315,20 @@ async function loadHomePageAlbums() {
 }
 
 async function fetchAlbumImages(album) {
+    // Use cover image from API response if available (already optimized)
+    // This avoids unnecessary API calls since the albums endpoint already provides coverImage
+    if (album.coverImage) {
+        albumImagesCache[album.slug] = [album.coverImage];
+        return;
+    }
+    
+    // Fallback: fetch if no cover image provided
     try {
-        // Add cache-busting parameter to ensure fresh random selection
-        const cacheBuster = Date.now();
-        const response = await fetch(`/api/photos?show=${encodeURIComponent(album.slug)}&t=${cacheBuster}`);
-        if (!response.ok) return;
+        const response = await fetch(`/api/photos?show=${encodeURIComponent(album.slug)}`);
+        if (!response.ok) {
+            albumImagesCache[album.slug] = [];
+            return;
+        }
 
         const data = await response.json();
         const photos = data.photos || [];
@@ -260,13 +336,13 @@ async function fetchAlbumImages(album) {
         // Pick one random image for this album
         if (photos.length > 0) {
             const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
-            albumImagesCache[album.slug] = [randomPhoto.url];
+            albumImagesCache[album.slug] = [randomPhoto.thumbnail || randomPhoto.url];
         } else {
-            albumImagesCache[album.slug] = album.coverImage ? [album.coverImage] : [];
+            albumImagesCache[album.slug] = [];
         }
     } catch (error) {
         console.error(`Error fetching images for ${album.slug}:`, error);
-        albumImagesCache[album.slug] = album.coverImage ? [album.coverImage] : [];
+        albumImagesCache[album.slug] = [];
     }
 }
 
@@ -519,20 +595,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentIndex = 0;
 
+    // Preload second image
+    const aboutImgPreload = new Image();
+    aboutImgPreload.src = images[1];
+
     // Rotate images every 4 seconds with faster fade effect
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
+    // Only rotate when page is visible
+    let lastAboutRotation = Date.now();
+    const aboutRotationInterval = 4000;
 
-        // Fade out
-        aboutImage.style.opacity = '0';
+    function rotateAboutImage() {
+        const now = Date.now();
+        if (now - lastAboutRotation >= aboutRotationInterval && document.visibilityState === 'visible') {
+            currentIndex = (currentIndex + 1) % images.length;
 
-        // Change image after fade
-        setTimeout(() => {
-            aboutImage.src = images[currentIndex];
-            // Fade in
-            aboutImage.style.opacity = '1';
-        }, 200); // Faster fade transition
-    }, 4000);
+            // Fade out
+            aboutImage.style.opacity = '0';
+
+            // Change image after fade
+            setTimeout(() => {
+                aboutImage.src = images[currentIndex];
+                // Fade in
+                aboutImage.style.opacity = '1';
+            }, 200); // Faster fade transition
+            
+            lastAboutRotation = now;
+        }
+        requestAnimationFrame(rotateAboutImage);
+    }
+
+    requestAnimationFrame(rotateAboutImage);
 });
 
 // Load albums on page load

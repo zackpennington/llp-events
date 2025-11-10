@@ -23,9 +23,13 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <!-- Resource Hints -->
-    <link rel="preload" href="images/100-pure-energy.jpg" as="image">
+    <link rel="preload" href="images/100-pure-energy.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="css/style.css" as="style">
     <link rel="dns-prefetch" href="https://www.tixr.com">
     <link rel="dns-prefetch" href="https://docs.google.com">
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
+    <link rel="dns-prefetch" href="https://challenges.cloudflare.com">
+    <link rel="preconnect" href="https://www.tixr.com" crossorigin>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -246,8 +250,8 @@
     }
     </script>
 
-    <!-- Meta Pixel Code -->
-    <script>
+    <!-- Meta Pixel Code - Deferred for better performance -->
+    <script defer>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -309,13 +313,14 @@
             <!-- Louisville Loves Nu-Metal -->
             <div class="show-card numetal-card" data-scroll>
                 <div class="show-poster">
-                    <img src="images/llnm3-poster.jpg" alt="Louisville Loves Nu-Metal Show Poster" class="poster-image" width="300" height="400" loading="lazy">
+                    <img src="images/llnm3-poster.jpg" alt="Louisville Loves Nu-Metal Show Poster" class="poster-image" width="300" height="400" loading="lazy" decoding="async">
                 </div>
                 <div class="show-info-panel">
                     <div class="show-date-badge">DEC 5, 2025</div>
                     <div class="show-details">
                         <div class="show-venue">Headliners Music Hall • Louisville, KY</div>
                         <div class="show-info">Doors at 7pm • All Ages</div>
+                        <div id="countdown-numetal" class="countdown-timer"></div>
                         <div class="show-genre-tags">
                             <span class="genre-tag">Nu-Metal</span>
                             <span class="genre-tag">Rock</span>
@@ -339,13 +344,14 @@
             <!-- Louisville Loves Emo -->
             <div class="show-card emo-card" data-scroll>
                 <div class="show-poster">
-                    <img src="images/lle8-poster.jpg" alt="Louisville Loves Emo Show Poster" class="poster-image" width="300" height="400" loading="lazy">
+                    <img src="images/lle8-poster.jpg" alt="Louisville Loves Emo Show Poster" class="poster-image" width="300" height="400" loading="lazy" decoding="async">
                 </div>
                 <div class="show-info-panel">
                     <div class="show-date-badge">DEC 6, 2025</div>
                     <div class="show-details">
                         <div class="show-venue">Headliners Music Hall • Louisville, KY</div>
                         <div class="show-info">Doors at 7pm • All Ages</div>
+                        <div id="countdown-emo" class="countdown-timer"></div>
                         <div class="show-genre-tags">
                             <span class="genre-tag">Emo</span>
                             <span class="genre-tag">Pop Punk</span>
@@ -369,7 +375,7 @@
             <!-- Weekend Pass Card -->
             <div class="show-card weekend-pass-card" data-scroll>
                 <div class="show-poster">
-                    <img src="images/combo-flyer-small.png" alt="LLP Weekend Pass" class="poster-image" width="300" height="400" loading="lazy">
+                    <img src="images/combo-flyer-small.png" alt="LLP Weekend Pass" class="poster-image" width="300" height="400" loading="lazy" decoding="async">
                 </div>
                 <div class="show-info-panel">
                     <div class="show-date-badge">DEC 5-6, 2025</div>
@@ -440,10 +446,7 @@
             <div class="albums-scroll-container">
                 <div class="albums-scroll" id="home-albums-scroll">
                     <!-- Albums will be loaded dynamically -->
-                    <div class="loading-albums">
-                        <div class="loading-spinner"></div>
-                        <p>Loading albums...</p>
-                    </div>
+                    <!-- Skeleton loaders shown initially, replaced by album cards when loaded -->
                 </div>
             </div>
 
@@ -457,7 +460,7 @@
     <section id="about" class="about-section" data-scroll aria-label="About section with concert crowd image">
         <div class="about-container">
             <div class="about-image-column">
-                <img src="images/whowearelarge.jpg" alt="Concert crowd at LLP Events show" class="about-image" width="800" height="600" loading="lazy">
+                <img src="images/whowearelarge.jpg" alt="Concert crowd at LLP Events show" class="about-image" width="800" height="600" loading="lazy" decoding="async">
             </div>
             <div class="about-content">
                 <h2 class="section-title">WHO IS LLP?</h2>
@@ -730,16 +733,27 @@
     </footer>
 
     <script>
-        // Only load Turnstile in production (not on localhost)
+        // Only load Turnstile in production (not on localhost) - deferred for performance
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            const script = document.createElement('script');
-            script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-            script.async = true;
-            script.defer = true;
-            document.body.appendChild(script);
+            // Use requestIdleCallback if available, otherwise setTimeout
+            const loadTurnstile = () => {
+                const script = document.createElement('script');
+                script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+                script.async = true;
+                script.defer = true;
+                document.body.appendChild(script);
+            };
+            
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadTurnstile, { timeout: 2000 });
+            } else {
+                setTimeout(loadTurnstile, 1000);
+            }
         }
     </script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/countdown.js" defer></script>
+    <script src="js/scroll-progress.js" defer></script>
     <script type="module" src="js/newsletter.js"></script>
     <script type="module" src="js/contact.js"></script>
     <script type="module" src="js/analytics-tracking.js"></script>

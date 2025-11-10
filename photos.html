@@ -25,8 +25,10 @@
     <!-- Resource Hints -->
     <link rel="dns-prefetch" href="https://public.blob.vercel-storage.com">
     <link rel="preconnect" href="https://public.blob.vercel-storage.com" crossorigin>
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" as="style">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="css/photos.css" as="style">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -48,8 +50,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/photos.css">
 
-    <!-- GLightbox Lightbox -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+    <!-- GLightbox Lightbox - Loaded asynchronously -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"></noscript>
 
     <!-- Structured Data - BreadcrumbList -->
     <script type="application/ld+json">
@@ -159,7 +162,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <img src="images/LLP_Logo_Stacked.svg" alt="LLP Events Logo" class="footer-logo-image" width="200" height="120" loading="lazy">
+            <img src="images/LLP_Logo_Stacked.svg" alt="LLP Events Logo" class="footer-logo-image" width="200" height="120" loading="lazy" decoding="async">
             <div class="footer-social">
                 <a href="https://instagram.com/llp_eve" class="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
@@ -182,8 +185,8 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-    <script src="js/photos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+    <script src="js/photos.js" defer></script>
     <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

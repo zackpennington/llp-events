@@ -536,6 +536,9 @@ body {
 
 .show-details {
     margin-bottom: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
 }
 
 .show-venue {
@@ -1484,6 +1487,40 @@ body {
     min-height: 400px;
 }
 
+/* Skeleton loader styles for home page albums */
+.albums-scroll .album-card-skeleton {
+    flex: 0 0 300px;
+    background: var(--color-charcoal);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-slate);
+    overflow: hidden;
+    min-height: 350px;
+}
+
+.albums-scroll .album-card-skeleton .skeleton-cover {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.albums-scroll .album-card-skeleton .skeleton-text {
+    height: 16px;
+    margin: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-sm);
+}
+
+.albums-scroll .album-card-skeleton .skeleton-text:first-child {
+    width: 70%;
+    height: 20px;
+    margin-top: var(--spacing-md);
+}
+
+@media (max-width: 640px) {
+    .albums-scroll .album-card-skeleton {
+        flex: 0 0 280px;
+        min-height: 320px;
+    }
+}
+
 .view-all-photos {
     text-align: center;
     margin-top: var(--spacing-lg);
@@ -1805,6 +1842,58 @@ body {
 }
 
 /* ================================
+   SCROLL PROGRESS BAR
+   ================================ */
+
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary-red), var(--color-bright-red));
+    z-index: 10000;
+    width: 0%;
+    transition: width 0.1s ease-out;
+    box-shadow: 0 2px 8px rgba(176, 33, 42, 0.5);
+}
+
+/* ================================
+   COUNTDOWN TIMER
+   ================================ */
+
+.countdown-timer {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: rgba(176, 33, 42, 0.15);
+    border: 1px solid rgba(176, 33, 42, 0.4);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--color-primary-red);
+    letter-spacing: 0.5px;
+    margin-top: var(--spacing-sm);
+    text-align: center;
+    min-width: 120px;
+}
+
+.countdown-timer.countdown-expired {
+    background: var(--color-primary-red);
+    color: var(--color-white);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.02);
+    }
+}
+
+/* ================================
    RESPONSIVE DESIGN
    ================================ */
 
@@ -1918,6 +2007,12 @@ body {
         padding: 0.75rem;
     }
 
+    .countdown-timer {
+        font-size: 0.8rem;
+        padding: var(--spacing-xs);
+        min-width: 100px;
+    }
+
     .weekend-pass-cta {
         padding: var(--spacing-sm);
         margin-top: var(--spacing-md);
@@ -1982,5 +2077,13 @@ body {
 
     .newsletter-contact-container {
         grid-template-columns: 1fr;
+    }
+
+    /* Improved touch targets for mobile */
+    .show-cta-button,
+    .cta-button,
+    .carousel-button {
+        min-height: 44px;
+        min-width: 44px;
     }
 }

@@ -52,8 +52,13 @@ class PhotoGallery {
             if (this.albums.length === 0) {
                 this.showEmptyState('No photo albums yet', 'Check back soon for photos from our shows!');
             } else {
-                // Fetch random cover photos for each album
-                await this.fetchAlbumCovers();
+                // Use cover images from API response (already optimized)
+                // No need to fetch separately - API already provides coverImage
+                this.albums.forEach(album => {
+                    if (album.coverImage) {
+                        this.albumCoversCache[album.slug] = album.coverImage;
+                    }
+                });
                 this.showAlbums();
             }
 
@@ -61,36 +66,6 @@ class PhotoGallery {
             console.error('Error loading albums:', error);
             this.showError('Failed to load albums', 'Please try again later.');
         }
-    }
-
-    /**
-     * Fetch random cover photos for all albums
-     */
-    async fetchAlbumCovers() {
-        const coverPromises = this.albums.map(async (album) => {
-            try {
-                // Add cache-busting parameter to ensure fresh random selection
-                const cacheBuster = Date.now();
-                const response = await fetch(`/api/photos?show=${encodeURIComponent(album.slug)}&t=${cacheBuster}`);
-                if (!response.ok) return;
-
-                const data = await response.json();
-                const photos = data.photos || [];
-
-                // Pick one random photo for this album
-                if (photos.length > 0) {
-                    const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
-                    this.albumCoversCache[album.slug] = randomPhoto.thumbnail;
-                } else {
-                    this.albumCoversCache[album.slug] = album.coverImage;
-                }
-            } catch (error) {
-                console.error(`Error fetching cover for ${album.slug}:`, error);
-                this.albumCoversCache[album.slug] = album.coverImage;
-            }
-        });
-
-        await Promise.all(coverPromises);
     }
 
     /**
@@ -131,6 +106,9 @@ class PhotoGallery {
 
         albumsSection.classList.remove('hidden');
         photosSection.classList.add('hidden');
+
+        // Reset meta tags to default
+        this.resetMetaTags();
 
         const albumsGrid = document.querySelector('.albums-grid');
         albumsGrid.innerHTML = '';
@@ -229,6 +207,9 @@ class PhotoGallery {
 
         const currentAlbum = this.albums.find(a => a.slug === this.currentShow);
         if (currentAlbum) {
+            // Update dynamic meta tags for this album
+            this.updateMetaTags(currentAlbum);
+
             heading.textContent = currentAlbum.name;
 
             // Format date if available
@@ -263,7 +244,11 @@ class PhotoGallery {
         const photoGrid = document.querySelector('.photo-grid');
         photoGrid.innerHTML = '';
 
-        this.photos.forEach(photo => {
+        // Generate descriptive alt text from album info
+        const albumName = currentAlbum ? currentAlbum.name : 'Concert';
+        const photographer = currentAlbum && currentAlbum.photographer ? currentAlbum.photographer : 'LLP Events';
+
+        this.photos.forEach((photo, index) => {
             const a = document.createElement('a');
             a.href = photo.fullSize;
             a.className = 'glightbox fade-in';
@@ -271,7 +256,8 @@ class PhotoGallery {
 
             const img = document.createElement('img');
             img.src = photo.thumbnail;
-            img.alt = photo.filename;
+            // Descriptive alt text: "Show Name photo 1 by Photographer"
+            img.alt = `${albumName} photo ${index + 1} by ${photographer}`;
             img.loading = 'lazy';
 
             a.appendChild(img);
@@ -285,11 +271,159 @@ class PhotoGallery {
             });
         }
 
+        // Add structured data for images
+        this.addImageStructuredData(currentAlbum, albumName, photographer);
+
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         // Add scroll animations
         this.addScrollAnimations();
+    }
+
+    /**
+     * Update meta tags dynamically for specific album
+     */
+    updateMetaTags(album) {
+        // Format date for description
+        let dateStr = '';
+        if (album.date) {
+            const date = new Date(album.date);
+            dateStr = date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Build dynamic description
+        const photographer = album.photographer ? ` Photos by ${album.photographer}.` : '';
+        const venue = album.venue ? ` at ${album.venue}` : '';
+        const dateInfo = dateStr ? ` on ${dateStr}` : '';
+        const description = `${album.name} photo gallery${venue}${dateInfo}.${photographer} Browse the full collection from this epic show by LLP Events.`;
+
+        // Update page title
+        document.title = `${album.name} Photos | LLP Events`;
+
+        // Update meta description
+        this.updateMetaTag('name', 'description', description);
+
+        // Update Open Graph tags
+        this.updateMetaTag('property', 'og:title', `${album.name} Photos | LLP Events`);
+        this.updateMetaTag('property', 'og:description', description);
+        this.updateMetaTag('property', 'og:url', `https://www.llp-events.com/photos#${album.slug}`);
+
+        // Use first photo or album cover as OG image
+        if (this.photos.length > 0) {
+            this.updateMetaTag('property', 'og:image', this.photos[0].fullSize);
+        } else if (this.albumCoversCache[album.slug]) {
+            this.updateMetaTag('property', 'og:image', this.albumCoversCache[album.slug]);
+        }
+
+        // Update canonical URL
+        const canonicalLink = document.querySelector('link[rel="canonical"]');
+        if (canonicalLink) {
+            canonicalLink.href = `https://www.llp-events.com/photos#${album.slug}`;
+        }
+    }
+
+    /**
+     * Reset meta tags to default
+     */
+    resetMetaTags() {
+        document.title = 'Photos | LLP Events - Louisville Concert Photo Gallery';
+
+        this.updateMetaTag('name', 'description', 'Relive the energy! Browse photo galleries from LLP Events\' epic emo and nu-metal tribute shows at Headliners Music Hall in Louisville, KY.');
+        this.updateMetaTag('property', 'og:title', 'Photos | LLP Events');
+        this.updateMetaTag('property', 'og:description', 'Relive the energy! Browse photo galleries from LLP Events\' epic emo and nu-metal tribute shows.');
+        this.updateMetaTag('property', 'og:url', 'https://www.llp-events.com/photos');
+        this.updateMetaTag('property', 'og:image', 'https://www.llp-events.com/images/og-image.jpg');
+
+        const canonicalLink = document.querySelector('link[rel="canonical"]');
+        if (canonicalLink) {
+            canonicalLink.href = 'https://www.llp-events.com/photos';
+        }
+    }
+
+    /**
+     * Helper method to update or create meta tags
+     */
+    updateMetaTag(attribute, key, value) {
+        let element = document.querySelector(`meta[${attribute}="${key}"]`);
+        if (element) {
+            element.setAttribute('content', value);
+        } else {
+            element = document.createElement('meta');
+            element.setAttribute(attribute, key);
+            element.setAttribute('content', value);
+            document.head.appendChild(element);
+        }
+    }
+
+    /**
+     * Add structured data for image collection
+     */
+    addImageStructuredData(album, albumName, photographer) {
+        // Remove existing dynamic structured data if present
+        const existingScript = document.querySelector('script[data-dynamic-schema]');
+        if (existingScript) {
+            existingScript.remove();
+        }
+
+        // Create ImageGallery structured data with individual images
+        const imageObjects = this.photos.map((photo, index) => ({
+            "@type": "ImageObject",
+            "contentUrl": photo.fullSize,
+            "thumbnail": photo.thumbnail,
+            "name": `${albumName} photo ${index + 1}`,
+            "description": `Photo from ${albumName} by ${photographer}`,
+            "creator": {
+                "@type": "Person",
+                "name": photographer
+            },
+            "copyrightHolder": {
+                "@type": "Organization",
+                "name": "LLP Events"
+            }
+        }));
+
+        // Build complete structured data
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "ImageGallery",
+            "name": `${albumName} Photos`,
+            "description": `Photo gallery from ${albumName}`,
+            "creator": {
+                "@type": "Person",
+                "name": photographer
+            },
+            "about": {
+                "@type": "Organization",
+                "name": "LLP Events",
+                "url": "https://www.llp-events.com"
+            },
+            "image": imageObjects
+        };
+
+        // Add date if available
+        if (album && album.date) {
+            structuredData.datePublished = album.date;
+        }
+
+        // Add venue if available
+        if (album && album.venue) {
+            structuredData.location = {
+                "@type": "Place",
+                "name": album.venue
+            };
+        }
+
+        // Create and inject script tag
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.setAttribute('data-dynamic-schema', 'true');
+        script.textContent = JSON.stringify(structuredData, null, 2);
+        document.head.appendChild(script);
     }
 
     /**
@@ -301,10 +435,25 @@ class PhotoGallery {
         const albumsGrid = document.querySelector('.albums-grid');
 
         if (albumsGrid) {
+            // Show skeleton loaders instead of spinner for better UX
             albumsGrid.innerHTML = `
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p>${message}</p>
+                <div class="album-card-skeleton">
+                    <div class="skeleton skeleton-cover"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="album-card-skeleton">
+                    <div class="skeleton skeleton-cover"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="album-card-skeleton">
+                    <div class="skeleton skeleton-cover"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
                 </div>
             `;
         }
