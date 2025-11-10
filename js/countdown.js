@@ -53,7 +53,7 @@ class CountdownTimer {
 
         let timeString = '';
         if (days > 0) {
-            timeString = `${days}d ${hours}h ${minutes}m`;
+            timeString = `${days}d ${hours}h ${minutes}m ${seconds}s`;
         } else if (hours > 0) {
             timeString = `${hours}h ${minutes}m ${seconds}s`;
         } else if (minutes > 0) {
