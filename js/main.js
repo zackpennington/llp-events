@@ -249,7 +249,9 @@ async function loadHomePageAlbums() {
 
 async function fetchAlbumImages(album) {
     try {
-        const response = await fetch(`/api/photos?show=${encodeURIComponent(album.slug)}`);
+        // Add cache-busting parameter to ensure fresh random selection
+        const cacheBuster = Date.now();
+        const response = await fetch(`/api/photos?show=${encodeURIComponent(album.slug)}&t=${cacheBuster}`);
         if (!response.ok) return;
 
         const data = await response.json();

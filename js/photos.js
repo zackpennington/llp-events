@@ -8,6 +8,7 @@ class PhotoGallery {
         this.currentShow = null;
         this.albums = [];
         this.photos = [];
+        this.albumCoversCache = {};
         this.init();
     }
 
@@ -51,6 +52,8 @@ class PhotoGallery {
             if (this.albums.length === 0) {
                 this.showEmptyState('No photo albums yet', 'Check back soon for photos from our shows!');
             } else {
+                // Fetch random cover photos for each album
+                await this.fetchAlbumCovers();
                 this.showAlbums();
             }
 
@@ -58,6 +61,36 @@ class PhotoGallery {
             console.error('Error loading albums:', error);
             this.showError('Failed to load albums', 'Please try again later.');
         }
+    }
+
+    /**
+     * Fetch random cover photos for all albums
+     */
+    async fetchAlbumCovers() {
+        const coverPromises = this.albums.map(async (album) => {
+            try {
+                // Add cache-busting parameter to ensure fresh random selection
+                const cacheBuster = Date.now();
+                const response = await fetch(`/api/photos?show=${encodeURIComponent(album.slug)}&t=${cacheBuster}`);
+                if (!response.ok) return;
+
+                const data = await response.json();
+                const photos = data.photos || [];
+
+                // Pick one random photo for this album
+                if (photos.length > 0) {
+                    const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
+                    this.albumCoversCache[album.slug] = randomPhoto.thumbnail;
+                } else {
+                    this.albumCoversCache[album.slug] = album.coverImage;
+                }
+            } catch (error) {
+                console.error(`Error fetching cover for ${album.slug}:`, error);
+                this.albumCoversCache[album.slug] = album.coverImage;
+            }
+        });
+
+        await Promise.all(coverPromises);
     }
 
     /**
@@ -119,8 +152,10 @@ class PhotoGallery {
         card.className = 'album-card fade-in';
         card.dataset.show = album.slug;
 
-        const coverImageHtml = album.coverImage
-            ? `<div class="album-cover" style="background-image: url('${album.coverImage}');"></div>`
+        // Use cached random cover or fallback to album.coverImage
+        const coverImage = this.albumCoversCache[album.slug] || album.coverImage;
+        const coverImageHtml = coverImage
+            ? `<div class="album-cover" style="background-image: url('${coverImage}');"></div>`
             : '';
 
         // Format date if available
