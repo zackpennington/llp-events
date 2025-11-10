@@ -83,10 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Emo Show: Dec 6, 2025 at 7pm EST
-    const emoDate = '2025-12-06T20:00:00-05:00';
+    const emoDate = '2025-12-06T19:00:00-05:00';
     const emoElement = document.getElementById('countdown-emo');
     if (emoElement) {
         new CountdownTimer(emoDate, 'countdown-emo', '');
+    }
+
+    // Weekend Pass: Dec 5, 2025 at 7pm EST (countdown to first show)
+    const weekendPassDate = '2025-12-05T19:00:00-05:00';
+    const weekendPassElement = document.getElementById('countdown-weekend-pass');
+    if (weekendPassElement) {
+        new CountdownTimer(weekendPassDate, 'countdown-weekend-pass', '');
     }
 });
 
