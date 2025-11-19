@@ -605,6 +605,20 @@ body {
     box-shadow: 0 6px 25px rgba(176, 33, 42, 0.6), 0 3px 12px rgba(176, 33, 42, 0.4);
 }
 
+.show-cta-button.disabled {
+    background: var(--color-slate);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: not-allowed;
+    box-shadow: none;
+    pointer-events: none;
+}
+
+.show-cta-button.disabled:hover {
+    background: var(--color-slate);
+    transform: none;
+    box-shadow: none;
+}
+
 .show-link-alt {
     color: var(--color-white);
     text-decoration: none;
