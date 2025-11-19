@@ -1193,7 +1193,7 @@ body {
 
 .sponsors-grid {
     display: flex;
-    gap: var(--spacing-xl);
+    gap: calc(var(--spacing-xl) * 3);
     justify-content: center;
     margin-top: var(--spacing-lg);
     flex-wrap: wrap;
@@ -1206,16 +1206,24 @@ body {
 }
 
 .sponsor-logo {
-    max-width: 200px;
+    max-width: 400px;
     height: auto;
-    max-height: 80px;
+    max-height: 160px;
     object-fit: contain;
-    opacity: 0.8;
     transition: var(--transition-smooth);
 }
 
 .sponsor-logo:hover {
-    opacity: 1;
+    transform: scale(1.05);
+}
+
+.sponsor-logo-invert {
+    filter: invert(1);
+}
+
+.sponsor-logo-invert:hover {
+    filter: invert(1);
+    transform: scale(1.05);
 }
 
 @media (max-width: 640px) {
