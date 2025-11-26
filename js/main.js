@@ -266,11 +266,18 @@ async function loadHomePageAlbums() {
         }
 
         const data = await response.json();
-        const albums = data.albums || [];
+        let albums = data.albums || [];
 
         if (albums.length === 0) {
             albumsContainer.innerHTML = '<p style="color: var(--color-light-gray); text-align: center; padding: var(--spacing-xl);">No photo albums yet. Check back soon!</p>';
             return;
+        }
+
+        // Shuffle albums array to randomize display order each page load
+        // Fisher-Yates shuffle algorithm
+        for (let i = albums.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [albums[i], albums[j]] = [albums[j], albums[i]];
         }
 
         // Use cover images from API response (already available, no need to fetch)
