@@ -9,6 +9,16 @@ class PhotoGallery {
         this.albums = [];
         this.photos = [];
         this.albumCoversCache = {};
+        this.currentFilter = 'all';
+
+        // Album slug patterns mapped to filter categories
+        this.filterMappings = {
+            'emo': slug => slug.startsWith('lle'),
+            'nu-metal': slug => slug.startsWith('llnm'),
+            'louder-than-life': slug => slug.startsWith('llltl'),
+            '3cfar': slug => slug.startsWith('3cfar')
+        };
+
         this.init();
     }
 
@@ -31,6 +41,59 @@ class PhotoGallery {
                 this.loadAlbums();
             }
         });
+
+        // Initialize filter bar
+        this.initFilterBar();
+    }
+
+    /**
+     * Initialize filter bar event listeners
+     */
+    initFilterBar() {
+        const filterTags = document.querySelectorAll('.filter-tag');
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                // Update active state
+                filterTags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+
+                // Apply filter
+                this.currentFilter = tag.dataset.filter;
+                this.filterAlbums();
+            });
+        });
+    }
+
+    /**
+     * Filter albums based on current filter selection
+     */
+    filterAlbums() {
+        const albumCards = document.querySelectorAll('.album-card');
+
+        albumCards.forEach(card => {
+            const slug = card.dataset.show;
+            const shouldShow = this.matchesFilter(slug);
+
+            if (shouldShow) {
+                card.style.display = '';
+                card.classList.remove('filtered-out');
+            } else {
+                card.style.display = 'none';
+                card.classList.add('filtered-out');
+            }
+        });
+    }
+
+    /**
+     * Check if album slug matches current filter
+     */
+    matchesFilter(slug) {
+        if (this.currentFilter === 'all') {
+            return true;
+        }
+
+        const filterFn = this.filterMappings[this.currentFilter];
+        return filterFn ? filterFn(slug) : true;
     }
 
     /**
@@ -103,9 +166,11 @@ class PhotoGallery {
     showAlbums() {
         const albumsSection = document.querySelector('.albums-section');
         const photosSection = document.querySelector('.photos-section');
+        const filterSection = document.querySelector('.filter-section');
 
         albumsSection.classList.remove('hidden');
         photosSection.classList.add('hidden');
+        if (filterSection) filterSection.classList.remove('hidden');
 
         // Reset meta tags to default
         this.resetMetaTags();
@@ -184,9 +249,11 @@ class PhotoGallery {
     async showPhotos() {
         const albumsSection = document.querySelector('.albums-section');
         const photosSection = document.querySelector('.photos-section');
+        const filterSection = document.querySelector('.filter-section');
 
         albumsSection.classList.add('hidden');
         photosSection.classList.remove('hidden');
+        if (filterSection) filterSection.classList.add('hidden');
 
         // Update heading and details with album info
         const heading = photosSection.querySelector('h2');

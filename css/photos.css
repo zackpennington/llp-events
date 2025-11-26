@@ -36,6 +36,55 @@
     display: none;
 }
 
+/* Filter Bar */
+.filter-section {
+    max-width: 1200px;
+    margin: 0 auto var(--spacing-lg);
+    padding: 0 var(--spacing-md);
+}
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    justify-content: center;
+}
+
+.filter-tag {
+    background: transparent;
+    border: 2px solid var(--color-primary-red);
+    color: var(--color-white);
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.filter-tag:hover {
+    background: rgba(176, 33, 42, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(176, 33, 42, 0.3);
+}
+
+.filter-tag.active {
+    background: var(--color-primary-red);
+    border-color: var(--color-primary-red);
+    color: var(--color-white);
+    box-shadow: 0 4px 20px rgba(176, 33, 42, 0.5), 0 2px 10px rgba(176, 33, 42, 0.3);
+}
+
+.filter-tag.active:hover {
+    background: var(--color-bright-red);
+    border-color: var(--color-bright-red);
+    box-shadow: 0 6px 25px rgba(176, 33, 42, 0.6), 0 3px 12px rgba(176, 33, 42, 0.4);
+}
+
 /* Albums Section */
 .albums-section {
     max-width: 1200px;
@@ -374,6 +423,20 @@
 @media (max-width: 640px) {
     .photos-page {
         padding-top: 60px;
+    }
+
+    .filter-section {
+        padding: 0 var(--spacing-sm);
+    }
+
+    .filter-bar {
+        gap: var(--spacing-xs);
+    }
+
+    .filter-tag {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
     }
 
     .albums-grid {

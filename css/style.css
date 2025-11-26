@@ -2045,7 +2045,13 @@ body {
     }
 
     .nav-links {
-        gap: var(--spacing-xs);
+        gap: 0.25rem;
+    }
+
+    .nav-links a {
+        font-size: 0.65rem;
+        padding: 0.25rem;
+        letter-spacing: 0.5px;
     }
 
     .hero {
