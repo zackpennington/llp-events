@@ -13,10 +13,9 @@ class PhotoGallery {
 
         // Album slug patterns mapped to filter categories
         this.filterMappings = {
-            'emo': slug => slug.startsWith('lle'),
+            'emo': slug => slug.startsWith('lle') || slug.startsWith('3cfar'),
             'nu-metal': slug => slug.startsWith('llnm'),
-            'louder-than-life': slug => slug.startsWith('llltl'),
-            '3cfar': slug => slug.startsWith('3cfar')
+            'louder-than-life': slug => slug.startsWith('llltl')
         };
 
         this.init();
