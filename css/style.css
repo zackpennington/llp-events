@@ -1193,7 +1193,7 @@ body {
 
 .sponsors-grid {
     display: flex;
-    gap: calc(var(--spacing-xl) * 3);
+    gap: var(--spacing-xl);
     justify-content: center;
     margin-top: var(--spacing-lg);
     flex-wrap: wrap;
