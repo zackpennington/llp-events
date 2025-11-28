@@ -4,10 +4,11 @@
  */
 
 class CountdownTimer {
-    constructor(targetDate, elementId, label = '') {
+    constructor(targetDate, elementId, label = '', expiredMessage = null) {
         this.targetDate = new Date(targetDate);
         this.elementId = elementId;
         this.label = label;
+        this.expiredMessage = expiredMessage;
         this.intervalId = null;
         this.init();
     }
@@ -38,7 +39,11 @@ class CountdownTimer {
         const diff = this.targetDate - now;
 
         if (diff <= 0) {
-            element.textContent = this.label ? `${this.label} - Show Time!` : 'Show Time!';
+            if (this.expiredMessage) {
+                element.textContent = this.expiredMessage;
+            } else {
+                element.textContent = this.label ? `${this.label} - Show Time!` : 'Show Time!';
+            }
             element.classList.add('countdown-expired');
             if (this.intervalId) {
                 clearInterval(this.intervalId);
@@ -89,11 +94,17 @@ document.addEventListener('DOMContentLoaded', () => {
         new CountdownTimer(emoDate, 'countdown-emo', '');
     }
 
-    // Weekend Pass: Dec 5, 2025 at 7pm EST (countdown to first show)
-    const weekendPassDate = '2025-12-05T19:00:00-05:00';
+    // Hero Countdown: Dec 5, 2025 at 7pm EST (first show)
+    const heroCountdownElement = document.getElementById('hero-countdown');
+    if (heroCountdownElement) {
+        new CountdownTimer(numetalDate, 'hero-countdown', 'Next show in');
+    }
+
+    // Weekend Pass: Already expired/sold out - use past date
     const weekendPassElement = document.getElementById('countdown-weekend-pass');
     if (weekendPassElement) {
-        new CountdownTimer(weekendPassDate, 'countdown-weekend-pass', '');
+        // Set to past date so it shows as expired immediately
+        new CountdownTimer('2025-01-01T00:00:00-05:00', 'countdown-weekend-pass', '', "Time's up");
     }
 });
 

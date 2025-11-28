@@ -258,10 +258,31 @@ body {
     font-weight: 400;
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
     opacity: 1;
     color: var(--color-light-gray);
     text-shadow: 3px 3px 12px rgba(0, 0, 0, 1), 0 0 30px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+.hero-countdown {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: none;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-orange);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 107, 53, 0.5);
+}
+
+.hero-countdown.countdown-expired {
+    color: var(--color-success);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 .cta-button {
@@ -1957,9 +1978,10 @@ body {
 }
 
 .countdown-timer.countdown-expired {
-    background: var(--color-primary-red);
-    color: var(--color-white);
-    animation: pulse 2s ease-in-out infinite;
+    background: rgba(100, 100, 100, 0.3);
+    border-color: rgba(100, 100, 100, 0.5);
+    color: rgba(255, 255, 255, 0.6);
+    animation: none;
 }
 
 @keyframes pulse {
