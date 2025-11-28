@@ -2116,10 +2116,11 @@ body {
     }
 
     .countdown-timer {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         padding: var(--spacing-xs);
-        min-width: 120px;
-        letter-spacing: 0.3px;
+        min-width: auto;
+        letter-spacing: 0;
+        white-space: nowrap;
     }
 
     .weekend-pass-cta {
