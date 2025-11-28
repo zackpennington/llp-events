@@ -112,7 +112,8 @@
             existingToast.remove();
         }
 
-        const city = getRandomItem(CITIES);
+        // Weighted city: 40% Louisville, 60% other cities
+        const city = Math.random() < 0.4 ? 'Louisville, KY' : getRandomItem(CITIES);
         const show = getRandomItem(SHOWS);
         // Weighted random: 60% chance 1-2, 30% chance 3-4, 10% chance 5-8
         const roll = Math.random();
