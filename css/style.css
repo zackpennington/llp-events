@@ -1298,6 +1298,61 @@ body {
     height: 36px;
 }
 
+/* Playlist Links - 4 in a row */
+.playlist-links {
+    display: flex;
+    gap: var(--spacing-xl);
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.playlist-links .social-link {
+    width: 80px;
+    height: 80px;
+}
+
+.playlist-links .social-link svg {
+    width: 36px;
+    height: 36px;
+}
+
+/* Mobile: Social 3 in a row, Playlists 4 in a row with smaller icons */
+@media (max-width: 480px) {
+    .social-links-large {
+        gap: var(--spacing-md);
+    }
+
+    .social-links-large .social-link {
+        width: 70px;
+        height: 70px;
+    }
+
+    .social-links-large .social-link svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .playlist-links {
+        gap: var(--spacing-sm);
+    }
+
+    .playlist-links .social-link {
+        width: 55px;
+        height: 55px;
+    }
+
+    .playlist-links .social-link svg,
+    .playlist-links .social-link-img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .playlist-links .social-handle {
+        font-size: 0.75rem;
+    }
+}
+
 .social-link-img {
     width: 36px;
     height: 36px;
