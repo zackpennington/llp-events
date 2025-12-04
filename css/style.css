@@ -1298,6 +1298,17 @@ body {
     height: 36px;
 }
 
+.social-link-img {
+    width: 36px;
+    height: 36px;
+    filter: invert(20%) sepia(100%) saturate(2000%) hue-rotate(340deg) brightness(80%) contrast(95%);
+    transition: var(--transition-smooth);
+}
+
+.social-link:hover .social-link-img {
+    filter: brightness(0) invert(1);
+}
+
 .social-handle {
     color: var(--color-light-gray);
     font-size: 0.95rem;
