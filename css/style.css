@@ -1300,11 +1300,21 @@ body {
 
 /* Playlist Links - 4 in a row */
 .playlist-links {
+    display: -webkit-flex;
     display: flex;
+    -webkit-flex-wrap: nowrap;
     flex-wrap: nowrap;
+    -webkit-flex-direction: row;
+    flex-direction: row;
     gap: var(--spacing-xl);
+    -webkit-justify-content: center;
     justify-content: center;
     margin-top: var(--spacing-lg);
+}
+
+.playlist-links .social-link-item {
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 
 .playlist-links .social-link {
@@ -1334,13 +1344,20 @@ body {
     }
 
     .playlist-links {
+        display: -webkit-flex;
         display: flex;
+        -webkit-flex-wrap: nowrap;
         flex-wrap: nowrap;
+        -webkit-flex-direction: row;
+        flex-direction: row;
         gap: var(--spacing-md);
+        -webkit-justify-content: center;
         justify-content: center;
     }
 
     .playlist-links .social-link-item {
+        -webkit-flex: 0 0 auto;
+        flex: 0 0 auto;
         gap: 2px;
     }
 
