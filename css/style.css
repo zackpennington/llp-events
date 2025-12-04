@@ -1301,10 +1301,10 @@ body {
 /* Playlist Links - 4 in a row */
 .playlist-links {
     display: flex;
+    flex-wrap: nowrap;
     gap: var(--spacing-xl);
     justify-content: center;
     margin-top: var(--spacing-lg);
-    flex-wrap: wrap;
 }
 
 .playlist-links .social-link {
