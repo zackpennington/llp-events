@@ -42,7 +42,7 @@ class CountdownTimer {
             if (this.expiredMessage) {
                 element.textContent = this.expiredMessage;
             } else {
-                element.textContent = 'Show Time!';
+                element.style.display = 'none';
             }
             element.classList.add('countdown-expired');
             if (this.intervalId) {
