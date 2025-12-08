@@ -1,8 +1,11 @@
 /**
  * Social Proof Toast Notifications
  * Shows random "Someone just bought tickets" notifications
+ *
+ * TEMPORARILY DISABLED - Uncomment the IIFE below to re-enable
  */
 
+/*
 (function() {
     'use strict';
 
@@ -227,3 +230,4 @@
         init();
     }
 })();
+*/
