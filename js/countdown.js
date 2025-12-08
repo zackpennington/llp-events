@@ -42,7 +42,7 @@ class CountdownTimer {
             if (this.expiredMessage) {
                 element.textContent = this.expiredMessage;
             } else {
-                element.textContent = this.label ? `${this.label} - Show Time!` : 'Show Time!';
+                element.textContent = 'Show Time!';
             }
             element.classList.add('countdown-expired');
             if (this.intervalId) {
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hero Countdown: Dec 5, 2025 at 7pm EST (first show)
     const heroCountdownElement = document.getElementById('hero-countdown');
     if (heroCountdownElement) {
-        new CountdownTimer(numetalDate, 'hero-countdown', 'Next show in');
+        new CountdownTimer(numetalDate, 'hero-countdown', '');
     }
 
     // Weekend Pass: Already expired/sold out - use past date
