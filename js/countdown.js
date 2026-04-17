@@ -78,33 +78,26 @@ class CountdownTimer {
     }
 }
 
-// Initialize countdown timers for shows
+// Initialize countdown timers for 2026 shows
 document.addEventListener('DOMContentLoaded', () => {
-    // Nu-Metal Show: Dec 5, 2025 at 7pm EST
-    const numetalDate = '2025-12-05T19:00:00-05:00';
-    const numetalElement = document.getElementById('countdown-numetal');
-    if (numetalElement) {
-        new CountdownTimer(numetalDate, 'countdown-numetal', '');
-    }
+    const shows = [
+        { date: '2026-06-13T19:00:00-04:00', id: 'countdown-itloud' },
+        { date: '2026-08-15T19:00:00-04:00', id: 'countdown-grunge' },
+        { date: '2026-09-16T19:00:00-04:00', id: 'countdown-ltl' },
+        { date: '2026-09-23T19:00:00-04:00', id: 'countdown-bandb' },
+        { date: '2026-12-05T19:00:00-05:00', id: 'countdown-emo' },
+    ];
 
-    // Emo Show: Dec 6, 2025 at 7pm EST
-    const emoDate = '2025-12-06T19:00:00-05:00';
-    const emoElement = document.getElementById('countdown-emo');
-    if (emoElement) {
-        new CountdownTimer(emoDate, 'countdown-emo', '');
-    }
+    shows.forEach(show => {
+        if (document.getElementById(show.id)) {
+            new CountdownTimer(show.date, show.id, '');
+        }
+    });
 
-    // Hero Countdown: Dec 5, 2025 at 7pm EST (first show)
+    // Hero countdown: first upcoming show (It Loud - Jun 13)
     const heroCountdownElement = document.getElementById('hero-countdown');
     if (heroCountdownElement) {
-        new CountdownTimer(numetalDate, 'hero-countdown', '');
-    }
-
-    // Weekend Pass: Already expired/sold out - use past date
-    const weekendPassElement = document.getElementById('countdown-weekend-pass');
-    if (weekendPassElement) {
-        // Set to past date so it shows as expired immediately
-        new CountdownTimer('2025-01-01T00:00:00-05:00', 'countdown-weekend-pass', '', "Time's up");
+        new CountdownTimer(shows[0].date, 'hero-countdown', '');
     }
 });
 
