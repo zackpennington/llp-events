@@ -336,7 +336,7 @@
                 <a href="#contact">JOIN LIST</a>
                 <a href="/photos">PHOTOS</a>
                 <a href="#about">ABOUT</a>
-                <a href="#contact">CONTACT</a>
+                <a href="#get-in-touch">CONTACT</a>
             </div>
         </div>
     </nav>
@@ -503,88 +503,46 @@
         </div>
     </section>
 
-    <!-- Newsletter & Contact Section -->
-    <section id="contact" class="newsletter-contact-section" data-scroll>
-        <div class="newsletter-contact-container">
-            <!-- Newsletter Column -->
-            <div class="newsletter-column">
-                <h2 class="section-title">JOIN THE MAILING LIST</h2>
-                <div class="title-underline"></div>
+    <!-- Newsletter Section -->
+    <section id="contact" class="newsletter-hero-section" data-scroll>
+        <div class="newsletter-hero-container">
+            <h2 class="section-title">JOIN THE MAILING LIST</h2>
+            <div class="title-underline"></div>
+            <p class="newsletter-hero-text">Be the first to know about new shows, ticket drops, merch releases, contests, and more.</p>
 
-                <div id="resend-form-container" class="resend-form-container">
-                    <div class="resend-form-wrapper">
-                        <div class="resend-form-body" id="resend-form-body">
-                            <div class="resend-form-content">
-                                <p>Sign up for concert announcements, merch drops, contests, applications, and more!</p>
-                            </div>
-                            <form class="resend-form" id="resend-subscribe-form">
-                                <div class="resend-form-fields">
-                                    <div class="resend-field-group">
-                                        <label for="subscriber-email">Email</label>
-                                        <input
-                                            aria-label="Email address for newsletter signup"
-                                            aria-required="true"
-                                            type="email"
-                                            class="resend-input"
-                                            id="subscriber-email"
-                                            name="email"
-                                            placeholder="your@email.com"
-                                            autocomplete="email"
-                                            required>
-                                    </div>
-                                </div>
-                                <div class="resend-form-submit">
-                                    <button type="submit" class="resend-btn-primary" id="submit-btn">
-                                        SUBSCRIBE
-                                    </button>
-                                </div>
-                                <div id="form-message" class="form-message" style="display: none;"></div>
-                            </form>
-                        </div>
-                        <div class="resend-success-body" id="resend-success-body" style="display: none">
-                            <div class="resend-success-content">
-                                <div class="success-icon" aria-hidden="true">✓</div>
-                                <h4>Thank You!</h4>
-                                <p>You have successfully joined our subscriber list. Check your email for a welcome message!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contact Column -->
-            <div class="contact-column">
-                <h2 class="section-title">GET IN TOUCH</h2>
-                <div class="title-underline"></div>
-
-                <div class="contact-form-wrapper">
-                    <div id="contact-form-body" class="contact-form-body">
-                        <form id="contact-form" class="contact-form">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="contact-name">Name</label>
-                                    <input type="text" id="contact-name" name="name" placeholder="Your full name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="contact-email">Email</label>
-                                    <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
+            <div id="resend-form-container" class="resend-form-container">
+                <div class="resend-form-wrapper">
+                    <div class="resend-form-body" id="resend-form-body">
+                        <form class="resend-form newsletter-hero-form" id="resend-subscribe-form">
+                            <div class="resend-form-fields">
+                                <div class="resend-field-group">
+                                    <label for="subscriber-email">Email</label>
+                                    <input
+                                        aria-label="Email address for newsletter signup"
+                                        aria-required="true"
+                                        type="email"
+                                        class="resend-input"
+                                        id="subscriber-email"
+                                        name="email"
+                                        placeholder="your@email.com"
+                                        autocomplete="email"
+                                        required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="contact-message">Message</label>
-                                <textarea id="contact-message" name="message" rows="2" placeholder="How can we help?" required></textarea>
+                            <div class="resend-form-submit">
+                                <button type="submit" class="resend-btn-primary" id="submit-btn">
+                                    SUBSCRIBE
+                                </button>
                             </div>
-                            <div class="turnstile-wrapper">
-                                <div class="cf-turnstile" data-sitekey="0x4AAAAAAB6pNVI-LTaMHdd8" data-theme="dark" data-error-callback="onTurnstileError"></div>
-                            </div>
-                            <button type="submit" id="contact-submit-btn" class="contact-submit-btn">Send Message</button>
-                            <div id="contact-form-message" class="form-message" style="display: none;"></div>
+                            <div id="form-message" class="form-message" style="display: none;"></div>
                         </form>
                     </div>
-                    <div id="contact-success-body" class="contact-success-body" style="display: none;">
-                        <div class="success-icon" aria-hidden="true">✓</div>
-                        <h3>Thank You!</h3>
-                        <p>Thanks for reaching out. We'll get back to you as soon as possible.</p>
+                    <div class="resend-success-body" id="resend-success-body" style="display: none">
+                        <div class="resend-success-content">
+                            <div class="success-icon" aria-hidden="true">✓</div>
+                            <h4>Thank You!</h4>
+                            <p>You have successfully joined our subscriber list. Check your email for a welcome message!</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -797,7 +755,7 @@
                         <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" id="faq-answer-2" role="region">
-                        <p>LLP Events believes that live music should be a family affair, so we do our best to keep the shows All Ages. This may not always be the case. Check individual show listings and <a href="#contact">contact us</a> if you need to double-check for peace of mind.</p>
+                        <p>LLP Events believes that live music should be a family affair, so we do our best to keep the shows All Ages. This may not always be the case. Check individual show listings and <a href="#get-in-touch">contact us</a> if you need to double-check for peace of mind.</p>
                     </div>
                 </div>
 
@@ -827,7 +785,7 @@
                         <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" id="faq-answer-5" role="region">
-                        <p>Phones and point-and-click devices are allowed. If you want to bring a professional camera, please apply for a photo pass. <a href="#contact">Contact us here</a>.</p>
+                        <p>Phones and point-and-click devices are allowed. If you want to bring a professional camera, please apply for a photo pass. <a href="#get-in-touch">Contact us here</a>.</p>
                     </div>
                 </div>
 
@@ -847,7 +805,7 @@
                         <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" id="faq-answer-7" role="region">
-                        <p>Yes! We love seeing you in our shirts and gear. You'll find merch tables for LLP Events and many of the individual projects of the bands and artists performing inside the venue. Tip your merch person, too. (And if you want merch AFTER the show, <a href="#contact">contact us</a> and we will see what we have left.)</p>
+                        <p>Yes! We love seeing you in our shirts and gear. You'll find merch tables for LLP Events and many of the individual projects of the bands and artists performing inside the venue. Tip your merch person, too. (And if you want merch AFTER the show, <a href="#get-in-touch">contact us</a> and we will see what we have left.)</p>
                     </div>
                 </div>
 
@@ -857,7 +815,7 @@
                         <span class="faq-icon" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" id="faq-answer-8" role="region">
-                        <p>We strive to make all LLP Events as inclusive as possible. This means not just an accessible section of seating, but often ASL interpreters. Check the venue's website for arrival preferences and policies if you plan to use the accessible amenities. <a href="#contact">Contact us</a> with any questions or concerns. And let us know if you have ideas on other ways we can make our shows more inclusive and welcoming.</p>
+                        <p>We strive to make all LLP Events as inclusive as possible. This means not just an accessible section of seating, but often ASL interpreters. Check the venue's website for arrival preferences and policies if you plan to use the accessible amenities. <a href="#get-in-touch">Contact us</a> with any questions or concerns. And let us know if you have ideas on other ways we can make our shows more inclusive and welcoming.</p>
                     </div>
                 </div>
 
@@ -869,6 +827,44 @@
                     <div class="faq-answer" id="faq-answer-9" role="region">
                         <p>We're always looking for talented musicians, vocalists, and crew members to join our shows. If you're interested in performing, helping backstage, or contributing in other ways, fill out our <a href="https://docs.google.com/forms/d/e/1FAIpQLScbNnu_XmfKOQ5eOjW_uxrxUKiG35pSHufyXnfEf8B1ejQn-A/viewform?usp=header" target="_blank" rel="noopener noreferrer">application form</a>.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Get In Touch Section -->
+    <section id="get-in-touch" class="contact-standalone-section" data-scroll>
+        <div class="contact-standalone-container">
+            <h2 class="section-title">GET IN TOUCH</h2>
+            <div class="title-underline"></div>
+
+            <div class="contact-form-wrapper">
+                <div id="contact-form-body" class="contact-form-body">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-name">Name</label>
+                                <input type="text" id="contact-name" name="name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email</label>
+                                <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message" rows="2" placeholder="How can we help?" required></textarea>
+                        </div>
+                        <div class="turnstile-wrapper">
+                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAB6pNVI-LTaMHdd8" data-theme="dark" data-error-callback="onTurnstileError"></div>
+                        </div>
+                        <button type="submit" id="contact-submit-btn" class="contact-submit-btn">Send Message</button>
+                        <div id="contact-form-message" class="form-message" style="display: none;"></div>
+                    </form>
+                </div>
+                <div id="contact-success-body" class="contact-success-body" style="display: none;">
+                    <div class="success-icon" aria-hidden="true">✓</div>
+                    <h3>Thank You!</h3>
+                    <p>Thanks for reaching out. We'll get back to you as soon as possible.</p>
                 </div>
             </div>
         </div>
