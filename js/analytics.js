@@ -66,5 +66,25 @@ export const Analytics = {
     // CTA events
     ctaClick: (location, action) => {
         trackEvent('CTA Click', { location, action });
+    },
+
+    socialClick: (platform, location) => {
+        trackEvent('Social Link Click', { platform, location });
+    },
+
+    playlistClick: (platform, show) => {
+        trackEvent('Playlist Click', { platform, show });
+    },
+
+    partnerClick: (partner) => {
+        trackEvent('Partner Click', { partner });
+    },
+
+    faqToggle: (question) => {
+        trackEvent('FAQ Toggle', { question });
+    },
+
+    navClick: (label) => {
+        trackEvent('Nav Click', { label });
     }
 };
