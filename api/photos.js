@@ -97,7 +97,6 @@ export default async function handler(req, res) {
               photographer: null,
               venue: null,
               description: null,
-              featured: true
             };
 
             // Use Vercel Image Optimization for cover images (640px width, WebP/AVIF) - only in production
@@ -112,7 +111,6 @@ export default async function handler(req, res) {
               photographer: metadata.photographer,
               venue: metadata.venue,
               description: metadata.description,
-              featured: metadata.featured,
               path: folder,
               coverImage: coverImageUrl,
               photoCount: imageBlobs.length
