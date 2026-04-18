@@ -3,16 +3,32 @@
     <!-- Homepage -->
     <url>
         <loc>https://www.llp-events.com/</loc>
-        <lastmod>2025-11-05</lastmod>
+        <lastmod>2026-04-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
+    </url>
+
+    <!-- Shows / Events Page -->
+    <url>
+        <loc>https://www.llp-events.com/shows</loc>
+        <lastmod>2026-04-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Scene / Content Page -->
+    <url>
+        <loc>https://www.llp-events.com/scene</loc>
+        <lastmod>2026-04-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
     </url>
 
     <!-- Photos Page -->
     <url>
         <loc>https://www.llp-events.com/photos</loc>
-        <lastmod>2025-11-10</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <lastmod>2026-04-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
 </urlset>

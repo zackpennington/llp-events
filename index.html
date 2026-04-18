@@ -53,22 +53,48 @@
     <link rel="stylesheet" href="css/resend-form.css">
     <link rel="stylesheet" href="css/social-proof.css">
 
-    <!-- Structured Data - Organization -->
+    <!-- Structured Data - LocalBusiness + Organization -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": ["LocalBusiness", "Organization"],
         "name": "LLP Events",
-        "description": "Louisville's premier live cover show promoter featuring epic tribute performances. Home of Louisville Loves Emo and Louisville Loves Nu-Metal at Headliners Music Hall.",
-        "url": "https://llp-events.com",
-        "logo": "https://llp-events.com/images/LLP_Logo_Stacked.svg",
-        "email": "info@llpevents.com",
+        "description": "Louisville's premier live concert promoter producing genre-themed shows including Louisville Loves Emo, Louisville Loves Nu-Metal, and Louisville Loves Grunge at Headliners Music Hall and Fourth Street Live! in Louisville, KY.",
+        "url": "https://www.llp-events.com",
+        "logo": "https://www.llp-events.com/images/LLP_Logo_Stacked.svg",
+        "image": "https://www.llp-events.com/images/og-image.jpg",
+        "email": "info@llp-events.com",
+        "priceRange": "$$",
+        "currenciesAccepted": "USD",
+        "areaServed": [
+            {
+                "@type": "City",
+                "name": "Louisville",
+                "sameAs": "https://en.wikipedia.org/wiki/Louisville,_Kentucky"
+            },
+            {
+                "@type": "State",
+                "name": "Kentucky"
+            },
+            {
+                "@type": "State",
+                "name": "Indiana"
+            }
+        ],
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Louisville",
             "addressRegion": "KY",
+            "postalCode": "40206",
             "addressCountry": "US"
         },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "38.2527",
+            "longitude": "-85.7585"
+        },
+        "knowsAbout": ["Emo music", "Nu-metal", "Grunge", "Live concerts", "Concert promotion", "Tribute shows"],
+        "keywords": "emo shows Louisville, nu-metal concerts Louisville KY, live music Louisville, concert promoter Kentucky, genre-themed concerts",
         "sameAs": [
             "https://www.instagram.com/llp_eve",
             "https://www.tiktok.com/@llpeve",
@@ -332,10 +358,10 @@
                 <img src="images/LLP_Logo_Stacked.svg" alt="LLP Events Logo" class="logo-image">
             </a>
             <div class="nav-links">
-                <a href="#shows">TICKETS</a>
+                <a href="/shows">SHOWS</a>
                 <a href="#contact">JOIN LIST</a>
                 <a href="/photos">PHOTOS</a>
-                <a href="#about">ABOUT</a>
+                <a href="/scene">SCENE</a>
                 <a href="#get-in-touch">CONTACT</a>
             </div>
         </div>
@@ -369,12 +395,12 @@
         <div class="shows-grid">
             <!-- 2026 Lineup Announcement Flyer -->
             <div class="show-card lineup-card" data-scroll>
-                <img src="images/2026-lineup-announce.png" alt="Louisville Loves 2026 Show Lineup" class="lineup-card-image" width="1080" height="1080" loading="eager" decoding="async">
+                <img src="images/2026-lineup-announce.png" alt="Louisville Loves 2026 concert lineup announcement — five genre-themed shows in Louisville, KY" class="lineup-card-image" width="1080" height="1080" loading="eager" decoding="async">
             </div>
             <!-- Louisville Loves It Loud -->
             <div class="show-card" data-scroll>
                 <div class="show-icon-poster">
-                    <img src="images/icon-louder-than-life.png" alt="High volume speaker icon" width="96" height="96">
+                    <img src="images/icon-louder-than-life.png" alt="Louisville Loves It Loud concert — rock and metal show in Louisville, KY" width="96" height="96">
                 </div>
                 <div class="show-info-panel">
                     <div class="show-date-badge">JUN 13, 2026</div>
@@ -401,7 +427,7 @@
             <!-- Louisville Loves Grunge -->
             <div class="show-card" data-scroll>
                 <div class="show-icon-poster">
-                    <img src="images/icon-grunge.png" alt="Metal music icon" width="96" height="96">
+                    <img src="images/icon-grunge.png" alt="Louisville Loves Grunge concert — 90s alternative rock show in Louisville, KY" width="96" height="96">
                 </div>
                 <div class="show-info-panel">
                     <div class="show-date-badge">AUG 15, 2026</div>
@@ -427,7 +453,7 @@
             <!-- Louisville Loves Louder Than Life -->
             <div class="show-card" data-scroll>
                 <div class="show-icon-poster">
-                    <img src="images/icon-it-loud.png" alt="Rock music icon" width="96" height="96">
+                    <img src="images/icon-it-loud.png" alt="Louisville Loves Louder Than Life pre-party concert in Louisville, KY" width="96" height="96">
                 </div>
                 <div class="show-info-panel">
                     <div class="show-date-badge">SEP 16, 2026</div>
@@ -453,7 +479,7 @@
             <!-- Louisville Loves Bourbon & Beyond -->
             <div class="show-card" data-scroll>
                 <div class="show-icon-poster">
-                    <img src="images/icon-bourbon.png" alt="Glass of whiskey icon" width="96" height="96">
+                    <img src="images/icon-bourbon.png" alt="Louisville Loves Bourbon and Beyond pre-party concert in Louisville, KY" width="96" height="96">
                 </div>
                 <div class="show-info-panel">
                     <div class="show-date-badge">SEP 23, 2026</div>
@@ -479,7 +505,7 @@
             <!-- Louisville Loves Emo -->
             <div class="show-card" data-scroll>
                 <div class="show-icon-poster">
-                    <img src="images/icon-emo.png" alt="Broken heart icon" width="96" height="96">
+                    <img src="images/icon-emo.png" alt="Louisville Loves Emo concert — emo and pop punk show in Louisville, KY" width="96" height="96">
                 </div>
                 <div class="show-info-panel">
                     <div class="show-date-badge">DEC 5, 2026</div>
@@ -676,7 +702,7 @@
     <section id="about" class="about-section" data-scroll aria-label="About section with concert crowd image">
         <div class="about-container">
             <div class="about-image-column">
-                <img src="images/whowearelarge.jpg" alt="Concert crowd at LLP Events show" class="about-image" width="800" height="600" loading="lazy" decoding="async">
+                <img src="images/whowearelarge.jpg" alt="Packed concert crowd at an LLP Events show at Headliners Music Hall in Louisville, KY" class="about-image" width="800" height="600" loading="lazy" decoding="async">
             </div>
             <div class="about-content">
                 <h2 class="section-title">WHO IS LLP?</h2>
