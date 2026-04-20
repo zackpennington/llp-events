@@ -1,0 +1,162 @@
+{
+  "venues": {
+    "headliners": {
+      "displayName": "Headliners Music Hall",
+      "city": "Louisville, KY",
+      "schemaType": "MusicVenue",
+      "address": {
+        "streetAddress": "1386 Lexington Rd",
+        "addressLocality": "Louisville",
+        "addressRegion": "KY",
+        "postalCode": "40206",
+        "addressCountry": "US"
+      }
+    },
+    "fourth-street-live": {
+      "displayName": "Fourth Street Live!",
+      "city": "Louisville, KY",
+      "schemaType": "EventVenue",
+      "address": {
+        "streetAddress": "411 S 4th St",
+        "addressLocality": "Louisville",
+        "addressRegion": "KY",
+        "postalCode": "40202",
+        "addressCountry": "US"
+      }
+    }
+  },
+  "shows": [
+    {
+      "id": "itloud",
+      "title": "Louisville Loves It Loud",
+      "dateBadge": "JUN 13, 2026",
+      "startDate": "2026-06-13T19:00:00-04:00",
+      "endDate": "2026-06-13T23:30:00-04:00",
+      "venue": "headliners",
+      "icon": {
+        "src": "images/icon-louder-than-life.png",
+        "alt": "Louisville Loves It Loud concert — rock and metal show in Louisville, KY"
+      },
+      "tags": ["Rock", "Metal", "Loud"],
+      "countdownId": "countdown-itloud",
+      "description": "Louisville Loves It Loud features live bands celebrating hard music heavyweights from across the decades — from Korn, Limp Bizkit, and Deftones to Beartooth, I Prevail, and Bring Me The Horizon. Get ready for big riffs, bigger breakdowns, and badass vocal performances while you bang your head.",
+      "cta": {
+        "state": "disabled",
+        "text": "DETAILS COMING SOON",
+        "ticketUrl": "https://tixr.com/e/186247"
+      }
+    },
+    {
+      "id": "grunge",
+      "title": "Louisville Loves Grunge",
+      "dateBadge": "AUG 15, 2026",
+      "startDate": "2026-08-15T19:00:00-04:00",
+      "endDate": "2026-08-15T23:30:00-04:00",
+      "venue": "headliners",
+      "icon": {
+        "src": "images/icon-grunge.png",
+        "alt": "Louisville Loves Grunge concert — 90s alternative rock show in Louisville, KY"
+      },
+      "tags": ["Grunge", "Alternative", "90s Rock"],
+      "countdownId": "countdown-grunge",
+      "description": "Louisville Loves Grunge brings the Seattle sound back to life. Flannel and frustration will be on full display as live bands recreate the big hits of Nirvana, Pearl Jam, Soundgarden, Alice in Chains, and more. Slackers welcome.",
+      "cta": {
+        "state": "disabled",
+        "text": "DETAILS COMING SOON"
+      }
+    },
+    {
+      "id": "ltl",
+      "title": "Louisville Loves Louder Than Life",
+      "dateBadge": "SEP 16, 2026",
+      "startDate": "2026-09-16T19:00:00-04:00",
+      "endDate": "2026-09-16T23:30:00-04:00",
+      "venue": "fourth-street-live",
+      "icon": {
+        "src": "images/icon-it-loud.png",
+        "alt": "Louisville Loves Louder Than Life pre-party concert in Louisville, KY"
+      },
+      "tags": ["Pre-Party", "Rock", "Metal"],
+      "countdownId": "countdown-ltl",
+      "description": "Louisville Loves Louder Than Life takes the live band celebration of heavy music to 4th St. Live for the official kick-off of America's largest rock & metal festival. Hear the hits of festival favorites past and present as you get ready for the loudest weekend of your life.",
+      "cta": {
+        "state": "disabled",
+        "text": "DETAILS COMING SOON"
+      }
+    },
+    {
+      "id": "bandb",
+      "title": "Louisville Loves Bourbon & Beyond",
+      "dateBadge": "SEP 23, 2026",
+      "startDate": "2026-09-23T19:00:00-04:00",
+      "endDate": "2026-09-23T23:30:00-04:00",
+      "venue": "fourth-street-live",
+      "icon": {
+        "src": "images/icon-bourbon.png",
+        "alt": "Louisville Loves Bourbon and Beyond pre-party concert in Louisville, KY"
+      },
+      "tags": ["Pre-Party", "Rock", "Country"],
+      "countdownId": "countdown-bandb",
+      "description": "Louisville Loves Bourbon & Beyond begins the world's largest bourbon, food & music festival in style, putting live music in the middle of downtown Louisville. Join the fun inside 4th St. Live and sing along to your favorite songs from festival performers past and present.",
+      "cta": {
+        "state": "disabled",
+        "text": "DETAILS COMING SOON"
+      }
+    },
+    {
+      "id": "emo",
+      "title": "Louisville Loves Emo",
+      "dateBadge": "DEC 5, 2026",
+      "startDate": "2026-12-05T19:00:00-05:00",
+      "endDate": "2026-12-05T23:30:00-05:00",
+      "venue": "headliners",
+      "icon": {
+        "src": "images/icon-emo.png",
+        "alt": "Louisville Loves Emo concert — emo and pop punk show in Louisville, KY"
+      },
+      "tags": ["Emo", "Pop Punk", "Post-Hardcore"],
+      "countdownId": "countdown-emo",
+      "description": "Louisville Loves Emo celebrates its eighth year of bringing together fans of emo past and present with another big, sad sing-along. Belt all the words to your favorite anthems with live bands and a cast of rotating vocalists celebrating the music of My Chemical Romance, Fall Out Boy, Paramore, and more.",
+      "cta": {
+        "state": "disabled",
+        "text": "DETAILS COMING SOON"
+      }
+    }
+  ],
+  "pastShows": [
+    {
+      "title": "Louisville Loves Emo",
+      "editions": "8 shows since 2019",
+      "description": "The show that started it all. Louisville Loves Emo has packed Headliners Music Hall with thousands of fans singing along to emo, pop-punk, and post-hardcore anthems. Songs by My Chemical Romance, Paramore, Fall Out Boy, Brand New, Taking Back Sunday, and dozens more."
+    },
+    {
+      "title": "Louisville Loves Nu-Metal",
+      "editions": "3 shows since 2023",
+      "description": "Headbanging, mosh pits, and pure aggression. Louisville Loves Nu-Metal brings the heaviest hits of Korn, Limp Bizkit, Deftones, System of a Down, Slipknot, Linkin Park, and more to the stage with a rotating lineup of vocalists and a full band."
+    },
+    {
+      "title": "Louisville Loves Louder Than Life",
+      "editions": "Partnership with Danny Wimmer Presents",
+      "description": "The official Louder Than Life festival pre-party, bringing the energy of the world's largest rock festival to an intimate stage in downtown Louisville."
+    },
+    {
+      "title": "Louisville Loves Bourbon & Beyond",
+      "editions": "Partnership with Danny Wimmer Presents",
+      "description": "The official Bourbon & Beyond pre-party, blending live music with Louisville's bourbon culture at Fourth Street Live! in the heart of downtown."
+    }
+  ],
+  "series": {
+    "name": "Louisville Loves 2026 Concert Series",
+    "description": "Five genre-themed live concert events in Louisville, Kentucky featuring full bands performing emo, nu-metal, grunge, rock, and country hits. Presented by LLP Events at Headliners Music Hall and Fourth Street Live!",
+    "url": "https://www.llp-events.com/shows"
+  },
+  "defaults": {
+    "image": "https://www.llp-events.com/images/og-image.jpg",
+    "performer": "LLP Events All-Star Band",
+    "organizer": {
+      "name": "LLP Events",
+      "url": "https://www.llp-events.com"
+    },
+    "offerUrl": "https://www.llp-events.com/shows"
+  }
+}

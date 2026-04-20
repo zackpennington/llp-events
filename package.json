@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "python3 -m http.server 8000",
     "start": "python3 -m http.server 8000",
+    "build": "node scripts/build-shows.js",
+    "build:shows": "node scripts/build-shows.js",
     "upload-photos": "node scripts/upload-photos.js"
   },
   "keywords": [
