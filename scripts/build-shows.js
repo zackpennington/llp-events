@@ -117,8 +117,11 @@ function renderMusicEvent(show, { includeContext }) {
     performer: { '@type': 'MusicGroup', name: DATA.defaults.performer },
     offers: {
       '@type': 'Offer',
-      url: DATA.defaults.offerUrl,
-      availability: 'https://schema.org/PreOrder',
+      url: show.offer?.url || DATA.defaults.offerUrl,
+      price: show.offer?.price || DATA.defaults.offerPrice,
+      priceCurrency: show.offer?.priceCurrency || DATA.defaults.offerPriceCurrency,
+      validFrom: show.offer?.validFrom || DATA.defaults.offerValidFrom,
+      availability: show.offer?.availability || 'https://schema.org/PreOrder',
     },
   });
   return ev;
