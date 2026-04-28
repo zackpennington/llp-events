@@ -1,0 +1,625 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ShowCard from '../components/ShowCard.astro';
+import SeoMeta from '../components/SeoMeta.astro';
+import showsData from '../../data/shows.json';
+import '../styles/style.css';
+import '../styles/resend-form.css';
+import '../styles/social-proof.css';
+
+// Build the JSON-LD MusicEvent array (replicates renderJsonLdArray + renderMusicEvent
+// from scripts/build-shows.js).
+const DATA = showsData;
+function renderMusicEvent(show: any, includeContext: boolean) {
+    const venue = (DATA.venues as any)[show.venue];
+    const ev: any = {};
+    if (includeContext) ev['@context'] = 'https://schema.org';
+    Object.assign(ev, {
+        '@type': 'MusicEvent',
+        name: show.title,
+        description: show.description,
+        image: DATA.defaults.image,
+        startDate: show.startDate,
+        endDate: show.endDate,
+        eventStatus: 'https://schema.org/EventScheduled',
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        location: {
+            '@type': venue.schemaType,
+            name: venue.displayName,
+            address: { '@type': 'PostalAddress', ...venue.address },
+        },
+        organizer: {
+            '@type': 'Organization',
+            name: DATA.defaults.organizer.name,
+            url: DATA.defaults.organizer.url,
+        },
+        performer: { '@type': 'MusicGroup', name: DATA.defaults.performer },
+        offers: {
+            '@type': 'Offer',
+            url: show.offer?.url || DATA.defaults.offerUrl,
+            price: show.offer?.price || DATA.defaults.offerPrice,
+            priceCurrency: show.offer?.priceCurrency || (DATA.defaults as any).offerPriceCurrency,
+            validFrom: show.offer?.validFrom || (DATA.defaults as any).offerValidFrom,
+            availability: show.offer?.availability || 'https://schema.org/PreOrder',
+        },
+    });
+    return ev;
+}
+
+const eventsJsonLd = DATA.shows.map((s) => renderMusicEvent(s, true));
+
+const localBusinessJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': ['LocalBusiness', 'Organization'],
+    name: 'LLP Events',
+    description: "Louisville's premier live concert promoter producing genre-themed shows including Louisville Loves Emo, Louisville Loves Nu-Metal, and Louisville Loves Grunge at Headliners Music Hall and Fourth Street Live! in Louisville, KY.",
+    url: 'https://www.llp-events.com',
+    logo: 'https://www.llp-events.com/images/LLP_Logo_Stacked.svg',
+    image: 'https://www.llp-events.com/images/og-image.jpg',
+    email: 'info@llp-events.com',
+    priceRange: '$$',
+    currenciesAccepted: 'USD',
+    areaServed: [
+        { '@type': 'City', name: 'Louisville', sameAs: 'https://en.wikipedia.org/wiki/Louisville,_Kentucky' },
+        { '@type': 'State', name: 'Kentucky' },
+        { '@type': 'State', name: 'Indiana' },
+    ],
+    address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Louisville',
+        addressRegion: 'KY',
+        postalCode: '40206',
+        addressCountry: 'US',
+    },
+    geo: {
+        '@type': 'GeoCoordinates',
+        latitude: '38.2527',
+        longitude: '-85.7585',
+    },
+    knowsAbout: ['Emo music', 'Nu-metal', 'Grunge', 'Live concerts', 'Concert promotion', 'Tribute shows'],
+    keywords: 'emo shows Louisville, nu-metal concerts Louisville KY, live music Louisville, concert promoter Kentucky, genre-themed concerts',
+    sameAs: [
+        'https://www.instagram.com/llp_eve',
+        'https://www.tiktok.com/@llpeve',
+        'https://www.facebook.com/llpeve/',
+    ],
+};
+
+const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+        {
+            '@type': 'Question',
+            name: 'Where do I buy tickets?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Tickets to our shows are typically available both online and at the venue box office. Buying on the web will often mean extra dollars in ticket fees, which will increase the advertised price. If a show does not require a ticket, it should be noted in all publicity.',
+            },
+        },
+        {
+            '@type': 'Question',
+            name: 'What are the age restrictions?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'LLP Events believes that live music should be a family affair, so we do our best to keep the shows All Ages. This may not always be the case. Check individual show listings for details.',
+            },
+        },
+        {
+            '@type': 'Question',
+            name: 'Where are the shows held?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'LLP Events built their shows and fanbase at Headliners Music Hall in Louisville, KY, and will always consider it home. That said, shows may sometimes take place in other venues and in other cities. Check individual show listings for details.',
+            },
+        },
+        {
+            '@type': 'Question',
+            name: "What's your refund policy?",
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: "All sales are final. If a show is cancelled, you should receive an automatic refund (online purchase) or be able to return your ticket at the point of purchase. If a show is postponed, existing tickets will be honored at a later date. Contact the venue if you aren't able to attend the rescheduled date.",
+            },
+        },
+        {
+            '@type': 'Question',
+            name: 'Can I bring a camera?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Phones and point-and-click devices are allowed. If you want to bring a professional camera, please apply for a photo pass.',
+            },
+        },
+        {
+            '@type': 'Question',
+            name: 'Is there parking available?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Parking will vary by venue. At Headliners, there is a pay lot next door and street parking on sections of Lexington and Payne Streets. Riding with a pal is always a good idea.',
+            },
+        },
+        {
+            '@type': 'Question',
+            name: 'Will merch be available at the shows?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: "Yes! We love seeing you in our shirts and gear. You'll find merch tables for LLP Events and many of the individual projects of the bands and artists performing inside the venue. Tip your merch person, too.",
+            },
+        },
+        {
+            '@type': 'Question',
+            name: 'Are venues accessible?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: "We strive to make all LLP Events as inclusive as possible. This means not just an accessible section of seating, but often ASL interpreters. Check the venue's website for arrival preferences and policies if you plan to use the accessible amenities.",
+            },
+        },
+        {
+            '@type': 'Question',
+            name: 'How can I get involved with the show?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: "We're always looking for talented musicians, vocalists, and crew members to join our shows. If you're interested in performing, helping backstage, or contributing in other ways, fill out our application form.",
+            },
+        },
+    ],
+};
+---
+<BaseLayout
+    title="LLP Events | Louisville Loves 2026 - Live Band, Genre-Themed Concerts"
+    description="LLP Events presents the Louisville Loves 2026 show lineup — five genre-themed concerts in partnership with Danny Wimmer Presents, Louder Than Life, and Bourbon & Beyond."
+    canonical="https://www.llp-events.com/"
+    ogImage="https://www.llp-events.com/images/og-image.jpg"
+    ogImageAlt="LLP Events concert celebration with confetti - Louisville's best live cover shows"
+    preloadImage="/images/100-pure-energy.jpg"
+>
+    <Fragment slot="extra-head">
+        <SeoMeta jsonLd={localBusinessJsonLd} />
+        <SeoMeta jsonLd={eventsJsonLd} />
+        <SeoMeta jsonLd={faqJsonLd} />
+
+        {/* Meta Pixel Code - Deferred for better performance */}
+        <script defer is:inline>
+        {`!function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1217887013531945');
+        fbq('track', 'PageView');`}
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1217887013531945&ev=PageView&noscript=1"
+        /></noscript>
+    </Fragment>
+
+    {/* Hero Section */}
+    <section class="hero" id="hero-section" aria-label="Hero section with rotating concert crowd images">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="hero-line">Louisville Loves</span>
+                <span class="hero-line">2026 Show Lineup</span>
+            </h1>
+            <p class="hero-subtitle">Five genre-themed concerts • Louisville, KY</p>
+            <div id="hero-countdown" class="hero-countdown"></div>
+            <div class="hero-cta-group">
+                <a href="#shows" class="cta-button cta-primary">VIEW UPCOMING SHOWS</a>
+            </div>
+        </div>
+    </section>
+
+    {/* 2026 Lineup Announcement */}
+    {/* Upcoming Shows Section */}
+    <section id="shows" class="shows-section">
+        <div class="section-header">
+            <h2 class="section-title">UPCOMING SHOWS</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="shows-grid">
+            {/* 2026 Lineup Announcement Flyer */}
+            <div class="show-card lineup-card" data-scroll>
+                <img src="/images/2026-lineup-announce.png" alt="Louisville Loves 2026 concert lineup announcement — five genre-themed shows in Louisville, KY" class="lineup-card-image" width="1080" height="1080" loading="eager" decoding="async">
+            </div>
+            {showsData.shows.map((s) => (
+                <ShowCard show={s} venues={showsData.venues} includeCountdown={true} />
+            ))}
+        </div>
+    </section>
+
+    {/* Newsletter Section */}
+    <section id="contact" class="newsletter-hero-section" data-scroll>
+        <div class="newsletter-hero-container">
+            <h2 class="section-title">JOIN THE MAILING LIST</h2>
+            <div class="title-underline"></div>
+            <p class="newsletter-hero-text">Be the first to know about new shows, ticket drops, merch releases, contests, and more.</p>
+
+            <div id="resend-form-container" class="resend-form-container">
+                <div class="resend-form-wrapper">
+                    <div class="resend-form-body" id="resend-form-body">
+                        <form class="resend-form newsletter-hero-form" id="resend-subscribe-form">
+                            <div class="resend-form-fields">
+                                <div class="resend-field-group">
+                                    <label for="subscriber-email">Email</label>
+                                    <input
+                                        aria-label="Email address for newsletter signup"
+                                        aria-required="true"
+                                        type="email"
+                                        class="resend-input"
+                                        id="subscriber-email"
+                                        name="email"
+                                        placeholder="your@email.com"
+                                        autocomplete="email"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="resend-form-submit">
+                                <button type="submit" class="resend-btn-primary" id="submit-btn">
+                                    SUBSCRIBE
+                                </button>
+                            </div>
+                            <div id="form-message" class="form-message" style="display: none;"></div>
+                        </form>
+                    </div>
+                    <div class="resend-success-body" id="resend-success-body" style="display: none">
+                        <div class="resend-success-content">
+                            <div class="success-icon" aria-hidden="true">✓</div>
+                            <h4>Thank You!</h4>
+                            <p>You have successfully joined our subscriber list. Check your email for a welcome message!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {/* Partners Section */}
+    <section class="sponsors-section" data-scroll>
+        <div class="sponsors-container">
+            <h2 class="section-title">OUR PARTNERS</h2>
+            <div class="title-underline"></div>
+            <div class="sponsors-grid">
+                <div class="sponsor-item">
+                    <a href="https://www.dannywimmerpresents.com/" target="_blank" rel="noopener noreferrer" aria-label="Danny Wimmer Presents website">
+                        <img src="/images/dwp-logo.webp" alt="Danny Wimmer Presents" class="sponsor-logo" loading="lazy">
+                    </a>
+                </div>
+                <div class="sponsor-item">
+                    <a href="https://louderthanlifefestival.com/" target="_blank" rel="noopener noreferrer" aria-label="Louder Than Life Festival website">
+                        <img src="/images/LTL26_Inline_Black-1.webp" alt="Louder Than Life Festival" class="sponsor-logo sponsor-logo-invert" loading="lazy">
+                    </a>
+                </div>
+                <div class="sponsor-item">
+                    <a href="https://bourbonandbeyond.com/" target="_blank" rel="noopener noreferrer" aria-label="Bourbon & Beyond Festival website">
+                        <img src="/images/bourbon-beyond-logo.png" alt="Bourbon & Beyond" class="sponsor-logo" loading="lazy">
+                    </a>
+                </div>
+                <div class="sponsor-item">
+                    <a href="https://headlinerslouisville.com/" target="_blank" rel="noopener noreferrer" aria-label="Headliners Music Hall website">
+                        <img src="/images/headliners-logo.png" alt="Headliners Music Hall" class="sponsor-logo" loading="lazy">
+                    </a>
+                </div>
+                <div class="sponsor-item">
+                    <a href="https://4thstlive.com/" target="_blank" rel="noopener noreferrer" aria-label="Fourth Street Live! website">
+                        <img src="/images/fourth-street-live-logo.png" alt="Fourth Street Live!" class="sponsor-logo" loading="lazy">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {/* Social Media Section */}
+    <section class="social-section" data-scroll>
+        <div class="social-container">
+            <h2 class="section-title">FOLLOW US ON SOCIAL MEDIA</h2>
+            <div class="title-underline"></div>
+            <div class="social-links-large">
+                <div class="social-link-item">
+                    <a href="https://instagram.com/llp_eve" class="social-link" aria-label="Instagram @LLP_Eve" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <span class="social-handle">@llp_eve</span>
+                </div>
+                <div class="social-link-item">
+                    <a href="https://www.tiktok.com/@llpeve" class="social-link" aria-label="TikTok @llpeve" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                        </svg>
+                    </a>
+                    <span class="social-handle">@llpeve</span>
+                </div>
+                <div class="social-link-item">
+                    <a href="https://www.facebook.com/llpeve/" class="social-link" aria-label="Facebook @llpeve" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <span class="social-handle">@llpeve</span>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: var(--spacing-xl);">STREAM OUR PLAYLISTS</h2>
+            <div class="title-underline"></div>
+            <div class="playlist-links">
+                <div class="social-link-item">
+                    <a href="https://open.spotify.com/playlist/31WLvoXeSmQgAlRCbd0Uv5?si=041864a45f1e432b" class="social-link" aria-label="Louisville Loves Nu-Metal on Spotify" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                        </svg>
+                    </a>
+                    <span class="social-handle">Nu-Metal</span>
+                </div>
+                <div class="social-link-item">
+                    <a href="https://music.apple.com/us/playlist/louisville-loves-nu-metal/pl.u-MRaA3CV4dxz" class="social-link" aria-label="Louisville Loves Nu-Metal on Apple Music" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/apple-music.svg" alt="" aria-hidden="true" class="social-link-img">
+                    </a>
+                    <span class="social-handle">Nu-Metal</span>
+                </div>
+                <div class="social-link-item">
+                    <a href="https://open.spotify.com/playlist/5sj5cstm7DZVh3cWcSoTeP?si=2cc5c6a83478425d" class="social-link" aria-label="Louisville Loves Emo on Spotify" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                        </svg>
+                    </a>
+                    <span class="social-handle">Emo</span>
+                </div>
+                <div class="social-link-item">
+                    <a href="https://music.apple.com/us/playlist/louisville-loves-emo/pl.u-477WlfAMl4V" class="social-link" aria-label="Louisville Loves Emo on Apple Music" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/apple-music.svg" alt="" aria-hidden="true" class="social-link-img">
+                    </a>
+                    <span class="social-handle">Emo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {/* Photo Albums Preview Section */}
+    <section class="photo-preview-section" data-scroll>
+        <div class="container">
+            <h2 class="section-title">PHOTO GALLERIES</h2>
+            <div class="title-underline"></div>
+            <p class="section-subtitle">Relive the energy from past shows</p>
+
+            <div class="albums-scroll-container">
+                <div class="albums-scroll" id="home-albums-scroll">
+                    {/* Albums will be loaded dynamically */}
+                    {/* Skeleton loaders shown initially, replaced by album cards when loaded */}
+                </div>
+            </div>
+
+            <div class="view-all-photos">
+                <a href="/photos" class="cta-button">VIEW ALL PHOTOS</a>
+            </div>
+        </div>
+    </section>
+
+    {/* About Section */}
+    <section id="about" class="about-section" data-scroll aria-label="About section with concert crowd image">
+        <div class="about-container">
+            <div class="about-image-column">
+                <img src="/images/whowearelarge.jpg" alt="Packed concert crowd at an LLP Events show at Headliners Music Hall in Louisville, KY" class="about-image" width="800" height="600" loading="lazy" decoding="async">
+            </div>
+            <div class="about-content">
+                <h2 class="section-title">WHO IS LLP?</h2>
+                <div class="title-underline"></div>
+                <p class="about-text">
+                    LLP Events throws the shows you've been craving—loud, packed, and built for fans who show up ready to rock out.
+                </p>
+                <p class="about-text">
+                    Since 2019, we've curated more than a dozen musical genre-themed events, made room on local stages for 100+ musicians, sold out venues, and partnered with some of the biggest concert brands in the world - all while raising thousands for non-profit organizations we care about.
+                </p>
+                <a href="#contact" class="about-cta-button">JOIN OUR MAILING LIST</a>
+            </div>
+        </div>
+    </section>
+
+    {/* Impact Section */}
+    <section class="impact-section" data-scroll>
+        <div class="impact-header">
+            <h2 class="section-title">OUR IMPACT</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="impact-grid">
+            <div class="impact-stat" style="background-image: url('/images/10-shows-produced.jpg'); background-size: cover; background-position: center;" aria-label="Concert crowd photo background for shows produced statistic">
+                <div class="stat-overlay"></div>
+                <div class="stat-content">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">SHOWS PRODUCED</div>
+                </div>
+            </div>
+            <div class="impact-stat" style="background-image: url('/images/10k-gave-back.jpg'); background-size: cover; background-position: center;" aria-label="Community giving photo background for given back statistic">
+                <div class="stat-overlay"></div>
+                <div class="stat-content">
+                    <div class="stat-number">$10K+</div>
+                    <div class="stat-label">GIVEN BACK</div>
+                </div>
+            </div>
+            <div class="impact-stat" style="background-image: url('/images/10k-fans-rocked.jpg'); background-size: cover; background-position: center;" aria-label="Team photo background for fans rocked statistic">
+                <div class="stat-overlay"></div>
+                <div class="stat-content">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">FANS ROCKED</div>
+                </div>
+            </div>
+            <div class="impact-stat" style="background-image: url('/images/confetti.jpg'); background-size: cover; background-position: center;" aria-label="Confetti celebration photo background for pure energy statistic">
+                <div class="stat-overlay"></div>
+                <div class="stat-content">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">PURE ENERGY</div>
+                </div>
+            </div>
+        </div>
+        <p class="impact-footnote">Stats based on 2019-2025 LLP Events shows.</p>
+    </section>
+
+    {/* FAQ Section */}
+    <section class="faq-section" data-scroll>
+        <div class="faq-container">
+            <div class="section-header">
+                <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+                        <span>Where do I buy tickets?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-1" role="region">
+                        <p>Tickets to our shows are typically available both online and at the venue box office. Buying on the web will often mean extra dollars in ticket fees, which will increase the advertised price. If a show does not require a ticket, it should be noted in all publicity.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+                        <span>What are the age restrictions?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-2" role="region">
+                        <p>LLP Events believes that live music should be a family affair, so we do our best to keep the shows All Ages. This may not always be the case. Check individual show listings and <a href="#get-in-touch">contact us</a> if you need to double-check for peace of mind.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+                        <span>Where are the shows held?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-3" role="region">
+                        <p>LLP Events built their shows and fanbase at Headliners Music Hall in Louisville, KY, and will always consider it home. That said, shows may sometimes take place in other venues and in other cities. Check individual show listings for details.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+                        <span>What's your refund policy?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-4" role="region">
+                        <p>All sales are final. If a show is cancelled, you should receive an automatic refund (online purchase) or be able to return your ticket at the point of purchase. If a show is postponed, existing tickets will be honored at a later date. Contact the venue if you aren't able to attend the rescheduled date.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+                        <span>Can I bring a camera?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-5" role="region">
+                        <p>Phones and point-and-click devices are allowed. If you want to bring a professional camera, please apply for a photo pass. <a href="#get-in-touch">Contact us here</a>.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
+                        <span>Is there parking available?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-6" role="region">
+                        <p>Parking will vary by venue. At Headliners, there is a pay lot next door and street parking on sections of Lexington and Payne Streets. Riding with a pal is always a good idea.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
+                        <span>Will merch be available at the shows?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-7" role="region">
+                        <p>Yes! We love seeing you in our shirts and gear. You'll find merch tables for LLP Events and many of the individual projects of the bands and artists performing inside the venue. Tip your merch person, too. (And if you want merch AFTER the show, <a href="#get-in-touch">contact us</a> and we will see what we have left.)</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
+                        <span>Are venues accessible?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-8" role="region">
+                        <p>We strive to make all LLP Events as inclusive as possible. This means not just an accessible section of seating, but often ASL interpreters. Check the venue's website for arrival preferences and policies if you plan to use the accessible amenities. <a href="#get-in-touch">Contact us</a> with any questions or concerns. And let us know if you have ideas on other ways we can make our shows more inclusive and welcoming.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
+                        <span>How can I get involved with the show?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-9" role="region">
+                        <p>We're always looking for talented musicians, vocalists, and crew members to join our shows. If you're interested in performing, helping backstage, or contributing in other ways, fill out our <a href="https://docs.google.com/forms/d/e/1FAIpQLScbNnu_XmfKOQ5eOjW_uxrxUKiG35pSHufyXnfEf8B1ejQn-A/viewform?usp=header" target="_blank" rel="noopener noreferrer">application form</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {/* Get In Touch Section */}
+    <section id="get-in-touch" class="contact-standalone-section" data-scroll>
+        <div class="contact-standalone-container">
+            <h2 class="section-title">GET IN TOUCH</h2>
+            <div class="title-underline"></div>
+
+            <div class="contact-form-wrapper">
+                <div id="contact-form-body" class="contact-form-body">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-name">Name</label>
+                                <input type="text" id="contact-name" name="name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email</label>
+                                <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message" rows="2" placeholder="How can we help?" required></textarea>
+                        </div>
+                        <div class="turnstile-wrapper">
+                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAB6pNVI-LTaMHdd8" data-theme="dark" data-error-callback="onTurnstileError"></div>
+                        </div>
+                        <button type="submit" id="contact-submit-btn" class="contact-submit-btn">Send Message</button>
+                        <div id="contact-form-message" class="form-message" style="display: none;"></div>
+                    </form>
+                </div>
+                <div id="contact-success-body" class="contact-success-body" style="display: none;">
+                    <div class="success-icon" aria-hidden="true">✓</div>
+                    <h3>Thank You!</h3>
+                    <p>Thanks for reaching out. We'll get back to you as soon as possible.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {/* Conditional Turnstile loader (production only) */}
+    <script is:inline>
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            const loadTurnstile = () => {
+                const script = document.createElement('script');
+                script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+                script.async = true;
+                script.defer = true;
+                document.body.appendChild(script);
+            };
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadTurnstile, { timeout: 2000 });
+            } else {
+                setTimeout(loadTurnstile, 1000);
+            }
+        }
+    </script>
+    <script src="/scripts/main.js" is:inline defer></script>
+    <script src="/scripts/countdown.js" is:inline defer></script>
+    <script src="/scripts/scroll-progress.js" is:inline defer></script>
+    <script type="module" src="/scripts/newsletter.js" is:inline></script>
+    <script type="module" src="/scripts/contact.js" is:inline></script>
+    <script type="module" src="/scripts/analytics-tracking.js" is:inline></script>
+    <script src="/scripts/social-proof.js" is:inline defer></script>
+    <script defer src="/_vercel/insights/script.js" is:inline></script>
+</BaseLayout>

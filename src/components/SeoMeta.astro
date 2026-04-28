@@ -1,0 +1,10 @@
+---
+// Renders one or more JSON-LD structured-data blocks.
+// Pass a single object or an array of objects as `jsonLd`.
+interface Props {
+    jsonLd: unknown;
+}
+const { jsonLd } = Astro.props;
+const json = JSON.stringify(jsonLd, null, 4);
+---
+<script type="application/ld+json" set:html={json}></script>

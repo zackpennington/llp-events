@@ -1,0 +1,315 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeoMeta from '../components/SeoMeta.astro';
+import '../styles/style.css';
+
+const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.llp-events.com/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Scene",
+            "item": "https://www.llp-events.com/scene"
+        }
+    ]
+};
+
+const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Louisville's Live Music Scene: Emo, Nu-Metal, and Rock Concerts",
+    "description": "An inside look at Louisville's genre-themed concert scene — from sold-out emo nights to earth-shaking nu-metal shows at Headliners Music Hall.",
+    "author": {
+        "@type": "Organization",
+        "name": "LLP Events",
+        "url": "https://www.llp-events.com"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "LLP Events",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.llp-events.com/images/LLP_Logo_Stacked.svg"
+        }
+    },
+    "mainEntityOfPage": "https://www.llp-events.com/scene",
+    "about": [
+        { "@type": "MusicGenre", "name": "Emo" },
+        { "@type": "MusicGenre", "name": "Nu-Metal" },
+        { "@type": "MusicGenre", "name": "Grunge" },
+        { "@type": "MusicGenre", "name": "Pop Punk" }
+    ],
+    "mentions": [
+        {
+            "@type": "MusicVenue",
+            "name": "Headliners Music Hall",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "1386 Lexington Rd",
+                "addressLocality": "Louisville",
+                "addressRegion": "KY",
+                "postalCode": "40206",
+                "addressCountry": "US"
+            }
+        },
+        {
+            "@type": "EventVenue",
+            "name": "Fourth Street Live!",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "411 S 4th St",
+                "addressLocality": "Louisville",
+                "addressRegion": "KY",
+                "postalCode": "40202",
+                "addressCountry": "US"
+            }
+        }
+    ]
+};
+---
+<BaseLayout
+    title="Louisville Live Music Scene | Emo, Nu-Metal & Rock Shows in Louisville, KY"
+    description="Discover Louisville's emo, nu-metal, and rock music scene. LLP Events brings genre-themed tribute concerts to Headliners Music Hall — find out what makes Louisville's live music community one of the best in the Midwest."
+    canonical="https://www.llp-events.com/scene"
+    ogImage="https://www.llp-events.com/images/og-image.jpg"
+    ogImageAlt="Crowd at an LLP Events concert in Louisville, KY"
+    ogType="article"
+>
+    <SeoMeta slot="extra-head" jsonLd={breadcrumbJsonLd} />
+    <SeoMeta slot="extra-head" jsonLd={articleJsonLd} />
+
+    <!-- Hero Section -->
+    <section class="scene-hero" aria-label="Louisville music scene hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="hero-line">Louisville's Live</span>
+                <span class="hero-line">Music Scene</span>
+            </h1>
+            <p class="hero-subtitle">Emo, nu-metal, grunge & rock — performed live in Louisville, KY</p>
+        </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="scene-intro-section" data-scroll>
+        <div class="scene-intro-container">
+            <h2 class="section-title">THE SOUND OF LOUISVILLE</h2>
+            <div class="title-underline"></div>
+            <p class="scene-intro-text">
+                Louisville, Kentucky has always been a music city. From the punk and hardcore scenes of the late '90s
+                to the bourbon-soaked festival culture of today, the city has a deep, loud history of supporting
+                live music. LLP Events channels that energy into genre-themed concerts that bring
+                together the songs, the bands, and the fans that defined entire eras of rock, emo, and metal.
+            </p>
+            <p class="scene-intro-text">
+                Every Louisville Loves show is built around a single genre or era. A full live band and rotating cast
+                of local vocalists perform the biggest hits of that genre — not as a cover band, but as a community
+                event where dozens of musicians share the stage and hundreds (sometimes thousands) of fans come
+                together to relive the music they love. It's a concert, a reunion, and a party all at once.
+            </p>
+        </div>
+    </section>
+
+    <!-- Genre Sections -->
+    <section class="genre-section" data-scroll>
+        <div class="genre-container">
+
+            <!-- Emo -->
+            <article class="genre-feature" id="emo">
+                <div class="genre-content">
+                    <h2 class="section-title">EMO SHOWS IN LOUISVILLE</h2>
+                    <div class="title-underline"></div>
+                    <p>
+                        Louisville Loves Emo is where it all started. Since 2019, this show has become one of the most
+                        anticipated live music events in Louisville and the surrounding region. Fans drive in from
+                        Lexington, Cincinnati, Indianapolis, Nashville, and beyond to pack Headliners Music Hall for
+                        a night of emo, pop-punk, and post-hardcore anthems.
+                    </p>
+                    <p>
+                        The setlists span the full spectrum of the genre: My Chemical Romance, Paramore, Fall Out Boy,
+                        Brand New, Taking Back Sunday, Dashboard Confessional, The Used, Jimmy Eat World, Panic! at the Disco,
+                        A Day to Remember, Mayday Parade, Pierce the Veil, and dozens more. Each show features different
+                        vocalists and arrangements, so no two performances are the same.
+                    </p>
+                    <p>
+                        If you've been searching for emo nights in Louisville, emo concerts near you, or pop-punk
+                        shows in Kentucky, this is the one. Eight shows and counting, with crowds that sing
+                        every word from opener to encore.
+                    </p>
+                    <div class="genre-cta">
+                        <a href="/shows" class="cta-button">SEE UPCOMING SHOWS</a>
+                        <a href="/photos" class="cta-button cta-secondary">VIEW EMO PHOTOS</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Nu-Metal -->
+            <article class="genre-feature" id="nu-metal">
+                <div class="genre-content">
+                    <h2 class="section-title">NU-METAL CONCERTS IN LOUISVILLE</h2>
+                    <div class="title-underline"></div>
+                    <p>
+                        Louisville Loves Nu-Metal is for fans who grew up on TRL-era aggression and late-'90s
+                        heaviness. This show delivers the crushing riffs, turntable scratches, and guttural vocals
+                        of nu-metal's golden age — performed live by a full band with rotating vocalists at
+                        Headliners Music Hall.
+                    </p>
+                    <p>
+                        The setlists pull from the genre's biggest names: Korn, Limp Bizkit, Deftones, System of a Down,
+                        Slipknot, Linkin Park, Papa Roach, Disturbed, Mudvayne, Staind, P.O.D., and more. The crowd
+                        brings the energy to match — expect mosh pits, crowd surfers, and an atmosphere that would
+                        make Ozzfest proud.
+                    </p>
+                    <p>
+                        If you're looking for nu-metal shows near Louisville, metal concerts in Kentucky, or heavy
+                        music events in the region, Louisville Loves Nu-Metal is the real deal. Three shows deep
+                        and growing fast.
+                    </p>
+                    <div class="genre-cta">
+                        <a href="/shows" class="cta-button">SEE UPCOMING SHOWS</a>
+                        <a href="/photos" class="cta-button cta-secondary">VIEW NU-METAL PHOTOS</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Grunge -->
+            <article class="genre-feature" id="grunge">
+                <div class="genre-content">
+                    <h2 class="section-title">GRUNGE SHOWS IN LOUISVILLE</h2>
+                    <div class="title-underline"></div>
+                    <p>
+                        New for 2026, Louisville Loves Grunge taps into the raw, unfiltered energy of the Seattle
+                        sound. Nirvana, Pearl Jam, Soundgarden, Alice in Chains, Stone Temple Pilots, Smashing Pumpkins —
+                        the bands that defined alternative rock in the early '90s, performed live and loud by Louisville's
+                        own musicians.
+                    </p>
+                    <p>
+                        Louisville has always had a deep connection to alternative and indie rock. The city's DIY music
+                        scene in the '90s drew from the same well as the grunge movement — raw, honest, and
+                        unapologetically loud. Louisville Loves Grunge brings that spirit back to the stage at
+                        Headliners Music Hall for fans who remember and fans who wish they'd been there.
+                    </p>
+                    <p>
+                        Looking for grunge concerts near Louisville? Alternative rock shows in Kentucky? The flannel
+                        is mandatory, but the tickets go fast.
+                    </p>
+                    <div class="genre-cta">
+                        <a href="/shows" class="cta-button">SEE UPCOMING SHOWS</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Festival Pre-Parties -->
+            <article class="genre-feature" id="festivals">
+                <div class="genre-content">
+                    <h2 class="section-title">FESTIVAL PRE-PARTIES IN LOUISVILLE</h2>
+                    <div class="title-underline"></div>
+                    <p>
+                        Louisville is home to two of the biggest music festivals in the country:
+                        <strong>Louder Than Life</strong> and <strong>Bourbon & Beyond</strong>, both produced by
+                        Danny Wimmer Presents. LLP Events is proud to partner with DWP to throw the official
+                        pre-parties for both festivals at Fourth Street Live! in downtown Louisville.
+                    </p>
+                    <p>
+                        These are free-standing events that welcome festival-goers and locals alike. They're a way
+                        to kick off festival week with a night of live music in an intimate setting before the
+                        main stages open at Highland Festival Grounds at the Kentucky Exposition Center.
+                    </p>
+                    <p>
+                        Whether you're visiting Louisville for Louder Than Life or Bourbon & Beyond, or you're a
+                        local looking for a great night out during festival season, these pre-parties are the
+                        place to be.
+                    </p>
+                    <div class="genre-cta">
+                        <a href="/shows" class="cta-button">SEE UPCOMING SHOWS</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- What to Expect -->
+    <section class="expect-section" data-scroll>
+        <div class="expect-container">
+            <h2 class="section-title">WHAT TO EXPECT AT AN LLP EVENTS SHOW</h2>
+            <div class="title-underline"></div>
+
+            <div class="expect-grid">
+                <div class="expect-card">
+                    <h3>A Full Live Band</h3>
+                    <p>Every show features a professional-grade live band performing each song from scratch — guitars, bass, drums, keys, and more. No backing tracks, no DJ sets. This is real, live music.</p>
+                </div>
+                <div class="expect-card">
+                    <h3>Rotating Vocalists</h3>
+                    <p>Dozens of local vocalists take turns on the mic throughout the night. Each singer brings their own energy and style, making every song feel fresh and unique.</p>
+                </div>
+                <div class="expect-card">
+                    <h3>A Crowd That Knows Every Word</h3>
+                    <p>LLP Events shows aren't just concerts — they're communal sing-alongs. The audience is as much a part of the performance as the band on stage.</p>
+                </div>
+                <div class="expect-card">
+                    <h3>All Ages Welcome</h3>
+                    <p>We believe live music should be a family affair. Most LLP Events shows are all ages, so everyone from teens to parents who grew up on this music can experience it together.</p>
+                </div>
+                <div class="expect-card">
+                    <h3>Merch & Community</h3>
+                    <p>Every show features merch tables from LLP Events and individual artists. It's also a chance to connect with other music fans in the Louisville area who share your taste.</p>
+                </div>
+                <div class="expect-card">
+                    <h3>A Venue You'll Love</h3>
+                    <p>Headliners Music Hall on Lexington Road is one of Louisville's best live music venues — intimate enough to feel the bass in your chest, big enough to lose yourself in the crowd.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="scene-cta-section" data-scroll>
+        <div class="scene-cta-container">
+            <h2 class="section-title">JOIN THE SCENE</h2>
+            <div class="title-underline"></div>
+            <p class="scene-cta-text">Follow LLP Events on social media and join our mailing list to stay connected with Louisville's best live music community.</p>
+            <div class="scene-cta-buttons">
+                <a href="/shows" class="cta-button cta-primary">VIEW UPCOMING SHOWS</a>
+                <a href="/#contact" class="cta-button">JOIN THE MAILING LIST</a>
+            </div>
+            <div class="social-links-large" style="margin-top: var(--spacing-xl);">
+                <div class="social-link-item">
+                    <a href="https://instagram.com/llp_eve" class="social-link" aria-label="Instagram @LLP_Eve" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <span class="social-handle">@llp_eve</span>
+                </div>
+                <div class="social-link-item">
+                    <a href="https://www.tiktok.com/@llpeve" class="social-link" aria-label="TikTok @llpeve" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                        </svg>
+                    </a>
+                    <span class="social-handle">@llpeve</span>
+                </div>
+                <div class="social-link-item">
+                    <a href="https://www.facebook.com/llpeve/" class="social-link" aria-label="Facebook @llpeve" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <span class="social-handle">@llpeve</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script is:inline src="/scripts/main.js" defer></script>
+    <script is:inline defer src="/_vercel/insights/script.js"></script>
+</BaseLayout>

@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeoMeta from '../components/SeoMeta.astro';
+import '../styles/style.css';
+import '../styles/photos.css';
+
+const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.llp-events.com/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Photos",
+            "item": "https://www.llp-events.com/photos"
+        }
+    ]
+};
+
+const imageGalleryJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "LLP Events Concert Photos",
+    "description": "Photo galleries from Louisville Loves Emo and Louisville Loves Nu-Metal shows",
+    "about": {
+        "@type": "Organization",
+        "name": "LLP Events",
+        "url": "https://www.llp-events.com"
+    }
+};
+---
+<BaseLayout
+    title="Concert Photos | Emo & Nu-Metal Shows in Louisville, KY | LLP Events"
+    description="Browse photo galleries from Louisville Loves Emo, Louisville Loves Nu-Metal, and more — live concert photography from LLP Events shows at Headliners Music Hall in Louisville, KY."
+    canonical="https://www.llp-events.com/photos"
+    ogImageAlt="LLP Events concert photos"
+>
+    <Fragment slot="extra-head">
+        <!-- Resource Hints -->
+        <link rel="dns-prefetch" href="https://public.blob.vercel-storage.com">
+        <link rel="preconnect" href="https://public.blob.vercel-storage.com" crossorigin>
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+        <!-- GLightbox Lightbox - Loaded asynchronously -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"></noscript>
+
+        <SeoMeta jsonLd={breadcrumbJsonLd} />
+        <SeoMeta jsonLd={imageGalleryJsonLd} />
+    </Fragment>
+
+    <div class="photos-page">
+        <!-- Hero Section -->
+        <section class="photos-hero">
+            <h1>PHOTOS</h1>
+            <p>Relive the energy from our epic shows</p>
+        </section>
+
+        <!-- Filter Bar -->
+        <section class="filter-section">
+            <div class="filter-bar">
+                <button class="filter-tag active" data-filter="all">All</button>
+                <button class="filter-tag" data-filter="emo">Emo</button>
+                <button class="filter-tag" data-filter="nu-metal">Nu-Metal</button>
+                <button class="filter-tag" data-filter="louder-than-life">Louder Than Life</button>
+            </div>
+        </section>
+
+        <!-- Albums Section -->
+        <section class="albums-section">
+            <div class="albums-grid">
+                <!-- Populated dynamically by photos.js -->
+            </div>
+        </section>
+
+        <!-- Photos Section (Hidden by default) -->
+        <section class="photos-section hidden">
+            <button class="back-button">
+                ← Back to All Albums
+            </button>
+            <div class="album-header">
+                <h2>Album Name</h2>
+                <div class="album-details">
+                    <!-- Populated dynamically by photos.js -->
+                </div>
+            </div>
+            <div class="photo-grid">
+                <!-- Populated dynamically by photos.js -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" is:inline defer></script>
+    <script src="/scripts/photos.js" is:inline defer></script>
+</BaseLayout>

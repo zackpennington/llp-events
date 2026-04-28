@@ -1,0 +1,94 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+    title: string;
+    description: string;
+    canonical: string;
+    ogImage?: string;
+    ogImageAlt?: string;
+    ogType?: string;
+    preloadImage?: string;
+    bodyClass?: string;
+    keywords?: string;
+    extraDnsPrefetch?: string[];
+}
+
+const DEFAULT_KEYWORDS = 'Louisville cover shows, emo tribute band, nu-metal cover band, Louisville concerts, live music Louisville, Headliners Music Hall, Louisville Loves Emo, Louisville Loves Nu-Metal, tribute shows Kentucky, cover band shows, emo night Louisville, nu-metal night Louisville';
+
+const {
+    title,
+    description,
+    canonical,
+    ogImage = 'https://www.llp-events.com/images/og-image.jpg',
+    ogImageAlt,
+    ogType = 'website',
+    preloadImage,
+    bodyClass,
+    keywords = DEFAULT_KEYWORDS,
+    extraDnsPrefetch = [],
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <meta name="description" content={description}>
+
+    <!-- SEO Meta Tags -->
+    <link rel="canonical" href={canonical}>
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="LLP Events">
+    <meta name="theme-color" content="#b0212a">
+    <meta name="keywords" content={keywords}>
+    <meta name="language" content="en-US">
+    <meta name="geo.region" content="US-KY">
+    <meta name="geo.placename" content="Louisville">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Resource Hints -->
+    {preloadImage && <link rel="preload" href={preloadImage} as="image" fetchpriority="high" />}
+    <link rel="dns-prefetch" href="https://www.tixr.com">
+    <link rel="dns-prefetch" href="https://docs.google.com">
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
+    <link rel="dns-prefetch" href="https://challenges.cloudflare.com">
+    {extraDnsPrefetch.map((href) => <link rel="dns-prefetch" href={href} />)}
+    <link rel="preconnect" href="https://www.tixr.com" crossorigin>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={ogType}>
+    <meta property="og:url" content={canonical}>
+    <meta property="og:site_name" content="LLP Events">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:image" content={ogImage}>
+    <meta property="og:image:secure_url" content={ogImage}>
+    {ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@llp_eve">
+    <meta name="twitter:creator" content="@llp_eve">
+
+    <slot name="extra-head" />
+</head>
+<body class={bodyClass}>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <Nav />
+    <main id="main-content">
+        <slot />
+    </main>
+    <Footer />
+</body>
+</html>

@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Singer Lineup - LLP Events</title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/singer-lineup.css">
-</head>
-<body>
+---
+import MinimalLayout from '../layouts/MinimalLayout.astro';
+import '../styles/style.css';
+import '../styles/singer-lineup.css';
+---
+<MinimalLayout title="Singer Lineup - LLP Events">
     <!-- Email Login View -->
     <div id="login-view" class="view-container">
         <div class="login-card">
@@ -50,6 +45,5 @@
         </div>
     </div>
 
-    <script src="/js/singer-lineup.js"></script>
-</body>
-</html>
+    <script is:inline src="/scripts/singer-lineup.js"></script>
+</MinimalLayout>

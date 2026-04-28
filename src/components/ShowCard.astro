@@ -1,0 +1,66 @@
+---
+// Renders a single show card.
+// Produces HTML byte-equivalent to scripts/build-shows.js renderCard().
+// Used by both the homepage (with countdown) and the shows page (without).
+
+interface Venue {
+    displayName: string;
+    city: string;
+    schemaType?: string;
+    address?: Record<string, string>;
+}
+
+interface Show {
+    id: string;
+    title: string;
+    dateBadge: string;
+    startDate: string;
+    endDate: string;
+    venue: string;
+    icon: { src: string; alt: string; fullPoster?: boolean };
+    tags: string[];
+    countdownId: string;
+    description: string;
+    cta: { state: string; text: string; ticketUrl?: string };
+}
+
+interface Props {
+    show: Show;
+    venues: Record<string, Venue>;
+    includeCountdown?: boolean;
+}
+
+const { show, venues, includeCountdown = false } = Astro.props;
+const venue = venues[show.venue];
+const posterClass = show.icon.fullPoster ? ' show-icon-poster--full' : '';
+const isActive = show.cta.state === 'active' && show.cta.ticketUrl;
+---
+{/* Comment line: title — matches the `<!-- ${show.title} -->` from build-shows.js */}
+<Fragment set:html={`<!-- ${show.title} -->`} />
+<div class="show-card" data-scroll>
+    <div class={`show-icon-poster${posterClass}`}>
+        {show.icon.fullPoster
+            ? <img src={show.icon.src} alt={show.icon.alt} />
+            : <img src={show.icon.src} alt={show.icon.alt} width="96" height="96" />}
+    </div>
+    <div class="show-info-panel">
+        <div class="show-date-badge">{show.dateBadge}</div>
+        <div class="show-details">
+            <div class="show-venue">{venue.displayName} • {venue.city}</div>
+            {includeCountdown && <div id={show.countdownId} class="countdown-timer"></div>}
+            <div class="show-genre-tags">
+                {show.tags.map((t) => <span class="genre-tag">{t}</span>)}
+            </div>
+        </div>
+        <h3 class="show-card-title">{show.title}</h3>
+        <p class="show-description">
+            {show.description}
+        </p>
+        <div class="show-cta-group">
+            {show.cta.ticketUrl && <Fragment set:html={`<!-- ticket link: ${show.cta.ticketUrl} -->`} />}
+            {isActive
+                ? <a href={show.cta.ticketUrl} class="show-cta-button" target="_blank" rel="noopener">{show.cta.text}</a>
+                : <span class="show-cta-button disabled">{show.cta.text}</span>}
+        </div>
+    </div>
+</div>

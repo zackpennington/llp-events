@@ -23,6 +23,7 @@ Thumbs.db
 # Build outputs
 dist/
 build/
+.astro/
 
 # Vercel
 .vercel

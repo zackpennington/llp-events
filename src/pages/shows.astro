@@ -1,0 +1,263 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ShowCard from '../components/ShowCard.astro';
+import SeoMeta from '../components/SeoMeta.astro';
+import showsData from '../../data/shows.json';
+
+import '../styles/style.css';
+import '../styles/resend-form.css';
+
+const keywords = 'Louisville concerts 2026, emo shows Louisville KY, nu-metal concerts near me, live music Louisville, Headliners Music Hall shows, Louisville concerts this weekend, cover band shows Louisville, tribute concerts Kentucky, Fourth Street Live concerts, Louder Than Life pre-party, Bourbon Beyond pre-party, grunge shows Louisville';
+
+// EventSeries JSON-LD — replicates renderJsonLdSeries() from scripts/build-shows.js
+function renderMusicEvent(show) {
+    const venue = showsData.venues[show.venue];
+    return {
+        '@type': 'MusicEvent',
+        name: show.title,
+        description: show.description,
+        image: showsData.defaults.image,
+        startDate: show.startDate,
+        endDate: show.endDate,
+        eventStatus: 'https://schema.org/EventScheduled',
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        location: {
+            '@type': venue.schemaType,
+            name: venue.displayName,
+            address: { '@type': 'PostalAddress', ...venue.address },
+        },
+        organizer: {
+            '@type': 'Organization',
+            name: showsData.defaults.organizer.name,
+            url: showsData.defaults.organizer.url,
+        },
+        performer: { '@type': 'MusicGroup', name: showsData.defaults.performer },
+        offers: {
+            '@type': 'Offer',
+            url: show.offer?.url || showsData.defaults.offerUrl,
+            price: show.offer?.price || showsData.defaults.offerPrice,
+            priceCurrency: show.offer?.priceCurrency || showsData.defaults.offerPriceCurrency,
+            validFrom: show.offer?.validFrom || showsData.defaults.offerValidFrom,
+            availability: show.offer?.availability || 'https://schema.org/PreOrder',
+        },
+    };
+}
+
+const eventSeriesJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'EventSeries',
+    name: showsData.series.name,
+    description: showsData.series.description,
+    url: showsData.series.url,
+    location: {
+        '@type': 'City',
+        name: 'Louisville',
+        address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Louisville',
+            addressRegion: 'KY',
+            addressCountry: 'US',
+        },
+    },
+    organizer: {
+        '@type': 'Organization',
+        name: showsData.defaults.organizer.name,
+        url: showsData.defaults.organizer.url,
+    },
+    subEvent: showsData.shows.map((s) => renderMusicEvent(s)),
+};
+
+const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+        {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://www.llp-events.com/',
+        },
+        {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Shows',
+            item: 'https://www.llp-events.com/shows',
+        },
+    ],
+};
+---
+<BaseLayout
+    title="Upcoming Shows & Concerts in Louisville, KY | LLP Events 2026"
+    description="See all upcoming LLP Events concerts in Louisville, KY — emo nights, nu-metal shows, grunge tributes, and festival pre-parties at Headliners Music Hall and Fourth Street Live!"
+    canonical="https://www.llp-events.com/shows"
+    ogImageAlt="LLP Events live concert in Louisville, KY"
+    keywords={keywords}
+>
+    <SeoMeta slot="extra-head" jsonLd={breadcrumbJsonLd} />
+    <SeoMeta slot="extra-head" jsonLd={eventSeriesJsonLd} />
+
+    <Fragment slot="extra-head">
+        <!-- Meta Pixel Code - Deferred for better performance -->
+        <script defer is:inline>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1217887013531945');
+        fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1217887013531945&ev=PageView&noscript=1"
+        /></noscript>
+    </Fragment>
+
+    <!-- Hero Section -->
+    <section class="shows-page-hero" aria-label="Shows page hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="hero-line">Louisville Concerts</span>
+                <span class="hero-line">& Upcoming Shows</span>
+            </h1>
+            <p class="hero-subtitle">Genre-themed live concerts in Louisville, KY</p>
+            <div class="hero-cta-group">
+                <a href="#upcoming" class="cta-button cta-primary">SEE WHAT'S COMING</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About the Series -->
+    <section class="shows-intro-section" data-scroll>
+        <div class="shows-intro-container">
+            <h2 class="section-title">THE LOUISVILLE LOVES CONCERT SERIES</h2>
+            <div class="title-underline"></div>
+            <p class="shows-intro-text">
+                LLP Events brings Louisville's most electrifying live music experiences to life. Each show in the
+                <strong>Louisville Loves</strong> series is a genre-themed concert featuring a full live band and
+                rotating cast of vocalists performing the songs you grew up screaming along to. From emo anthems
+                and nu-metal breakdowns to grunge fury and arena rock, every show is a high-energy celebration of
+                the music that shaped a generation.
+            </p>
+            <p class="shows-intro-text">
+                Based at <a href="https://headlinerslouisville.com/" target="_blank" rel="noopener noreferrer">Headliners Music Hall</a>
+                on Lexington Road and <a href="https://4thstlive.com/" target="_blank" rel="noopener noreferrer">Fourth Street Live!</a>
+                in downtown Louisville, our shows draw fans from across Kentucky, Indiana, Ohio, and beyond.
+                Whether it's your first show or your tenth, the energy never gets old.
+            </p>
+        </div>
+    </section>
+
+    <!-- Upcoming Shows -->
+    <section id="upcoming" class="shows-section">
+        <div class="section-header">
+            <h2 class="section-title">2026 SHOWS</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="shows-grid">
+            {showsData.shows.map((s) => (
+                <ShowCard show={s} venues={showsData.venues} />
+            ))}
+        </div>
+    </section>
+
+    <!-- Past Shows / Social Proof -->
+    <section class="past-shows-section" data-scroll>
+        <div class="past-shows-container">
+            <h2 class="section-title">PAST SHOWS</h2>
+            <div class="title-underline"></div>
+            <p class="past-shows-intro">Since 2019, LLP Events has produced over a dozen sold-out concerts in Louisville. Here's a look at the shows that built the Louisville Loves legacy.</p>
+
+            <div class="past-shows-grid">
+                {showsData.pastShows.map((item) => (
+                    <div class="past-show-item">
+                        <h3>{item.title}</h3>
+                        <p class="past-show-editions">{item.editions}</p>
+                        <p>{item.description}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div class="past-shows-cta">
+                <a href="/photos" class="cta-button">SEE PHOTOS FROM PAST SHOWS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Info -->
+    <section class="venues-section" data-scroll>
+        <div class="venues-container">
+            <h2 class="section-title">OUR VENUES</h2>
+            <div class="title-underline"></div>
+
+            <div class="venues-grid">
+                <div class="venue-card">
+                    <h3>Headliners Music Hall</h3>
+                    <p class="venue-address">1386 Lexington Rd, Louisville, KY 40206</p>
+                    <p>Louisville's premier live music venue on the Lexington Road corridor in the Highlands neighborhood. Headliners is the home stage of LLP Events, hosting our emo, nu-metal, grunge, and rock shows. The venue offers a standing-room main floor, balcony seating, and a full bar. All ages shows available.</p>
+                    <a href="https://headlinerslouisville.com/" target="_blank" rel="noopener noreferrer" class="venue-link">Visit Headliners &rarr;</a>
+                </div>
+                <div class="venue-card">
+                    <h3>Fourth Street Live!</h3>
+                    <p class="venue-address">411 S 4th St, Louisville, KY 40202</p>
+                    <p>Louisville's downtown entertainment district hosts our festival pre-parties in partnership with Danny Wimmer Presents. Located steps from hotels and restaurants, Fourth Street Live! is the perfect kickoff venue for Louder Than Life and Bourbon & Beyond festival weeks.</p>
+                    <a href="https://4thstlive.com/" target="_blank" rel="noopener noreferrer" class="venue-link">Visit Fourth Street Live! &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter CTA -->
+    <section class="newsletter-hero-section" data-scroll>
+        <div class="newsletter-hero-container">
+            <h2 class="section-title">GET NOTIFIED ABOUT NEW SHOWS</h2>
+            <div class="title-underline"></div>
+            <p class="newsletter-hero-text">Be the first to know about new shows, ticket drops, and presale codes.</p>
+
+            <div id="resend-form-container" class="resend-form-container">
+                <div class="resend-form-wrapper">
+                    <div class="resend-form-body" id="resend-form-body">
+                        <form class="resend-form newsletter-hero-form" id="resend-subscribe-form">
+                            <div class="resend-form-fields">
+                                <div class="resend-field-group">
+                                    <label for="subscriber-email">Email</label>
+                                    <input
+                                        aria-label="Email address for show notifications"
+                                        aria-required="true"
+                                        type="email"
+                                        class="resend-input"
+                                        id="subscriber-email"
+                                        name="email"
+                                        placeholder="your@email.com"
+                                        autocomplete="email"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="resend-form-submit">
+                                <button type="submit" class="resend-btn-primary" id="submit-btn">
+                                    SUBSCRIBE
+                                </button>
+                            </div>
+                            <div id="form-message" class="form-message" style="display: none;"></div>
+                        </form>
+                    </div>
+                    <div class="resend-success-body" id="resend-success-body" style="display: none">
+                        <div class="resend-success-content">
+                            <div class="success-icon" aria-hidden="true">&#10003;</div>
+                            <h4>Thank You!</h4>
+                            <p>You have successfully joined our subscriber list. Check your email for a welcome message!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/newsletter.js"></script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</BaseLayout>

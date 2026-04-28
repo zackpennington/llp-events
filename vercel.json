@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "cleanUrls": true,
   "images": {
     "sizes": [400, 640, 828, 1200, 1920],
     "formats": ["image/avif", "image/webp"],
