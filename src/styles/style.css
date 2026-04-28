@@ -2398,6 +2398,36 @@ body {
     background: linear-gradient(135deg, var(--color-black) 0%, var(--color-charcoal) 50%, var(--color-black) 100%);
 }
 
+.scene-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.scene-hero-bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.scene-hero-bg-layer.is-active {
+    opacity: 1;
+}
+
+.scene-hero .hero-overlay {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.78) 0%, rgba(26, 26, 26, 0.7) 50%, rgba(0, 0, 0, 0.85) 100%);
+    z-index: 1;
+}
+
+.scene-hero .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
 .shows-intro-section,
 .scene-intro-section {
     padding: var(--spacing-xl) var(--spacing-md);
@@ -2417,6 +2447,16 @@ body {
     line-height: 1.9;
     color: var(--color-light-gray);
     margin-bottom: var(--spacing-md);
+}
+
+.scene-intro-text {
+    text-align: left;
+}
+
+.scene-intro-container .title-underline,
+.shows-intro-container .title-underline,
+.genre-content .title-underline {
+    margin-bottom: 2.5rem !important;
 }
 
 .shows-intro-text a,

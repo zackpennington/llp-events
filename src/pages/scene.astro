@@ -88,6 +88,10 @@ const articleJsonLd = {
 
     <!-- Hero Section -->
     <section class="scene-hero" aria-label="Louisville music scene hero">
+        <div class="scene-hero-bg" data-scene-hero-bg>
+            <div class="scene-hero-bg-layer is-active" style="background-image: url('/images/crowdsurf.jpg');"></div>
+            <div class="scene-hero-bg-layer"></div>
+        </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title">
@@ -95,8 +99,39 @@ const articleJsonLd = {
                 <span class="hero-line">Music Scene</span>
             </h1>
             <p class="hero-subtitle">Emo, nu-metal, grunge & rock — performed live in Louisville, KY</p>
+            <div class="hero-cta-group">
+                <a href="/#contact" class="cta-button cta-primary">JOIN THE LOUISVILLE SCENE</a>
+            </div>
         </div>
     </section>
+
+    <script is:inline>
+        (function () {
+            const bg = document.querySelector('[data-scene-hero-bg]');
+            if (!bg) return;
+            const images = [
+                '/images/crowdsurf.jpg',
+                '/images/brianincrowd.jpg',
+                '/images/100-pure-energy.jpg',
+                '/images/confetti.jpg',
+                '/images/balloons.jpg',
+                '/images/numetalmask.jpg',
+                '/images/cheerleaders.jpg',
+                '/images/10k-fans-rocked.jpg',
+            ];
+            images.forEach((src) => { const i = new Image(); i.src = src; });
+            const layers = bg.querySelectorAll('.scene-hero-bg-layer');
+            let i = 0;
+            setInterval(() => {
+                i = (i + 1) % images.length;
+                const next = layers[1].classList.contains('is-active') ? layers[0] : layers[1];
+                const current = next === layers[0] ? layers[1] : layers[0];
+                next.style.backgroundImage = `url('${images[i]}')`;
+                next.classList.add('is-active');
+                current.classList.remove('is-active');
+            }, 5000);
+        })();
+    </script>
 
     <!-- Intro -->
     <section class="scene-intro-section" data-scroll>
