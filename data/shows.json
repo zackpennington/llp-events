@@ -34,15 +34,16 @@
       "endDate": "2026-06-13T23:30:00-04:00",
       "venue": "headliners",
       "icon": {
-        "src": "images/icon-louder-than-life.png",
-        "alt": "Louisville Loves It Loud concert — rock and metal show in Louisville, KY"
+        "src": "images/itloud-poster.png",
+        "alt": "Louisville Loves It Loud concert — rock and metal show in Louisville, KY",
+        "fullPoster": true
       },
-      "tags": ["Rock", "Metal", "Loud"],
+      "tags": ["Rock", "Metal", "Nu-Metal"],
       "countdownId": "countdown-itloud",
       "description": "Louisville Loves It Loud features live bands celebrating hard music heavyweights from across the decades — from Korn, Limp Bizkit, and Deftones to Beartooth, I Prevail, and Bring Me The Horizon. Get ready for big riffs, bigger breakdowns, and badass vocal performances while you bang your head.",
       "cta": {
-        "state": "disabled",
-        "text": "DETAILS COMING SOON",
+        "state": "active",
+        "text": "BUY TICKETS",
         "ticketUrl": "https://tixr.com/e/186247"
       }
     },

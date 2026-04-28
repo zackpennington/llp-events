@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "LLP Events - High-energy concert promotion in Louisville",
   "scripts": {
-    "dev": "python3 -m http.server 8000",
-    "start": "python3 -m http.server 8000",
+    "dev": "npx serve -l 8000",
+    "start": "npx serve -l 8000",
     "build": "node scripts/build-shows.js",
     "build:shows": "node scripts/build-shows.js",
     "upload-photos": "node scripts/upload-photos.js"

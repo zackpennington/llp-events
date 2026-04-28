@@ -51,10 +51,13 @@ function renderCard(show, { includeCountdown }) {
       ? `<a href="${show.cta.ticketUrl}" class="show-cta-button" target="_blank" rel="noopener">${show.cta.text}</a>`
       : `<span class="show-cta-button disabled">${show.cta.text}</span>`;
 
+  const posterClass = show.icon.fullPoster ? ' show-icon-poster--full' : '';
+  const imgAttrs = show.icon.fullPoster ? '' : ' width="96" height="96"';
+
   return `<!-- ${show.title} -->
 <div class="show-card" data-scroll>
-    <div class="show-icon-poster">
-        <img src="${show.icon.src}" alt="${show.icon.alt}" width="96" height="96">
+    <div class="show-icon-poster${posterClass}">
+        <img src="${show.icon.src}" alt="${show.icon.alt}"${imgAttrs}>
     </div>
     <div class="show-info-panel">
         <div class="show-date-badge">${show.dateBadge}</div>

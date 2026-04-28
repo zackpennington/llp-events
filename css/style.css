@@ -424,6 +424,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: var(--spacing-lg);
+    aspect-ratio: 16 / 9;
     background: linear-gradient(135deg, var(--color-charcoal) 0%, var(--color-black) 100%);
     color: var(--color-primary-red);
     border-bottom: 1px solid rgba(176, 33, 42, 0.2);
@@ -431,8 +432,8 @@ body {
 
 .show-icon-poster svg,
 .show-icon-poster img {
-    width: 72px;
-    height: 72px;
+    width: 96px;
+    height: 96px;
     transition: var(--transition-smooth);
 }
 
@@ -440,6 +441,22 @@ body {
 .show-card:hover .show-icon-poster img {
     color: var(--color-bright-red);
     transform: scale(1.08);
+}
+
+.show-icon-poster--full {
+    padding: 0;
+    background: var(--color-black);
+    border-bottom: 1px solid rgba(176, 33, 42, 0.2);
+}
+
+.show-icon-poster--full img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.show-card:hover .show-icon-poster--full img {
+    transform: none;
 }
 
 .lineup-card {
@@ -498,6 +515,7 @@ body {
 }
 
 .show-info-panel {
+    flex: 1;
     padding: var(--spacing-md);
     display: flex;
     flex-direction: column;
