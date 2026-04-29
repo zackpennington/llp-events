@@ -1,13 +1,24 @@
 ---
 // Site navigation. Self-contained — no props.
-// Extracted verbatim from the original index.html <nav> element.
+// Desktop: inline links. Mobile: hamburger toggle reveals slide-out menu.
 ---
 <nav class="nav">
     <div class="nav-container">
         <a href="/" class="logo-link">
             <img src="/images/LLP_Logo_Stacked.svg" alt="LLP Events Logo" class="logo-image">
         </a>
-        <div class="nav-links">
+        <button
+            type="button"
+            class="nav-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="primary-navigation"
+        >
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+        <div id="primary-navigation" class="nav-links">
             <a href="/shows">SHOWS</a>
             <a href="/#contact">JOIN LIST</a>
             <a href="/photos">PHOTOS</a>
@@ -16,3 +27,35 @@
         </div>
     </div>
 </nav>
+
+<script is:inline>
+    (function () {
+        const nav = document.querySelector('.nav');
+        const toggle = document.querySelector('.nav-toggle');
+        const menu = document.getElementById('primary-navigation');
+        if (!nav || !toggle || !menu) return;
+
+        const setOpen = (open) => {
+            nav.classList.toggle('is-open', open);
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            document.body.classList.toggle('nav-open', open);
+        };
+
+        toggle.addEventListener('click', () => {
+            setOpen(!nav.classList.contains('is-open'));
+        });
+
+        menu.addEventListener('click', (e) => {
+            if (e.target instanceof HTMLAnchorElement) setOpen(false);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false);
+        });
+
+        const mq = window.matchMedia('(min-width: 769px)');
+        const handleMq = (e) => { if (e.matches) setOpen(false); };
+        mq.addEventListener ? mq.addEventListener('change', handleMq) : mq.addListener(handleMq);
+    })();
+</script>
