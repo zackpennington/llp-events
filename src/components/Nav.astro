@@ -26,6 +26,7 @@
             <a href="/#get-in-touch">CONTACT</a>
         </div>
     </div>
+    <div class="nav-backdrop" aria-hidden="true"></div>
 </nav>
 
 <script is:inline>
@@ -33,6 +34,7 @@
         const nav = document.querySelector('.nav');
         const toggle = document.querySelector('.nav-toggle');
         const menu = document.getElementById('primary-navigation');
+        const backdrop = document.querySelector('.nav-backdrop');
         if (!nav || !toggle || !menu) return;
 
         const setOpen = (open) => {
@@ -49,6 +51,8 @@
         menu.addEventListener('click', (e) => {
             if (e.target instanceof HTMLAnchorElement) setOpen(false);
         });
+
+        if (backdrop) backdrop.addEventListener('click', () => setOpen(false));
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false);

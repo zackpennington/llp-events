@@ -164,6 +164,8 @@ body {
 /* Hamburger toggle button — hidden on desktop */
 .nav-toggle {
     display: none;
+    position: relative;
+    z-index: 3;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -177,6 +179,23 @@ body {
     color: var(--color-white);
     cursor: pointer;
     transition: var(--transition-smooth);
+}
+
+/* Backdrop behind the mobile drawer — tap to close */
+.nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.nav.is-open .nav-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
 }
 
 .nav-toggle:hover,
@@ -2260,6 +2279,7 @@ body.nav-open {
         position: fixed;
         top: 0;
         right: 0;
+        z-index: 2;
         width: min(320px, 85vw);
         height: 100vh;
         height: 100dvh;
@@ -2283,9 +2303,10 @@ body.nav-open {
 
     .nav-links a {
         display: block;
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         letter-spacing: 2px;
-        padding: var(--spacing-sm) 0;
+        padding: var(--spacing-md) 0;
+        margin: var(--spacing-xs) 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
