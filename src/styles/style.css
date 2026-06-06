@@ -1676,14 +1676,17 @@ body.nav-open {
 /* Carousel Indicators */
 .carousel-indicators {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: var(--spacing-sm);
+    row-gap: var(--spacing-xs);
     margin-top: var(--spacing-md);
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    max-width: 100%;
 }
 
 .carousel-indicator {
