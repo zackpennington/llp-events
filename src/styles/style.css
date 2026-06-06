@@ -1711,6 +1711,18 @@ body.nav-open {
     background: var(--color-primary-red);
 }
 
+.carousel-counter {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    color: var(--color-light-gray);
+    background: var(--color-charcoal);
+    border: 1px solid var(--color-primary-red);
+    border-radius: var(--radius-full);
+    padding: 0.25rem 0.85rem;
+    white-space: nowrap;
+}
+
 .home-album-card {
     flex: 0 0 300px;
     background: var(--color-charcoal);

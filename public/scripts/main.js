@@ -435,25 +435,40 @@ function initCarousel(container) {
     indicatorsContainer.setAttribute('aria-label', 'Photo album carousel pages');
     scrollContainer.appendChild(indicatorsContainer);
 
+    // Above this many pages, individual dots become unwieldy on small
+    // screens, so we show a compact "current / total" counter instead.
+    const MAX_DOTS = 8;
+
     // Calculate pages and create indicators
     function initIndicators() {
-        const cardWidth = window.innerWidth >= 640 ? 300 : 280;
-        const gap = 32;
         const cardsPerPage = window.innerWidth >= 1200 ? 3 : window.innerWidth >= 768 ? 2 : 1;
         const totalCards = container.children.length;
         totalPages = Math.ceil(totalCards / cardsPerPage);
 
+        const useCounter = totalPages > MAX_DOTS;
         indicatorsContainer.innerHTML = '';
-        for (let i = 0; i < totalPages; i++) {
-            const indicator = document.createElement('button');
-            indicator.className = 'carousel-indicator';
-            indicator.setAttribute('aria-label', `Go to page ${i + 1} of ${totalPages}`);
-            indicator.setAttribute('role', 'tab');
-            indicator.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-            indicator.dataset.page = i;
+        indicatorsContainer.classList.toggle('carousel-indicators--counter', useCounter);
 
-            indicator.addEventListener('click', () => goToPage(i));
-            indicatorsContainer.appendChild(indicator);
+        if (useCounter) {
+            indicatorsContainer.removeAttribute('role');
+            indicatorsContainer.setAttribute('aria-live', 'polite');
+            const counter = document.createElement('span');
+            counter.className = 'carousel-counter';
+            indicatorsContainer.appendChild(counter);
+        } else {
+            indicatorsContainer.setAttribute('role', 'tablist');
+            indicatorsContainer.removeAttribute('aria-live');
+            for (let i = 0; i < totalPages; i++) {
+                const indicator = document.createElement('button');
+                indicator.className = 'carousel-indicator';
+                indicator.setAttribute('aria-label', `Go to page ${i + 1} of ${totalPages}`);
+                indicator.setAttribute('role', 'tab');
+                indicator.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+                indicator.dataset.page = i;
+
+                indicator.addEventListener('click', () => goToPage(i));
+                indicatorsContainer.appendChild(indicator);
+            }
         }
         updateIndicators();
     }
@@ -468,6 +483,11 @@ function initCarousel(container) {
 
     // Update indicators state
     function updateIndicators() {
+        const counter = indicatorsContainer.querySelector('.carousel-counter');
+        if (counter) {
+            counter.textContent = `${currentPage + 1} / ${totalPages}`;
+            return;
+        }
         const indicators = indicatorsContainer.querySelectorAll('.carousel-indicator');
         indicators.forEach((indicator, index) => {
             const isActive = index === currentPage;
